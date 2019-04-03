@@ -1,0 +1,12 @@
+D:\Fontys\Semester_3\Individueel\Fit\Data\bin\Debug\netcoreapp2.1\Data.deps.json
+D:\Fontys\Semester_3\Individueel\Fit\Data\bin\Debug\netcoreapp2.1\Data.dll
+D:\Fontys\Semester_3\Individueel\Fit\Data\bin\Debug\netcoreapp2.1\Data.pdb
+D:\Fontys\Semester_3\Individueel\Fit\Data\obj\Debug\netcoreapp2.1\Data.csprojAssemblyReference.cache
+D:\Fontys\Semester_3\Individueel\Fit\Data\obj\Debug\netcoreapp2.1\Data.csproj.CoreCompileInputs.cache
+D:\Fontys\Semester_3\Individueel\Fit\Data\obj\Debug\netcoreapp2.1\Data.AssemblyInfoInputs.cache
+D:\Fontys\Semester_3\Individueel\Fit\Data\obj\Debug\netcoreapp2.1\Data.AssemblyInfo.cs
+D:\Fontys\Semester_3\Individueel\Fit\Data\obj\Debug\netcoreapp2.1\Data.dll
+D:\Fontys\Semester_3\Individueel\Fit\Data\obj\Debug\netcoreapp2.1\Data.pdb
+D:\Fontys\Semester_3\Individueel\Fit\Data\bin\Debug\netcoreapp2.1\Interfaces.dll
+D:\Fontys\Semester_3\Individueel\Fit\Data\bin\Debug\netcoreapp2.1\Interfaces.pdb
+D:\Fontys\Semester_3\Individueel\Fit\Data\obj\Debug\netcoreapp2.1\Data.csproj.CopyComplete

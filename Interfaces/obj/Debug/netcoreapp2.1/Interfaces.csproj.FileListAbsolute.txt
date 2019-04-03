@@ -1,0 +1,9 @@
+D:\Fontys\Semester_3\Individueel\Fit\Interfaces\bin\Debug\netcoreapp2.1\Interfaces.deps.json
+D:\Fontys\Semester_3\Individueel\Fit\Interfaces\bin\Debug\netcoreapp2.1\Interfaces.dll
+D:\Fontys\Semester_3\Individueel\Fit\Interfaces\bin\Debug\netcoreapp2.1\Interfaces.pdb
+D:\Fontys\Semester_3\Individueel\Fit\Interfaces\obj\Debug\netcoreapp2.1\Interfaces.csprojAssemblyReference.cache
+D:\Fontys\Semester_3\Individueel\Fit\Interfaces\obj\Debug\netcoreapp2.1\Interfaces.csproj.CoreCompileInputs.cache
+D:\Fontys\Semester_3\Individueel\Fit\Interfaces\obj\Debug\netcoreapp2.1\Interfaces.AssemblyInfoInputs.cache
+D:\Fontys\Semester_3\Individueel\Fit\Interfaces\obj\Debug\netcoreapp2.1\Interfaces.AssemblyInfo.cs
+D:\Fontys\Semester_3\Individueel\Fit\Interfaces\obj\Debug\netcoreapp2.1\Interfaces.dll
+D:\Fontys\Semester_3\Individueel\Fit\Interfaces\obj\Debug\netcoreapp2.1\Interfaces.pdb

@@ -1,0 +1,46 @@
+@model Fit.ViewModels.User.UserListViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Status</th>
+            <th scope="col">Right</th>
+            <th scope="col">Options</th>
+        </tr>
+        </thead>
+        <tbody>        
+        @foreach (var user in Model.AllUsers)
+        {
+            <tr>
+                <th>@user.FirstName @user.LastName</th>
+                <td>
+                    @if (user.Blocked)
+                    {
+                        <span class="badge badge-danger">Blocked</span>
+                    }else
+                    {
+                        <span class="badge badge-success">Active</span>
+                    }
+                </td>
+                <td>@user.Right.Name</td>
+                <td>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-warning">
+                            <input type="radio" name="options" id="option1">Update
+                        </label>
+                        <label class="btn btn-danger">
+                            <input type="radio" name="options" id="option2">Delete
+                        </label>
+                    </div>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
