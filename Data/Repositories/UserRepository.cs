@@ -7,6 +7,7 @@ using Data.Contexts;
 using Data.Contexts.Interfaces;
 using Data.Contexts.MemoryContexts;
 using Data.Contexts.SQLContexts;
+using Data.dto;
 using Interfaces;
 
 namespace Data.Repositories
@@ -50,15 +51,9 @@ namespace Data.Repositories
             return user;
         }
 
-        public List<IUser> GetAll()
+        public IEnumerable<IUser> GetAll()
         {
-            List<IUser> users = _context.List();
-            foreach (var user in users)
-            {
-                user.Right = new RightRepository(_storageType).GetBy(user);
-            }
-
-            return users;
+            return _context.List();
         }
 
         public bool Add(IUser user)
@@ -74,6 +69,11 @@ namespace Data.Repositories
         public bool Delete(int id)
         {
             return _context.Delete(id);
+        }
+
+        public UserDto GetAuth(string email)
+        {
+            return _context.Auth(email);
         }
 
     }

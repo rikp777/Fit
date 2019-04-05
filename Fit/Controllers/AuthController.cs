@@ -23,6 +23,17 @@ namespace Fit.Controllers
             }
             return null;
         }
+
+        public bool IsAdmin(HttpContext httpContext)
+        {
+            var user = IsLoggedIn(httpContext);
+            return _userLogic.IsAdmin(user.Id);
+        }
+
+        public bool IsAdmin(int id)
+        {
+            return _userLogic.IsAdmin(id);
+        }
         
         [HttpGet("Login")]
         public IActionResult Login()

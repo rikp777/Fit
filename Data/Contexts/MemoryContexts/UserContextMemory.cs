@@ -10,14 +10,14 @@ namespace Data.Contexts.MemoryContexts
 {
     public class UserContextMemory : IUserContext
     {
-        private static List<IUser> users;
+        private static List<UserDto> users;
         private static bool Added;
 
         public UserContextMemory()
         {
             if (!Added)
             {
-                users = new List<IUser>();
+                users = new List<UserDto>();
                 users.Add(new UserDto()
                 {
                     Id = 1,
@@ -28,6 +28,7 @@ namespace Data.Contexts.MemoryContexts
                     LastName = "Peeters",
                     Length = 170,           
                     Blocked = false,
+                    Right = new RightContextMemory().Read(1)
                 });
                 users.Add(new UserDto()
                 {
@@ -39,6 +40,7 @@ namespace Data.Contexts.MemoryContexts
                     LastName = "Peeters",
                     Length = 170, 
                     Blocked = true,
+                    Right = new RightContextMemory().Read(2)
                 });
                 users.Add(new UserDto()
                 {
@@ -50,6 +52,7 @@ namespace Data.Contexts.MemoryContexts
                     LastName = "Peeters",
                     Length = 170,
                     Blocked = false,
+                    Right = new RightContextMemory().Read(3)
                 });
                 users.Add(new UserDto()
                 {
@@ -61,6 +64,7 @@ namespace Data.Contexts.MemoryContexts
                     LastName = "Peeters",
                     Length = 170,   
                     Blocked = false,
+                    Right = new RightContextMemory().Read(3)
                 });
                 Added = true;
             }
@@ -75,22 +79,22 @@ namespace Data.Contexts.MemoryContexts
             return users.SingleOrDefault(u => u.Email == email);
         }
 
-        public List<IUser> List()
+        public IEnumerable<IUser> List()
         {
-            return users;
+            IEnumerable<IUser> lUsers = new List<IUser>(users);
+            return lUsers;
         }
 
         public bool Create(IUser user)
         {
-            if (user.Id == null)
-            {
-                user.Id = users.Max(u => u.Id) + 1;
-            }
+//            if (user.Id == null)
+//            {
+//                user.Id = users.Max(u => u.Id) + 1;
+//            }
 
-            if (users.SingleOrDefault(u => u.Email == user.Email) == null &&
-                users.SingleOrDefault(u => u.Id == user.Id) == null)
+            if (users.SingleOrDefault(u => u.Email == user.Email) == null && users.SingleOrDefault(u => u.Id == user.Id) == null)
             {
-                users.Add(user);
+                users.Add((UserDto) user);
                 return true;
             }
 
@@ -101,7 +105,7 @@ namespace Data.Contexts.MemoryContexts
         {
             try
             {
-                users[(int) (user.Id) - 1] = user;
+                users[(int) (user.Id) - 1] = (UserDto) user;
                 return true;
             }
             catch (Exception e)
@@ -124,6 +128,10 @@ namespace Data.Contexts.MemoryContexts
             }
             return false;
         }
-        
+
+        public UserDto Auth(string email)
+        {
+            return users.SingleOrDefault(u => u.Email == email);
+        }
     }
 }

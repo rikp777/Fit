@@ -31,12 +31,12 @@
                 </td>
                 <td>@user.Right.Name</td>
                 <td>
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <div class="btn-group btn-group-toggle" >
                         <label class="btn btn-warning">
-                            <input type="radio" name="options" id="option1">Update
+                            <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Update</a>
                         </label>
                         <label class="btn btn-danger">
-                            <input type="radio" name="options" id="option2">Delete
+                            <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Delete</a>
                         </label>
                     </div>
                 </td>

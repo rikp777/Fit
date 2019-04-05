@@ -38,4 +38,6 @@ D:\Fontys\Semester_3\Individueel\Fit\Fit\bin\Debug\netcoreapp2.1\Data.pdb
 D:\Fontys\Semester_3\Individueel\Fit\Fit\bin\Debug\netcoreapp2.1\Interfaces.pdb
 D:\Fontys\Semester_3\Individueel\Fit\Fit\obj\Debug\netcoreapp2.1\Razor\Views\Auth\Login.g.cshtml.cs
 D:\Fontys\Semester_3\Individueel\Fit\Fit\obj\Debug\netcoreapp2.1\Razor\Views\User\Index.g.cshtml.cs
-D:\Fontys\Semester_3\Individueel\Fit\Fit\obj\Debug\netcoreapp2.1\Razor\Views\User\List.g.cshtml.cs
+D:\Fontys\Semester_3\Individueel\Fit\Fit\obj\Debug\netcoreapp2.1\Razor\Views\User\Edit.g.cshtml.cs
+D:\Fontys\Semester_3\Individueel\Fit\Fit\obj\Debug\netcoreapp2.1\Razor\Views\Admin\EditUser.g.cshtml.cs
+D:\Fontys\Semester_3\Individueel\Fit\Fit\obj\Debug\netcoreapp2.1\Razor\Views\Admin\ListUser.g.cshtml.cs

@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Data.Contexts.Interfaces;
+using Data.dto;
 using Interfaces;
 
 namespace Data.Contexts.SQLContexts
@@ -16,7 +18,7 @@ namespace Data.Contexts.SQLContexts
             throw new System.NotImplementedException();
         }
 
-        public List<IUser> List()
+        public IEnumerable<IUser> List()
         {
             throw new System.NotImplementedException();
         }
@@ -32,6 +34,11 @@ namespace Data.Contexts.SQLContexts
         }
 
         public bool Delete(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public UserDto Auth(string email)
         {
             throw new System.NotImplementedException();
         }

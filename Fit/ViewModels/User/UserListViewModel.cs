@@ -6,6 +6,6 @@ namespace Fit.ViewModels.User
 {
     public class UserListViewModel
     {
-        public List<IUser> AllUsers { get; set; }
+        public IEnumerable<IUser> AllUsers { get; set; }
     }
 }

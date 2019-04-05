@@ -1,4 +1,4 @@
-@model Fit.ViewModels.User.UserEditViewModel
+@model Fit.ViewModels.Admin.AdminUserEditViewModel
 
 @{
     ViewBag.Title = "title";
@@ -25,6 +25,20 @@
             <label for="length">Lengte</label>
             <input type="number" class="form-control" id="length" asp-for="Length">
         </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="status">Status</label>
+            <select id="status" class="form-control" asp-for="Blocked">
+                <option selected="@(!Model.Blocked)">Actief</option>
+                <option selected="@(Model.Blocked)">Geblokeerd</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="right">Recht</label>
+            <select id="right" class="form-control" asp-items="Model.Rights">
+            </select>
+        </div>        
     </div>
    
     <button type="submit" class="btn btn-primary">Update</button>

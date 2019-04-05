@@ -23,15 +23,25 @@ namespace Logic
 
         public IUser GetBy(int id) => _repository.GetBy(id);
         public IUser GetBy(string email) => _repository.GetBy(email);
-        public List<IUser> GetAll() => _repository.GetAll();
+        public IEnumerable<IUser> GetAll() => _repository.GetAll();
         public bool Delete(int id) => _repository.Delete(id);
         public bool Register(IUser user) => _repository.Add(user);
         
         private bool Edit(IUser user) => _repository.Edit(user);
+        public bool IsAdmin(int id)
+        {
+            var right = new RightLogic().GetBy(3);
+            var user = _repository.GetBy(id);
+            if (user.Right.Id == right.Id)
+            {
+                return true;
+            }
+            return false;
+        }
 
         public Message CheckLogin(string email, string password)
         {
-            IUser user = GetBy(email);
+            var user = _repository.GetAuth(email);
             Message message = new Message();
             if (user != null)
             {
@@ -67,8 +77,6 @@ namespace Logic
         {
             if(user.Id != null)
             {
-                // Not password
-                user.Password = GetBy((int) user.Id).Password;
                 return Edit(user);
             }
             return false;
@@ -76,13 +84,8 @@ namespace Logic
 
         public bool ChangePassword(IUser user, string newPassword)
         {
-            user.Password = newPassword;
+            //user.Password = newPassword;
             return Edit(user);
-        }
-
-        public bool IsAdmin()
-        {
-            return true;
         }
     }
 }

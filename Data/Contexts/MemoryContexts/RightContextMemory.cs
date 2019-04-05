@@ -28,13 +28,13 @@ namespace Data.Contexts.MemoryContexts
                 });
                 Rights.Add(new RightDto
                 {
-                    Id = 1,
+                    Id = 2,
                     Name = rightTypes.Instructor.ToString(),
                     Description = rightTypes.Instructor.ToString()
                 });
                 Rights.Add(new RightDto
                 {
-                    Id = 1,
+                    Id = 3,
                     Name = rightTypes.Fitnesser.ToString(),
                     Description = rightTypes.Fitnesser.ToString()
                 });
