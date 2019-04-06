@@ -17,18 +17,22 @@ namespace Fit.Controllers
 
         public bool RightCheck()
         {
-            var authUser = _auth.IsLoggedIn(HttpContext);
-            if (authUser == null)
+            if (HttpContext != null)
             {
-                return false;
-            }
-            if (!_auth.IsAdmin(authUser.Id))
-            {
-                return true;
-            }
+                var authUser = _auth.GetIsLoggedIn(HttpContext);
+                if (authUser == null)
+                {
+                    return false;
+                }
+                if (!_auth.IsAdmin(authUser.Id))
+                {
+                
+                    ViewData["AuthUser"] = authUser;
+                    return true;
+                }
+            }          
             return false;
-        }
-        
+        }       
         
         [HttpGet]
         public IActionResult ListUser()

@@ -11,12 +11,16 @@ namespace Fit.Controllers
     {
         private UserLogic _userLogic = new UserLogic();
         private AuthController _auth = new AuthController();
+
+        public HomeController()
+        {
+            var authUser = _auth.GetIsLoggedIn(HttpContext);
+            ViewData["AuthUser"] = authUser;      
+        }
         
         [HttpGet]
         public IActionResult Index()
         {
-            var user = _auth.IsLoggedIn(HttpContext);
-            ViewData["AuthUser"] = user;
             return View();
         }
 
@@ -24,5 +28,9 @@ namespace Fit.Controllers
         {
             return View();
         }
+    }
+
+    public class Exepction : Exception
+    {
     }
 }

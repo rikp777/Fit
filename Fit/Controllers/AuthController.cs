@@ -13,20 +13,32 @@ namespace Fit.Controllers
     {
         private readonly UserLogic _userLogic = new UserLogic();
         private const string SessionKeyName = "_UserId";
-        public IUser IsLoggedIn(HttpContext httpContext)
+        public IUser GetIsLoggedIn(HttpContext httpContext)
         {
-            int userId;
-            var success = int.TryParse(httpContext.Session.GetString(SessionKeyName), out userId);
-            if (success)
+            if (httpContext != null)
             {
-                return _userLogic.GetBy(userId);
+                int userId;
+                var success = int.TryParse(httpContext.Session.GetString(SessionKeyName), out userId);
+                if (success)
+                {
+                    return _userLogic.GetBy(userId);
+                }
             }
             return null;
         }
 
+        public bool IsLoggedIn(HttpContext httpContext)
+        {
+            if (GetIsLoggedIn(httpContext) != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public bool IsAdmin(HttpContext httpContext)
         {
-            var user = IsLoggedIn(httpContext);
+            var user = GetIsLoggedIn(httpContext);
             return _userLogic.IsAdmin(user.Id);
         }
 

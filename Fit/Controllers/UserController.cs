@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -19,17 +20,17 @@ namespace Fit.Controllers
         private readonly RightLogic _rightLogic = new RightLogic();
         private AuthController _auth = new AuthController();
         // GET
-        public IActionResult Index()
-        {
-            return View();
+        public UserController()
+        {            
+            var authUser = _auth.GetIsLoggedIn(HttpContext);
+            ViewData["AuthUser"] = authUser;                 
         }
-
 
         [HttpGet]
         public IActionResult Edit(int id)
-        {                               
-            UserEditViewModel viewModel = new UserEditViewModel();
+        {   
             
+            UserEditViewModel viewModel = new UserEditViewModel();           
             
             var user = _userLogic.GetBy(id);
             viewModel.Id = user.Id;
