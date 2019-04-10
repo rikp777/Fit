@@ -17,5 +17,6 @@ namespace Logic
 
         public List<IRight> GetAll() => _repository.GetAll();
         public IRight GetBy(int id) => _repository.GetBy(id);
+        public IRight GetBy(string name) => _repository.GetBy(name);
     }
 }

@@ -15,8 +15,7 @@ namespace Data.Contexts.MemoryContexts
             {
                 Nutrients = new List<INutrient>();
                 Nutrients.Add(new NutrientDto()
-                {
-                   
+                {                 
                     Id = 1,
                     Name = "Vet",
                     MaxIntake = 44 
@@ -50,7 +49,7 @@ namespace Data.Contexts.MemoryContexts
         }
         public IEnumerable<INutrient> List()
         {
-            IEnumerable<INutrient> nutrients = new List<INutrient>();
+            IEnumerable<INutrient> nutrients = Nutrients;
             return nutrients;
         }
     }

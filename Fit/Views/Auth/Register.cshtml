@@ -1,0 +1,54 @@
+@model Fit.ViewModels.Auth.RegisterViewModel
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "_Layout";
+}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">Register</h3>
+            </div>
+            <div class="card-body">
+                <form class="form" role="form" id="formRegister" method="post">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="firstname">Voornaam</label>
+                            <input type="text" class="form-control" id="firstname" asp-for="FirstName">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="lastname">Achternaam</label>
+                            <input type="text" class="form-control" id="lastname" asp-for="LastName">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="birthdate">Geboorte Datum</label>
+                            <input type="date" class="form-control" id="birthdate" asp-for="BirthDate">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="length">Lengte</label>
+                            <input type="number" class="form-control" id="length" asp-for="Length">
+                        </div>
+                    </div>
+                    <div class="form-group col">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" asp-for="Email">
+                    </div>
+                    <div class="form-group col">
+                        <label for="password">Wachtwoord</label>
+                        <input type="password" class="form-control" id="password" asp-for="Password">
+                    </div>
+                    <div class="form-group col">
+                        <label for="passwordH">Wachtwoord Herhaling</label>
+                        <input type="password" class="form-control" id="passwordH" asp-for="PasswordH">
+                    </div>
+   
+                    <button type="submit" class="btn btn-success float-right" id="btnRegister">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

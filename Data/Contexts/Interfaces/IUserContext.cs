@@ -10,7 +10,7 @@ namespace Data.Contexts.Interfaces
         IUser Read(int id);
         IUser Read(string email);
         IEnumerable<IUser> List();
-        bool Create(IUser user);
+        bool Create(IUser user, string password);
         bool Update(IUser user);
         bool Delete(int id);
         UserDto Auth(string email);

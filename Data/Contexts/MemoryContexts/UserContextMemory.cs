@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using Data.Contexts.Interfaces;
 using Data.dto;
 using Interfaces;
@@ -85,16 +86,29 @@ namespace Data.Contexts.MemoryContexts
             return lUsers;
         }
 
-        public bool Create(IUser user)
+        public bool Create(IUser user, string password)
         {
-//            if (user.Id == null)
-//            {
-//                user.Id = users.Max(u => u.Id) + 1;
-//            }
+            if (user.Id == 0)
+            {
+                user.Id = users.Max(u => u.Id) + 1;
+            }
 
             if (users.SingleOrDefault(u => u.Email == user.Email) == null && users.SingleOrDefault(u => u.Id == user.Id) == null)
             {
-                users.Add((UserDto) user);
+                UserDto User = new UserDto
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    BirthDate = user.BirthDate,
+                    Blocked = user.Blocked,
+                    Email = user.Email,
+                    Length = user.Length,
+                    Password = password,
+                    Right = user.Right
+                };
+                
+                users.Add(User);
                 return true;
             }
 

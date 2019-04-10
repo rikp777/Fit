@@ -23,11 +23,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Eten</a>
+                    <a class="nav-link" asp-controller="Article" asp-action="List">Eten</a>
                 </li>
               
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Training</a>
+                    <a class="nav-link disabled" href="#">Training</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -36,19 +36,22 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Auth" asp-action="Login">Login</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Auth" asp-action="Register">Registreer</a>
+                    </li>
                 }
                 else
                 {
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @authUser.FirstName
+                            @authUser.FirstName 
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" asp-controller="User" asp-action="Edit" asp-route-id="@authUser.Id">Profiel</a>
                             <a class="dropdown-item" asp-controller="Auth" asp-action="Logout">Log Uit</a>
                         </div>
                     </li>
-                    if (@authUser.Right.Name == "Admin")
+                    if (authUser.Right.Name == "Admin")
                     {
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -67,8 +70,6 @@
 </nav>
 </header>
 <main>
-    <partial name="_CookieConsentPartial"/>
-
     <div class="container py-5">
         @RenderBody()
     </div>

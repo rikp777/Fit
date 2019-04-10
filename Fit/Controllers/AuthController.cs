@@ -12,13 +12,13 @@ namespace Fit.Controllers
     public class AuthController : Controller
     {
         private readonly UserLogic _userLogic = new UserLogic();
+        private readonly RightLogic _rightLogic = new RightLogic();
         private const string SessionKeyName = "_UserId";
-        public IUser GetIsLoggedIn(HttpContext httpContext)
+        public IUser GetAuth(HttpContext httpContext)
         {
             if (httpContext != null)
             {
-                int userId;
-                var success = int.TryParse(httpContext.Session.GetString(SessionKeyName), out userId);
+                var success = int.TryParse(httpContext.Session.GetString(SessionKeyName), out int userId);
                 if (success)
                 {
                     return _userLogic.GetBy(userId);
@@ -27,24 +27,65 @@ namespace Fit.Controllers
             return null;
         }
 
-        public bool IsLoggedIn(HttpContext httpContext)
+        public bool CheckAuth(HttpContext httpContext)
         {
-            if (GetIsLoggedIn(httpContext) != null)
+            if (GetAuth(httpContext) != null)
             {
-                return true;
+                var success = int.TryParse(httpContext.Session.GetString(SessionKeyName), out int Id);
+                if (success)
+                {
+                    return true;
+                }
             }
             return false;
         }
 
-        public bool IsAdmin(HttpContext httpContext)
+        public bool CheckAuth(HttpContext httpContext, string right)
         {
-            var user = GetIsLoggedIn(httpContext);
-            return _userLogic.IsAdmin(user.Id);
+            if (GetAuth(httpContext) != null)
+            {
+                var success = int.TryParse(httpContext.Session.GetString(SessionKeyName), out int id);
+                if (success)
+                {
+                    var user = _userLogic.GetBy(id);
+                    if (user.Right.Name == right)
+                    {
+                        return true;                   
+                    }
+                }
+            }
+            return false;
         }
 
-        public bool IsAdmin(int id)
+        [HttpGet("Register")]
+        public IActionResult Register()
         {
-            return _userLogic.IsAdmin(id);
+            return View(new RegisterViewModel());
+        }
+        [HttpPost("Register")]
+        public IActionResult Register(RegisterViewModel data)
+        {
+            
+            
+            if (data.Password != data.PasswordH)
+            {
+                return View("Register", data);
+            }
+            var user = new User
+            {
+                FirstName = data.FirstName,
+                LastName = data.LastName,
+                Length = data.Length,
+                BirthDate = data.BirthDate,
+                Blocked = false,
+                Email = data.Email,
+                Right = _rightLogic.GetBy("Fitnesser")             
+            };
+            var success = _userLogic.Register(user, data.Password);
+            if(success){
+                return RedirectToAction("Login", "Auth");
+            }           
+            return View("Register", data);
         }
         
         [HttpGet("Login")]

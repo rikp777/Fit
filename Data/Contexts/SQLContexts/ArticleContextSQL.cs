@@ -1,44 +1,37 @@
-using System;
 using System.Collections.Generic;
 using Data.Contexts.Interfaces;
-using Data.dto;
 using Interfaces;
 
 namespace Data.Contexts.SQLContexts
 {
-    public class UserContextSQL : IUserContext
+    public class ArticleContextSQL : IArticleContext
     {
-        public IUser Read(int id)
+        public IArticle Read(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public IUser Read(string email)
+        public IArticle Read(string name)
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<IUser> List()
+        public IEnumerable<IArticle> List()
         {
             throw new System.NotImplementedException();
         }
 
-        public bool Create(IUser user, string password)
+        public bool Create(IArticle article)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool Update(IUser user)
+        public bool Update(IArticle article)
         {
             throw new System.NotImplementedException();
         }
 
         public bool Delete(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public UserDto Auth(string email)
         {
             throw new System.NotImplementedException();
         }

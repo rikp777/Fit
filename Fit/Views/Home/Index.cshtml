@@ -1,73 +1,42 @@
-﻿@{
+﻿@using Data.dto
+@using Interfaces
+@model Fit.ViewModels.Article.ArticleListViewModel
+@{
     ViewData["Title"] = "Home Page";
+    var authUser = ViewData["AuthUser"] as IUser;
 }
+@if(authUser == null){
 <section class="jumbotron text-center">
   <div class="container">
     <h1 class="jumbotron-heading">Fitness begint met wat je eet.</h1>
     <p class="lead text-muted">Neem het heft in eigen handen. Tel calorieën, ontleed ingrediënten en houd activiteiten bij met Fit.</p>
     <p>
-      <a href="#" class="btn btn-primary my-2">Begin nu gratis</a>
-      <a href="#" class="btn btn-secondary my-2">heb je al een account?</a>
+      <a class="btn btn-primary my-2" asp-controller="Auth" asp-action="Register">Begin nu gratis</a>
+      <a class="btn btn-secondary my-2" asp-controller="Auth" asp-action="Login">heb je al een account?</a>
     </p>
   </div>
 </section>
-<h1 class="mt-md-5">Populaire schemas</h1>
+}
+<h1 class="mt-md-5">Populair eten</h1>
 <div class="card-columns">
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Card title that wraps to a new line</h5>
-      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+  @foreach (var article in Model.AllArticles)
+  {
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">@article.Name</h5>
+        <p class="card-text">Calorieën: @article.Calories</p>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-@article.Name" aria-expanded="false" aria-controls="collapse-@article.Name">
+          Nutrients
+        </button>
+        <div class="collapse" id="collapse-@article.Name">
+          <ul class="list-group list-group-flush">
+            @foreach (var nutrient in article.Nutrients)
+            {
+              <li class="list-group-item">@nutrient.Nutrient.Name : @nutrient.Amount</li>
+            }
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="card p-3">
-    <blockquote class="blockquote mb-0 card-body">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-      <footer class="blockquote-footer">
-        <small class="text-muted">
-          Someone famous in <cite title="Source Title">Source Title</cite>
-        </small>
-      </footer>
-    </blockquote>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-  <div class="card bg-primary text-white text-center p-3">
-    <blockquote class="blockquote mb-0">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
-      <footer class="blockquote-footer text-white">
-        <small>
-          Someone famous in <cite title="Source Title">Source Title</cite>
-        </small>
-      </footer>
-    </blockquote>
-  </div>
-  <div class="card text-center">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This card has a regular title and short paragraphy of text below it.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-  <div class="card p-3 text-right">
-    <blockquote class="blockquote mb-0">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-      <footer class="blockquote-footer">
-        <small class="text-muted">
-          Someone famous in <cite title="Source Title">Source Title</cite>
-        </small>
-      </footer>
-    </blockquote>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
+  }
 </div>

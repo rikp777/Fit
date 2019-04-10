@@ -25,7 +25,7 @@ namespace Logic
         public IUser GetBy(string email) => _repository.GetBy(email);
         public IEnumerable<IUser> GetAll() => _repository.GetAll();
         public bool Delete(int id) => _repository.Delete(id);
-        public bool Register(IUser user) => _repository.Add(user);
+        public bool Register(IUser user, string password) => _repository.Add(user, password);
         
         private bool Edit(IUser user) => _repository.Edit(user);
         public bool IsAdmin(int id)

@@ -36,8 +36,6 @@ namespace Data.Repositories
             IUser user = _context.Read(id);
             
             if (user == null) { return null; }
-            
-            user.Right = new RightRepository(_storageType).GetBy(user);
             return user;
         }
 
@@ -46,8 +44,6 @@ namespace Data.Repositories
             IUser user = _context.Read(email);
             
             if (user == null) { return null; }
-            
-            user.Right = new RightRepository(_storageType).GetBy(user);
             return user;
         }
 
@@ -56,9 +52,9 @@ namespace Data.Repositories
             return _context.List();
         }
 
-        public bool Add(IUser user)
+        public bool Add(IUser user, string password)
         {
-            return _context.Create(user);
+            return _context.Create(user, password);
         }
 
         public bool Edit(IUser user)

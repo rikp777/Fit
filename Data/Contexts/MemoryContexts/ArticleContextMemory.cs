@@ -1,11 +1,13 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data.Contexts.Interfaces;
 using Data.dto;
 using Interfaces;
 
 namespace Data.Contexts.MemoryContexts
 {
-    public class ArticleContextMemory
+    public class ArticleContextMemory : IArticleContext
     {
         private static List<IArticle> Articles;
         private static bool Added;
@@ -76,6 +78,60 @@ namespace Data.Contexts.MemoryContexts
                 });
                 Added = true;      
             }
-        } 
+        }
+
+        public IArticle Read(int id)
+        {
+            return Articles.SingleOrDefault(u => u.Id == id);
+        }
+
+        public IArticle Read(string name)
+        {
+            return Articles.SingleOrDefault(u => u.Name == name);
+        }
+
+        public IEnumerable<IArticle> List()
+        {
+            IEnumerable<IArticle> IArticles = new List<IArticle>(Articles);
+            return IArticles;
+        }
+
+        public bool Create(IArticle article)
+        {
+            if (Articles.SingleOrDefault(u => u.Name == article.Name) == null && Articles.SingleOrDefault(u => u.Id == article.Id) == null)
+            {
+                Articles.Add((ArticleDto) article);
+                return true;
+            }
+            return false;
+        }
+
+        public bool Update(IArticle article)
+        {
+            try
+            {
+                Articles[(int) (article.Id) - 1] = (ArticleDto) article;
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return false;
+        }
+
+        public bool Delete(int id)
+        {
+            try
+            {
+                Articles.Remove(Articles.SingleOrDefault(u => u.Id == id));
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return false;
+        }
     }
 }

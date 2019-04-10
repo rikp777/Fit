@@ -1,19 +1,23 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using Interfaces;
 
 namespace Fit.ViewModels.Auth
 {
-    public class AuthViewModel : IUser
+    public class RegisterViewModel
     {
         [Required]
-        public int Id { get; set; }
         public string Email { get; set; }
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
+        [Required]
         public DateTime BirthDate { get; set; }
+        [Required]
         public int Length { get; set; }
-        public bool Blocked { get; set; }
-        public IRight Right { get; set; }
+        [Required]
+        public string Password { get; set; }
+        [Required]
+        public string PasswordH { get; set; }
     }
 }
