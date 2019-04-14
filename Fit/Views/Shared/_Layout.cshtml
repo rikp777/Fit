@@ -47,7 +47,8 @@
                             @authUser.FirstName 
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" asp-controller="User" asp-action="Edit" asp-route-id="@authUser.Id">Profiel</a>
+                            <a class="dropdown-item" asp-controller="User" asp-action="Index">Dashboard</a>
+                            <a class="dropdown-item" asp-controller="User" asp-action="Edit">Gegevens</a>
                             <a class="dropdown-item" asp-controller="Auth" asp-action="Logout">Log Uit</a>
                         </div>
                     </li>

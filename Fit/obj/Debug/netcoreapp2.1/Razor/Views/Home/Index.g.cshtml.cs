@@ -80,7 +80,7 @@ using Interfaces;
       ");
             EndContext();
             BeginContext(499, 95, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e378122731014501a4c3cc75101ebb46", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e055b4b5e12843839aea5c6a262fd7e3", async() => {
                 BeginContext(575, 15, true);
                 WriteLiteral("Begin nu gratis");
                 EndContext();
@@ -105,7 +105,7 @@ using Interfaces;
             WriteLiteral("\r\n      ");
             EndContext();
             BeginContext(602, 101, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4cfe3aca9e264559b0b12ac9fa999b43", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "207c85c06f7649aabc7a4eb1670480e9", async() => {
                 BeginContext(677, 22, true);
                 WriteLiteral("heb je al een account?");
                 EndContext();
