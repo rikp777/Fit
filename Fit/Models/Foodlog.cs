@@ -2,9 +2,9 @@ using System;
 using Enum;
 using Interfaces;
 
-namespace Data.dto
+namespace Fit.Models
 {
-    public class FoodlogDto : IFoodlog
+    public class Foodlog : IFoodlog
     {
         public int Id { get; set; }
         public int Amount { get; set; }

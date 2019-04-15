@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Data.Contexts;
 using Data.Repositories;
 using Interfaces;
-using Logic.Models;
 
 namespace Logic
 {

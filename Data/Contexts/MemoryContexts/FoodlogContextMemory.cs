@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Data.Contexts.Interfaces;
 using Data.dto;
+using Enum;
 using Interfaces;
 
 namespace Data.Contexts.MemoryContexts
@@ -65,9 +66,21 @@ namespace Data.Contexts.MemoryContexts
 
         public bool Create(IFoodlog foodlog)
         {
-            if (Foodlogs.SingleOrDefault(f => f.Id == foodlog.Id) == null)
+            FoodlogDto foodlogDto = new FoodlogDto
             {
-                Foodlogs.Add((FoodlogDto) foodlog);
+                Amount = foodlog.Amount,
+                DateTime = foodlog.DateTime,
+                User = foodlog.User,
+                Unit = foodlog.Unit,
+                Article = foodlog.Article
+            };
+            if (foodlogDto.Id == 0)
+            {
+                foodlogDto.Id = Foodlogs.Max(u => u.Id) + 1;
+            }
+            if (Foodlogs.SingleOrDefault(f => f.Id == foodlog.Id) == null)
+            {              
+                Foodlogs.Add(foodlogDto);
                 return true;
             }
             return false;

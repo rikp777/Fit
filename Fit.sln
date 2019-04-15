@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\Interfaces.csproj", "{6B6DF574-3DC2-47CA-B4FC-407AF9EB5B86}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enum", "Enum\Enum.csproj", "{88999871-B8F9-4F70-AD43-B174F7CB29C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{6B6DF574-3DC2-47CA-B4FC-407AF9EB5B86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B6DF574-3DC2-47CA-B4FC-407AF9EB5B86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B6DF574-3DC2-47CA-B4FC-407AF9EB5B86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88999871-B8F9-4F70-AD43-B174F7CB29C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88999871-B8F9-4F70-AD43-B174F7CB29C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88999871-B8F9-4F70-AD43-B174F7CB29C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88999871-B8F9-4F70-AD43-B174F7CB29C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

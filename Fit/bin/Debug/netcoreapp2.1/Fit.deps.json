@@ -24,6 +24,7 @@
     ".NETCoreApp,Version=v2.1": {
       "Fit/1.0.0": {
         "dependencies": {
+          "Enum": "1.0.0",
           "Logic": "1.0.0",
           "Microsoft.AspNetCore.App": "2.1.1",
           "Microsoft.AspNetCore.Razor.Design": "2.1.2",
@@ -210,6 +211,7 @@
       },
       "Data/1.0.0": {
         "dependencies": {
+          "Enum": "1.0.0",
           "Interfaces": "1.0.0"
         },
         "runtime": {
@@ -219,7 +221,18 @@
           "Data.dll": {}
         }
       },
+      "Enum/1.0.0": {
+        "runtime": {
+          "Enum.dll": {}
+        },
+        "compile": {
+          "Enum.dll": {}
+        }
+      },
       "Interfaces/1.0.0": {
+        "dependencies": {
+          "Enum": "1.0.0"
+        },
         "runtime": {
           "Interfaces.dll": {}
         },
@@ -230,6 +243,7 @@
       "Logic/1.0.0": {
         "dependencies": {
           "Data": "1.0.0",
+          "Enum": "1.0.0",
           "Interfaces": "1.0.0"
         },
         "runtime": {
@@ -3244,6 +3258,11 @@
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
     },
     "Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Enum/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

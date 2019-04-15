@@ -12,3 +12,5 @@ D:\Fontys\Semester_3\Individueel\Fit\Logic\bin\Debug\netcoreapp2.1\Interfaces.dl
 D:\Fontys\Semester_3\Individueel\Fit\Logic\bin\Debug\netcoreapp2.1\Data.pdb
 D:\Fontys\Semester_3\Individueel\Fit\Logic\bin\Debug\netcoreapp2.1\Interfaces.pdb
 D:\Fontys\Semester_3\Individueel\Fit\Logic\obj\Debug\netcoreapp2.1\Logic.csproj.CopyComplete
+D:\Fontys\Semester_3\Individueel\Fit\Logic\bin\Debug\netcoreapp2.1\Enum.dll
+D:\Fontys\Semester_3\Individueel\Fit\Logic\bin\Debug\netcoreapp2.1\Enum.pdb

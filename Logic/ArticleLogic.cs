@@ -14,5 +14,6 @@ namespace Logic
             _repository = new ArticleRepository(StorageTypeSetting.Setting);
         }
         public IEnumerable<IArticle> GetAll() => _repository.GetAll();
+        public IArticle GetBy(int id) => _repository.GetBy(id);
     }
 }

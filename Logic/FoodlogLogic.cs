@@ -18,5 +18,6 @@ namespace Logic
         public IFoodlog GetBy(int id) => _repository.GetBy(id);
         public IEnumerable<IFoodlog> GetAll() => _repository.GetAll();
         public IEnumerable<IFoodlog> GetAllBy(IUser user) => _repository.GetAllBy(user);
+        public bool Add(IFoodlog foodlog) => _repository.Add(foodlog);
     }
 }

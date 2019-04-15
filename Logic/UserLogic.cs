@@ -7,6 +7,7 @@ using Data.Contexts.Interfaces;
 using Data.Contexts.SQLContexts;
 using Data.dto;
 using Data.Repositories;
+using Enum;
 using Interfaces;
 using Logic.Models;
 

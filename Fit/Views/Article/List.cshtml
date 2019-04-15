@@ -1,3 +1,4 @@
+@using Enum
 @using Fit.ViewModels.Auth
 @using Interfaces
 @model Fit.ViewModels.Article.ArticleListViewModel;
@@ -18,36 +19,37 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Logs</h5>
-            <form>
+            <form asp-controller="Log" asp-action="add" method="post">
                 <input type="hidden" id="ArticleId" name="ArticleId" value="">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Article</label>
-                    <input class="form-control" type="text" placeholder="Text" readonly>
+                    <input class="form-control" type="text" placeholder="Kies een uw consumptie" id="ArticleName" name="ArticleName" readonly>
                 </div>
                 <div class="row">
                     <div class="form-group col-7">
                         <label for="exampleInputEmail1">Aantal</label>
-                        <input class="form-control" type="number" placeholder="Text">
+                        <input class="form-control" type="number" id="Amount" name="Amount">
                     </div>
                     <div class="form-group col-5">
                         <label for="inputState">Eenheid</label>
-                        <select id="inputState" class="form-control">
-                            <option selected>Choose...</option>
-                            <option>...</option>
+                        <select id="inputState" class="form-control" name="Unit">
+                            <option value="@Unit.Stuks" selected>@Unit.Stuks</option>
+                            <option value="@Unit.Gram">@Unit.Gram</option>
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="form-group col-6">
                         <label for="exampleInputEmail1">Datum</label>
-                        <input class="form-control" type="date">
+                        <input class="form-control" type="date" id="Date" name="Date">
                     </div>
                     <div class="form-group col-6">
                         <label for="exampleInputEmail1">Tijd</label>
-                        <input class="form-control" type="time">
+                        <input class="form-control" type="time" id="Time" name="Time">
                     </div>
                 </div>
+                <button type="submit" class="btn btn-success">Log</button>
             </form>
         </div>
     </div>
@@ -69,7 +71,7 @@
                 </button>
                 @if (authUser != null)
                 {
-                    <button class="btn btn-success">Log</button>
+                    <button class="btn btn-success" onclick="Add(@article.Id, '@article.Name')">Log</button>
                 }               
                 <div class="collapse" id="collapse-@article.Name">
                     <ul class="list-group list-group-flush">
@@ -84,6 +86,8 @@
     }
 </div>
 <script>
+    var clicks = 0;
+    var lastId = 0;
     function Search() {
         var input, filter, cards, cardContainer, h5, title, i;
         input = document.getElementById("myFilter");
@@ -99,6 +103,25 @@
                 cards[i].style.display = "none";
             }
         }
+    }
+    function Add(id, name) {
+        clicks++;
+        if (lastId != id) {
+            lastId = id;
+            this.clicks = 1;
+        }
+        
+        document.getElementById("ArticleId").value = id;
+        document.getElementById("ArticleName").value = name;               
+        document.getElementById("Amount").value = clicks;
+        
+        
+        var date = new Date();
+        var currentDate = date.toISOString().slice(0,10);
+        var currentTime = date.getHours() + ':' + date.getMinutes();
+        
+        document.getElementById("Date").value = currentDate;
+        document.getElementById("Time").value = currentTime;
     }
 </script>
 

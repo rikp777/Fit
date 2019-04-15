@@ -21,23 +21,11 @@ namespace Fit.Controllers
         private readonly RightLogic _rightLogic = new RightLogic();
   
         private AuthController _auth = new AuthController();
-        
-        // GET
+
         [HttpGet]
         public IActionResult Index()
         {
-            var authUser = _auth.GetAuth(HttpContext);
-            ViewData["AuthUser"] = authUser;
-            if (authUser != null)
-            {
-                UserDashBoardViewModel viewModel = new UserDashBoardViewModel();
-                viewModel.FoodlogsBreakfast = _foodlogLogic.GetAllBy(authUser).Where(f => f.DateTime.Hour >= 1 && f.DateTime.Hour < 11);
-                viewModel.FoodlogsLunch = _foodlogLogic.GetAllBy(authUser).Where(f => f.DateTime.Hour >= 11 && f.DateTime.Hour < 17);
-                viewModel.FoodlogsSupper = _foodlogLogic.GetAllBy(authUser).Where(f => f.DateTime.Hour >= 17 && f.DateTime.Hour < 23);
-                
-                return View(viewModel);
-            }
-            return RedirectToAction("Login", "Auth");
+            return View();
         }
 
         [HttpGet]
@@ -56,7 +44,7 @@ namespace Fit.Controllers
                 viewModel.LastName = user.LastName;
                 viewModel.BirthDate = user.BirthDate;
                 viewModel.Length = user.Length;
-                viewModel.Right = user.Right as Right;
+                viewModel.Right = user.Right as IRight;
         
                 return View(viewModel);       
             }
@@ -79,6 +67,6 @@ namespace Fit.Controllers
             }
             return View(data);
         }
-        
+              
     }
 }

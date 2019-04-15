@@ -14,7 +14,11 @@
     ],
     "frameworks": {
       "netcoreapp2.1": {
-        "projectReferences": {}
+        "projectReferences": {
+          "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Enum\\Enum.csproj": {
+            "projectPath": "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Enum\\Enum.csproj"
+          }
+        }
       }
     },
     "warningProperties": {

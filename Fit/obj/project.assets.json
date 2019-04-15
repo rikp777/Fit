@@ -4338,6 +4338,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
+          "Enum": "1.0.0",
           "Interfaces": "1.0.0"
         },
         "compile": {
@@ -4347,9 +4348,22 @@
           "bin/placeholder/Data.dll": {}
         }
       },
+      "Enum/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/Enum.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Enum.dll": {}
+        }
+      },
       "Interfaces/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "Enum": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Interfaces.dll": {}
         },
@@ -4362,6 +4376,7 @@
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
           "Data": "1.0.0",
+          "Enum": "1.0.0",
           "Interfaces": "1.0.0"
         },
         "compile": {
@@ -11830,6 +11845,11 @@
       "path": "../Data/Data.csproj",
       "msbuildProject": "../Data/Data.csproj"
     },
+    "Enum/1.0.0": {
+      "type": "project",
+      "path": "../Enum/Enum.csproj",
+      "msbuildProject": "../Enum/Enum.csproj"
+    },
     "Interfaces/1.0.0": {
       "type": "project",
       "path": "../Interfaces/Interfaces.csproj",
@@ -11843,6 +11863,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "Enum >= 1.0.0",
       "Logic >= 1.0.0",
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.AspNetCore.Razor.Design >= 2.1.2",
@@ -11879,6 +11900,9 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
+            "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Enum\\Enum.csproj": {
+              "projectPath": "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Enum\\Enum.csproj"
+            },
             "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Logic\\Logic.csproj": {
               "projectPath": "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Logic\\Logic.csproj"
             }

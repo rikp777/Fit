@@ -7,3 +7,6 @@ D:\Fontys\Semester_3\Individueel\Fit\Interfaces\obj\Debug\netcoreapp2.1\Interfac
 D:\Fontys\Semester_3\Individueel\Fit\Interfaces\obj\Debug\netcoreapp2.1\Interfaces.AssemblyInfo.cs
 D:\Fontys\Semester_3\Individueel\Fit\Interfaces\obj\Debug\netcoreapp2.1\Interfaces.dll
 D:\Fontys\Semester_3\Individueel\Fit\Interfaces\obj\Debug\netcoreapp2.1\Interfaces.pdb
+D:\Fontys\Semester_3\Individueel\Fit\Interfaces\bin\Debug\netcoreapp2.1\Enum.dll
+D:\Fontys\Semester_3\Individueel\Fit\Interfaces\bin\Debug\netcoreapp2.1\Enum.pdb
+D:\Fontys\Semester_3\Individueel\Fit\Interfaces\obj\Debug\netcoreapp2.1\Interfaces.csproj.CopyComplete

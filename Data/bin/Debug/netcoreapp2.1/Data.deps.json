@@ -8,13 +8,22 @@
     ".NETCoreApp,Version=v2.1": {
       "Data/1.0.0": {
         "dependencies": {
+          "Enum": "1.0.0",
           "Interfaces": "1.0.0"
         },
         "runtime": {
           "Data.dll": {}
         }
       },
+      "Enum/1.0.0": {
+        "runtime": {
+          "Enum.dll": {}
+        }
+      },
       "Interfaces/1.0.0": {
+        "dependencies": {
+          "Enum": "1.0.0"
+        },
         "runtime": {
           "Interfaces.dll": {}
         }
@@ -23,6 +32,11 @@
   },
   "libraries": {
     "Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Enum/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

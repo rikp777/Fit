@@ -15,6 +15,9 @@
     "frameworks": {
       "netcoreapp2.1": {
         "projectReferences": {
+          "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Enum\\Enum.csproj": {
+            "projectPath": "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Enum\\Enum.csproj"
+          },
           "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Logic\\Logic.csproj": {
             "projectPath": "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Logic\\Logic.csproj"
           }

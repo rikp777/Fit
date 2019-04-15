@@ -212,6 +212,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
+          "Enum": "1.0.0",
           "Interfaces": "1.0.0"
         },
         "compile": {
@@ -221,9 +222,22 @@
           "bin/placeholder/Data.dll": {}
         }
       },
+      "Enum/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/Enum.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Enum.dll": {}
+        }
+      },
       "Interfaces/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "Enum": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Interfaces.dll": {}
         },
@@ -709,6 +723,11 @@
       "path": "../Data/Data.csproj",
       "msbuildProject": "../Data/Data.csproj"
     },
+    "Enum/1.0.0": {
+      "type": "project",
+      "path": "../Enum/Enum.csproj",
+      "msbuildProject": "../Enum/Enum.csproj"
+    },
     "Interfaces/1.0.0": {
       "type": "project",
       "path": "../Interfaces/Interfaces.csproj",
@@ -718,6 +737,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "Data >= 1.0.0",
+      "Enum >= 1.0.0",
       "Interfaces >= 1.0.0",
       "Microsoft.NETCore.App >= 2.1.0"
     ]
@@ -754,6 +774,9 @@
           "projectReferences": {
             "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Data\\Data.csproj": {
               "projectPath": "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Data\\Data.csproj"
+            },
+            "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Enum\\Enum.csproj": {
+              "projectPath": "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Enum\\Enum.csproj"
             },
             "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Interfaces\\Interfaces.csproj": {
               "projectPath": "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Interfaces\\Interfaces.csproj"

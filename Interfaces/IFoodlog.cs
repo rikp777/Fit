@@ -1,4 +1,5 @@
 using System;
+using Enum;
 
 namespace Interfaces
 {
@@ -10,11 +11,5 @@ namespace Interfaces
         IArticle Article { get; }
         IUser User { get; }
         Unit Unit { get; }
-    }
-
-    public enum Unit
-    {
-        Gram,
-        Stuks,
     }
 }

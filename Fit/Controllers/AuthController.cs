@@ -1,5 +1,7 @@
 using System;
 using System.Linq.Expressions;
+using Enum;
+using Fit.Models;
 using Fit.ViewModels.Auth;
 using Interfaces;
 using Logic;

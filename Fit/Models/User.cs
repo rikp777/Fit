@@ -1,7 +1,7 @@
 using System;
 using Interfaces;
 
-namespace Logic.Models
+namespace Fit.Models
 {
     public class User : IUser
     {

@@ -9,6 +9,7 @@
       "Logic/1.0.0": {
         "dependencies": {
           "Data": "1.0.0",
+          "Enum": "1.0.0",
           "Interfaces": "1.0.0"
         },
         "runtime": {
@@ -17,13 +18,22 @@
       },
       "Data/1.0.0": {
         "dependencies": {
+          "Enum": "1.0.0",
           "Interfaces": "1.0.0"
         },
         "runtime": {
           "Data.dll": {}
         }
       },
+      "Enum/1.0.0": {
+        "runtime": {
+          "Enum.dll": {}
+        }
+      },
       "Interfaces/1.0.0": {
+        "dependencies": {
+          "Enum": "1.0.0"
+        },
         "runtime": {
           "Interfaces.dll": {}
         }
@@ -37,6 +47,11 @@
       "sha512": ""
     },
     "Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Enum/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

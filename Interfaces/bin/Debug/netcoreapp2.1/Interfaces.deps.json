@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v2.1": {
       "Interfaces/1.0.0": {
+        "dependencies": {
+          "Enum": "1.0.0"
+        },
         "runtime": {
           "Interfaces.dll": {}
+        }
+      },
+      "Enum/1.0.0": {
+        "runtime": {
+          "Enum.dll": {}
         }
       }
     }
   },
   "libraries": {
     "Interfaces/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Enum/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -39,3 +39,6 @@ D:\Fontys\Semester_3\Individueel\Fit\Fit\obj\Debug\netcoreapp2.1\Razor\Views\Adm
 D:\Fontys\Semester_3\Individueel\Fit\Fit\obj\Debug\netcoreapp2.1\Razor\Views\Admin\ListUser.g.cshtml.cs
 D:\Fontys\Semester_3\Individueel\Fit\Fit\obj\Debug\netcoreapp2.1\Razor\Views\Article\List.g.cshtml.cs
 D:\Fontys\Semester_3\Individueel\Fit\Fit\obj\Debug\netcoreapp2.1\Razor\Views\Auth\Register.g.cshtml.cs
+D:\Fontys\Semester_3\Individueel\Fit\Fit\obj\Debug\netcoreapp2.1\Razor\Views\Log\Index.g.cshtml.cs
+D:\Fontys\Semester_3\Individueel\Fit\Fit\bin\Debug\netcoreapp2.1\Enum.dll
+D:\Fontys\Semester_3\Individueel\Fit\Fit\bin\Debug\netcoreapp2.1\Enum.pdb
