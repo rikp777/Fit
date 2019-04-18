@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Interfaces;
+using Models;
 
 namespace Data.Contexts.Interfaces
 {
@@ -9,6 +9,9 @@ namespace Data.Contexts.Interfaces
         IRight Read(int id);
         IRight Read(string name);
         IRight Read(IUser user);
-        List<IRight> List();
+               
+        
+        
+        IEnumerable<IRight> List();
     }
 }

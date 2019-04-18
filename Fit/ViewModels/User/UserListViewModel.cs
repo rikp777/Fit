@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Fit.ViewModels.Auth;
-using Interfaces;
+using Models;
 
 namespace Fit.ViewModels.User
 {

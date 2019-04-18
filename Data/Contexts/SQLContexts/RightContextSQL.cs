@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Data.Contexts.Interfaces;
-using Interfaces;
+using Models;
 
 namespace Data.Contexts.SQLContexts
 {
@@ -21,7 +21,7 @@ namespace Data.Contexts.SQLContexts
             throw new System.NotImplementedException();
         }
 
-        public List<IRight> List()
+        public IEnumerable<IRight> List()
         {
             throw new System.NotImplementedException();
         }

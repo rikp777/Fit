@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Interfaces;
+using Models;
 
 namespace Fit.ViewModels.Log
 {

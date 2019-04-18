@@ -1,6 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using Interfaces;
+using Models;
 
 namespace Fit.ViewModels.Auth
 {

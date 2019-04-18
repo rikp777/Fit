@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Data.Contexts;
 using Data.Contexts.Interfaces;
 using Data.Contexts.MemoryContexts;
 using Data.Contexts.SQLContexts;
-using Interfaces;
+using Models;
 
 namespace Data.Repositories
 {
@@ -18,28 +19,26 @@ namespace Data.Repositories
                 case StorageTypeSetting.StorageTypes.SQL :
                     _context = new RightContextSQL();   
                     break;
-                default: 
-                    _context = new RightContextMemory();    
-                    break; 
+                case StorageTypeSetting.StorageTypes.Memory:
+                    _context = new RightContextMemory();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(storageType), storageType, "Set Storage Type");
             }
         }
-        
-        public IRight GetBy(int id)
-        {
-            return _context.Read(id);
-        }
-        public IRight GetBy(string name)
-        {
-            return _context.Read(name);
-        }
-        public IRight GetBy(IUser user)
-        {
-            return _context.Read(user);
-        }
 
-        public List<IRight> GetAll()
-        {
-            return _context.List();
-        }
+        
+        
+        
+        
+        public IRight GetBy(int id) => _context.Read(id);
+        public IRight GetBy(string name) => _context.Read(name);
+        public IRight GetBy(IUser user) => _context.Read(user);
+
+        
+        
+        
+        
+        public IEnumerable<IRight> GetAll() => _context.List();
     }
 }

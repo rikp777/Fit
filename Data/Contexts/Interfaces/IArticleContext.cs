@@ -1,15 +1,30 @@
 using System.Collections.Generic;
-using Interfaces;
+using Models;
 
 namespace Data.Contexts.Interfaces
 {
     public interface IArticleContext
-    {
+    {     
+        bool Create(IArticle article);
+        
+        
+        
         IArticle Read(int id);
         IArticle Read(string name);
-        IEnumerable<IArticle> List();
-        bool Create(IArticle article);
+        IArticle Read(IArticle article);
+        
+        
+        
+        
         bool Update(IArticle article);
+        
+        
+        
         bool Delete(int id);
+        
+        
+        
+        IEnumerable<IArticle> List();
+        
     }
 }

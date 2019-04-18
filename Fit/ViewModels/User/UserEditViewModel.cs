@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Interfaces;
 using Logic.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Models;
 
 namespace Fit.ViewModels.User
 {

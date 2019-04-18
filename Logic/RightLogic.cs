@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Data.Contexts;
 using Data.Repositories;
-using Interfaces;
+using Models;
 
 namespace Logic
 {
@@ -14,8 +14,15 @@ namespace Logic
             _repository = new RightRepository(StorageTypeSetting.Setting);
         }
 
-        public List<IRight> GetAll() => _repository.GetAll();
+       
+        
+        
         public IRight GetBy(int id) => _repository.GetBy(id);
         public IRight GetBy(string name) => _repository.GetBy(name);
+        
+        
+        
+        
+        public IEnumerable<IRight> GetAll() => _repository.GetAll();
     }
 }

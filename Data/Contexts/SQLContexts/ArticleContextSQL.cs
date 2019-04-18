@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Data.Contexts.Interfaces;
-using Interfaces;
+using Models;
 
 namespace Data.Contexts.SQLContexts
 {
@@ -12,6 +12,11 @@ namespace Data.Contexts.SQLContexts
         }
 
         public IArticle Read(string name)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IArticle Read(IArticle article)
         {
             throw new System.NotImplementedException();
         }

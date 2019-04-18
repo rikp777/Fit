@@ -1,6 +1,6 @@
-using Interfaces;
+using Models;
 
-namespace Data.dto
+namespace Data.Dto
 {
     public class NutrientDto : INutrient
     {

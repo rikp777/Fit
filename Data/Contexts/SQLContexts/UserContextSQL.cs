@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Data.Contexts.Interfaces;
-using Data.dto;
-using Interfaces;
+using Models;
 
 namespace Data.Contexts.SQLContexts
 {
@@ -18,9 +17,19 @@ namespace Data.Contexts.SQLContexts
             throw new System.NotImplementedException();
         }
 
+        public IUser Read(IUser user)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<IUser> List()
         {
             throw new System.NotImplementedException();
+        }
+
+        public bool Auth(string email, string password)
+        {
+            throw new NotImplementedException();
         }
 
         public bool Create(IUser user, string password)
@@ -38,9 +47,5 @@ namespace Data.Contexts.SQLContexts
             throw new System.NotImplementedException();
         }
 
-        public UserDto Auth(string email)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

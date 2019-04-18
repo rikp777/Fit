@@ -1,0 +1,64 @@
+@using Enum
+@using Models
+@model Fit.ViewModels.Article.ArticleListViewModel;
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+    var authUser = ViewData["AuthUser"] as IUser;
+}
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="form-group row">
+            <label for="colFormLabel" class="col-sm-2 col-form-label">Zoek:</label>
+            <div class="col-sm-10">
+                <input class="form-control "type="text" id="myFilter" onkeyup="Search()"/>
+            </div>
+        </div>
+    </div>
+</div>
+<a class="btn btn-success mt-2 float-right" asp-controller="Article" asp-action="Add">Add</a>
+<div class="card-columns mt-5" id="myItems">
+    @foreach (var article in Model.AllArticles)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@article.Name</h5>
+                <p class="card-text">Calorieën: @article.Calories</p>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-@article.Name" aria-expanded="false" aria-controls="collapse-@article.Name">
+                    Nutrients
+                </button>
+                <button class="btn btn-warning">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+                <div class="collapse" id="collapse-@article.Name">
+                    <ul class="list-group list-group-flush">
+                        @foreach (var nutrient in article.Nutrients)
+                        {
+                            <li class="list-group-item">@nutrient.Nutrient.Name : @nutrient.Amount</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    var clicks = 0;
+    var lastId = 0;
+    function Search() {
+        var input, filter, cards, cardContainer, h5, title, i;
+        input = document.getElementById("myFilter");
+        console.log(input);
+        filter = input.value.toUpperCase();
+        cardContainer = document.getElementById("myItems");
+        cards = cardContainer.getElementsByClassName("card");
+        for (i = 0; i < cards.length; i++) {
+            title = cards[i].querySelector(".card-body h5.card-title");
+            if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                cards[i].style.display = "";
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
+</script>

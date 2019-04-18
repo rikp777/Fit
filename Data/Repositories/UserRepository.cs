@@ -7,8 +7,7 @@ using Data.Contexts;
 using Data.Contexts.Interfaces;
 using Data.Contexts.MemoryContexts;
 using Data.Contexts.SQLContexts;
-using Data.dto;
-using Interfaces;
+using Models;
 
 namespace Data.Repositories
 {
@@ -25,52 +24,40 @@ namespace Data.Repositories
                 case StorageTypeSetting.StorageTypes.SQL :
                     _context = new UserContextSQL();   
                     break;
-                default: 
+                case StorageTypeSetting.StorageTypes.Memory:
                     _context = new UserContextMemory(); 
-                    break; 
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(storageType), storageType, "Set Storage Type");
             }
         }
 
-        public IUser GetBy(int id)
-        {
-            IUser user = _context.Read(id);
-            
-            if (user == null) { return null; }
-            return user;
-        }
+        
+        
+        
+        
+        public IUser GetBy(int id) => _context.Read(id);
+        public IUser GetBy(string email) => _context.Read(email);
 
-        public IUser GetBy(string email)
-        {
-            IUser user = _context.Read(email);
-            
-            if (user == null) { return null; }
-            return user;
-        }
 
-        public IEnumerable<IUser> GetAll()
-        {
-            return _context.List();
-        }
 
-        public bool Add(IUser user, string password)
-        {
-            return _context.Create(user, password);
-        }
 
-        public bool Edit(IUser user)
-        {
-            return _context.Update(user);
-        }
 
-        public bool Delete(int id)
-        {
-            return _context.Delete(id);
-        }
+        public IEnumerable<IUser> GetAll() => _context.List();
 
-        public UserDto GetAuth(string email)
-        {
-            return _context.Auth(email);
-        }
+
+
+
+
+        public bool Add(IUser user, string password) => _context.Create(user, password);
+        public bool Edit(IUser user) => _context.Update(user);
+        public bool Delete(int id) => _context.Delete(id);
+
+
+
+
+
+        public bool CheckAuth(string email, string password) => _context.Auth(email, password);
 
     }
 }

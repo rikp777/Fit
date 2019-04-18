@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Dynamic;
 
-namespace Interfaces
+namespace Models
 {
     public interface IUser
     {
@@ -11,8 +10,8 @@ namespace Interfaces
         string LastName { get; set; }
         DateTime BirthDate { get; set; }
         int Length { get; set; }        
-        bool Blocked { get; set; }
+        bool Blocked { get; }
         
-        IRight Right { get; set; }
+        IRight Right { get; }
     }
 }

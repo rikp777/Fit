@@ -1,64 +1,69 @@
 using System.Collections.Generic;
 using System.Linq;
 using Data.Contexts.Interfaces;
-using Data.dto;
-using Interfaces;
+using Data.Dto;
+using Models;
 
 namespace Data.Contexts.MemoryContexts
 {
     public class RightContextMemory : IRightContext
     {
-        private enum rightTypes
+        private enum RightTypes
         {
-            Admin, Instructor, Fitnesser
+            Admin = 0, Instructor = 1, Fitnesser = 2
         }
-        private static List<IRight> Rights;
-        private static bool Added;
+        private static List<IRight> _rights;
+        private static bool _added;
 
         public RightContextMemory()
         {
-            if (!Added)
+            if (_added) return;
+            _rights = new List<IRight>
             {
-                Rights = new List<IRight>();
-                Rights.Add(new RightDto
+                new RightDto
                 {
-                    Id = 1,
-                    Name = rightTypes.Admin.ToString(),
-                    Description = rightTypes.Admin.ToString()
-                });
-                Rights.Add(new RightDto
+                    Id = 1, Name = RightTypes.Admin.ToString(), Description = RightTypes.Admin.ToString()
+                },
+                new RightDto
                 {
                     Id = 2,
-                    Name = rightTypes.Instructor.ToString(),
-                    Description = rightTypes.Instructor.ToString()
-                });
-                Rights.Add(new RightDto
+                    Name = RightTypes.Instructor.ToString(),
+                    Description = RightTypes.Instructor.ToString()
+                },
+                new RightDto
                 {
                     Id = 3,
-                    Name = rightTypes.Fitnesser.ToString(),
-                    Description = rightTypes.Fitnesser.ToString()
-                });
-                Added = true;
-            }
+                    Name = RightTypes.Fitnesser.ToString(),
+                    Description = RightTypes.Fitnesser.ToString()
+                }
+            };
+            _added = true;
         }
+        
+        
+        
+        
+        
         public IRight Read(int id)
         {
-            return Rights.SingleOrDefault(r => r.Id == id);
+            return _rights.SingleOrDefault(r => r.Id == id);
         }
-
         public IRight Read(string name)
         {
-            return Rights.SingleOrDefault(r => r.Name == name);
+            return _rights.SingleOrDefault(r => r.Name == name);
         }
-
         public IRight Read(IUser user)
         {
-            return Rights.SingleOrDefault(r => r.Name == rightTypes.Admin.ToString());
+            return _rights.SingleOrDefault(r => r.Name == RightTypes.Admin.ToString());
         }
 
-        public List<IRight> List()
+        
+        
+        
+        
+        public IEnumerable<IRight> List()
         {
-            return Rights;
+            return _rights;
         }
     }
 }

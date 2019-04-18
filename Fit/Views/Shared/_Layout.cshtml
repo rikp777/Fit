@@ -1,6 +1,5 @@
-﻿@using Interfaces
-@{
-    var authUser = ViewData["AuthUser"] as IUser;
+﻿@{
+    
 }
 <!DOCTYPE html>
 <html>
@@ -31,7 +30,32 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                @if(authUser == null)
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @User.Identity.Name
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" asp-controller="Log" asp-action="Index">Dashboard</a>
+                            <a class="dropdown-item" asp-controller="User" asp-action="Edit">Gegevens</a>
+                            <a class="dropdown-item" asp-controller="Auth" asp-action="Logout">Log Uit</a>
+                        </div>
+                    </li>
+                    if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Admin
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" asp-controller="Article" asp-action="List">Artikelen</a>
+                                <a class="dropdown-item" asp-controller="User" asp-action="List">Gebruikers</a>
+                            </div>
+                        </li>
+                    }
+                }
+                else
                 {
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Auth" asp-action="Login">Login</a>
@@ -40,31 +64,6 @@
                         <a class="nav-link" asp-controller="Auth" asp-action="Register">Registreer</a>
                     </li>
                 }
-                else
-                {
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @authUser.FirstName 
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" asp-controller="User" asp-action="Index">Dashboard</a>
-                            <a class="dropdown-item" asp-controller="User" asp-action="Edit">Gegevens</a>
-                            <a class="dropdown-item" asp-controller="Auth" asp-action="Logout">Log Uit</a>
-                        </div>
-                    </li>
-                    if (authUser.Right.Name == "Admin")
-                    {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Admin
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" asp-controller="Admin" asp-action="ListUser">Gebruikers</a>
-                            </div>
-                        </li>                         
-                    }
-                }
-
             </ul>
         </div>
     </div>

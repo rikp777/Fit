@@ -1,7 +1,7 @@
 using System;
 using Enum;
 
-namespace Interfaces
+namespace Models
 {
     public interface IFoodlog
     {

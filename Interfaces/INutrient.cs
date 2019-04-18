@@ -1,5 +1,5 @@
 
-namespace Interfaces
+namespace Models
 {
     public interface INutrient
     {

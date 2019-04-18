@@ -1,0 +1,127 @@
+@using Enum
+@model Fit.ViewModels.Article.ArticleListViewModel;
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Logs</h5>
+        <form asp-controller="Log" asp-action="add" method="post">
+            <input type="hidden" id="ArticleId" name="ArticleId" value="">
+            <div class="form-group">
+                <label for="ArticleName">Article</label>
+                <input class="form-control" type="text" placeholder="Kies een uw consumptie" id="ArticleName" name="ArticleName" readonly>
+            </div>
+            <div class="row">
+                <div class="form-group col-7">
+                    <label for="Amount">Aantal</label>
+                    <input class="form-control" type="number" id="Amount" name="Amount">
+                </div>
+                <div class="form-group col-5">
+                    <label for="Unit">Eenheid</label>
+                    <select id="Unit" class="form-control" name="Unit">
+                        <option value="@Unit.Stuks" selected>@Unit.Stuks</option>
+                        <option value="@Unit.Gram">@Unit.Gram</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="Date">Datum</label>
+                    <input class="form-control" type="date" id="Date" name="Date">
+                </div>
+                <div class="form-group col-6">
+                    <label for="Time">Tijd</label>
+                    <input class="form-control" type="time" id="Time" name="Time">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Log</button>
+        </form>
+    </div>
+</div>
+
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="form-group row">
+            <label for="colFormLabel" class="col-sm-2 col-form-label">Zoek:</label>
+            <div class="col-sm-10">
+                <input class="form-control "type="text" id="myFilter" onkeyup="Search()"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card-columns mt-5" id="myItems">
+    @foreach (var article in Model.AllArticles)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@article.Name</h5>
+                <p class="card-text">Calorieën: @article.Calories</p>
+                
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-@article.Name" aria-expanded="false" aria-controls="collapse-@article.Name">Nutrients</button>
+                <button class="btn btn-success" onclick="Add(@article.Id, '@article.Name')">Log</button>
+                
+                <div class="collapse" id="collapse-@article.Name">
+                    <ul class="list-group list-group-flush">
+                        @foreach (var nutrient in article.Nutrients)
+                        {
+                            <li class="list-group-item">@nutrient.Nutrient.Name : @nutrient.Amount</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    var clicks = 0;
+    var lastId = 0;
+    function Search() {
+        var input, filter, cards, cardContainer, h5, title, i;
+        input = document.getElementById("myFilter");
+        console.log(input);
+        filter = input.value.toUpperCase();
+        cardContainer = document.getElementById("myItems");
+        cards = cardContainer.getElementsByClassName("card");
+        for (i = 0; i < cards.length; i++) {
+            title = cards[i].querySelector(".card-body h5.card-title");
+            if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                cards[i].style.display = "";
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
+    function Add(id, name) {
+        clicks++;
+        if (lastId != id) {
+            lastId = id;
+            this.clicks = 1;
+        }
+        
+        document.getElementById("ArticleId").value = id;
+        document.getElementById("ArticleName").value = name;               
+        document.getElementById("Amount").value = clicks;
+        
+        
+        var date = new Date();
+        var currentDate = date.toISOString().slice(0,10);
+        
+        var h = date.getHours()
+        if (h < 10) {
+            h = "0" + h;
+        }
+        var m = date.getMinutes()
+        if (m < 10) {
+            m = "0" + m;
+        }
+        var currentTime = h + ':' + m;
+        console.log(currentTime);
+        
+        document.getElementById("Date").value = currentDate;
+        document.getElementById("Time").value = currentTime;
+    }
+</script>

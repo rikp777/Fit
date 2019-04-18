@@ -1,116 +1,133 @@
 using System;
 using System.Collections.Generic;
+using System.IO.MemoryMappedFiles;
 using System.Linq;
 using Data.Contexts.Interfaces;
-using Data.dto;
-using Interfaces;
+using Data.Contexts.SQLContexts;
+using Data.Dto;
+using Data.Repositories.Interfaces;
+using Models;
 
 namespace Data.Contexts.MemoryContexts
 {
     public class ArticleContextMemory : IArticleContext
     {
-        private static List<IArticle> Articles;
-        private static bool Added;
+        private static List<IArticle> _articles;
+        private static bool _added;
 
         public ArticleContextMemory()
         {
-            if (!Added)
+            if (_added) return;
+            var nutrients = new NutrientContextMemory().List();
+            _articles = new List<IArticle>
             {
-                IEnumerable<INutrient> nutrients = new NutrientContextMemory().List();
-                Articles = new List<IArticle>();
-                Articles.Add(new ArticleDto()
+                new ArticleDto
                 {
                     Id = 1,
                     Name = "Banaan",
                     Calories = 86,
                     Nutrients = new List<INutrientIntake>
                     {
-                        new NutrientIntakeDto()
+                        new NutrientIntakeDto
                         {
-                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 1),
-                            Amount = 0.3                             
+                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 1), Amount = 0.3
                         },
-                        new NutrientIntakeDto()
+                        new NutrientIntakeDto
                         {
-                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 2),
-                            Amount = 0.001                             
+                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 2), Amount = 0.001
                         },
-                        new NutrientIntakeDto()
+                        new NutrientIntakeDto
                         {
-                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 3),
-                            Amount = 4.7                             
+                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 3), Amount = 4.7
                         },
-                        new NutrientIntakeDto()
+                        new NutrientIntakeDto
                         {
-                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 4),
-                            Amount = 23                         
+                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 4), Amount = 23
                         },
-                        new NutrientIntakeDto()
+                        new NutrientIntakeDto
                         {
-                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 5),
-                            Amount = 46                            
-                        }                      
+                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 5), Amount = 46
+                        }
                     }
-                });
-                Articles.Add(new ArticleDto()
+                },
+                new ArticleDto
                 {
                     Id = 2,
                     Name = "Appel",
                     Calories = 86,
                     Nutrients = new List<INutrientIntake>
                     {
-                        new NutrientIntakeDto()
+                        new NutrientIntakeDto
                         {
-                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 1),
-                            Amount = 44                            
+                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 1), Amount = 44
                         },
-                        new NutrientIntakeDto()
+                        new NutrientIntakeDto
                         {
-                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 4),
-                            Amount = 150                      
+                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 4), Amount = 150
                         },
-                        new NutrientIntakeDto()
+                        new NutrientIntakeDto
                         {
-                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 5),
-                            Amount = 46                            
-                        }                      
+                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 5), Amount = 46
+                        }
                     }
-                });
-                Added = true;      
-            }
+                }
+            };
+            _added = true;
         }
+        private static ArticleDto Map(IArticle article)
+        {     
+            var articleDto = new ArticleDto
+            {
+                Id =  _articles.Max(u => u.Id) + 1,
+                Name = article.Name,
+                Calories = article.Calories,
+                Nutrients = article.Nutrients               
+            };
+            return articleDto;
+        }
+
+        
+        
+        
+        
+        public bool Create(IArticle article)
+        {
+            if (_articles.SingleOrDefault(u => u.Name == article.Name) != null) return false;
+                       
+            _articles.Add(Map(article));
+            
+            return true;
+        }
+        
+        
+        
+        
 
         public IArticle Read(int id)
         {
-            return Articles.SingleOrDefault(u => u.Id == id);
+            return _articles.SingleOrDefault(u => u.Id == id);
         }
-
         public IArticle Read(string name)
         {
-            return Articles.SingleOrDefault(u => u.Name == name);
+            return _articles.SingleOrDefault(u => u.Name == name);
         }
-
-        public IEnumerable<IArticle> List()
+        public IArticle Read(IArticle article)
         {
-            IEnumerable<IArticle> IArticles = new List<IArticle>(Articles);
-            return IArticles;
+            return _articles.SingleOrDefault(u => u.Id == article.Id);
         }
-
-        public bool Create(IArticle article)
-        {
-            if (Articles.SingleOrDefault(u => u.Name == article.Name) == null && Articles.SingleOrDefault(u => u.Id == article.Id) == null)
-            {
-                Articles.Add((ArticleDto) article);
-                return true;
-            }
-            return false;
-        }
+        
+        
+        
+        
 
         public bool Update(IArticle article)
         {
             try
             {
-                Articles[(int) (article.Id) - 1] = (ArticleDto) article;
+                if (_articles.SingleOrDefault(u => u.Name == article.Name) != null) return false;
+                
+                _articles[article.Id - 1] = Map(article);
+                
                 return true;
             }
             catch (Exception e)
@@ -119,12 +136,16 @@ namespace Data.Contexts.MemoryContexts
             }
             return false;
         }
-
+        
+            
+        
+        
+        
         public bool Delete(int id)
         {
             try
             {
-                Articles.Remove(Articles.SingleOrDefault(u => u.Id == id));
+                _articles.Remove(_articles.SingleOrDefault(u => u.Id == id));
                 return true;
             }
             catch (Exception e)
@@ -132,6 +153,25 @@ namespace Data.Contexts.MemoryContexts
                 Console.WriteLine(e);
             }
             return false;
+        }
+        
+        
+        
+        
+        
+        public IEnumerable<IArticle> List()
+        {
+            return _articles;
+        }
+
+        
+        
+        
+        
+        //TODO ListMostPopular 
+        public IEnumerable<IArticle> ListMostPopular()
+        {
+            return null;
         }
     }
 }

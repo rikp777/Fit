@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Data.Contexts.Interfaces;
-using Interfaces;
+using Models;
 
 namespace Data.Contexts.SQLContexts
 {
@@ -11,7 +11,22 @@ namespace Data.Contexts.SQLContexts
             throw new System.NotImplementedException();
         }
 
+        public IFoodlog Read(IFoodlog foodlog)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IFoodlog ReadLast(IUser user)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IEnumerable<IFoodlog> List()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IEnumerable<IFoodlog> List(IUser user)
         {
             throw new System.NotImplementedException();
         }

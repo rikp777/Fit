@@ -1,13 +1,15 @@
+using System;
 using System.Collections.Generic;
 using Data.Contexts;
 using Data.Contexts.Interfaces;
 using Data.Contexts.MemoryContexts;
 using Data.Contexts.SQLContexts;
-using Interfaces;
+using Data.Repositories.Interfaces;
+using Models;
 
 namespace Data.Repositories
 {
-    public class FoodlogRepository
+    public class FoodlogRepository : IFoodlogRepository
     {
         private readonly IFoodlogContext _context;
 
@@ -18,18 +20,25 @@ namespace Data.Repositories
                 case StorageTypeSetting.StorageTypes.SQL :
                     _context = new FoodlogContextSQL();   
                     break;
-                default: 
-                    _context = new FoodlogContextMemory();    
-                    break; 
+                case StorageTypeSetting.StorageTypes.Memory:
+                    _context = new FoodlogContextMemory();  
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(storageType), storageType, "Set Storage Type");
             }
         }
 
-        public IFoodlog GetBy(int id)
-        {
-            IFoodlog foodlog = _context.Read(id);
+        
+        
+        
+        
+        public IFoodlog GetBy(int id) => _context.Read(id);
+        public IFoodlog GetBy(IFoodlog foodlog) => _context.Read(foodlog);
+        public IFoodlog GetLastBy(IUser user) => _context.ReadLast(user);
 
-            return foodlog;
-        }
+        
+        
+        
         
         public IEnumerable<IFoodlog> GetAll()
         {
@@ -37,19 +46,21 @@ namespace Data.Repositories
         }
         public IEnumerable<IFoodlog> GetAllBy(IUser user)
         {
-            return _context.ListFromUser(user);
+            return _context.List(user);
         }
+        
+        
+        
+        
         
         public bool Add(IFoodlog foodlog)
         {
             return _context.Create(foodlog);
         }
-
         public bool Edit(IFoodlog foodlog)
         {
             return _context.Update(foodlog);
         }
-
         public bool Delete(int id)
         {
             return _context.Delete(id);

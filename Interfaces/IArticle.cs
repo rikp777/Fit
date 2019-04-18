@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 
-namespace Interfaces
+namespace Models
 {
     public interface IArticle
     {
-        int Id { get; set; }
-        string Name { get; set; }
-        int Calories { get; set; }
-        IEnumerable<INutrientIntake> Nutrients { get; set; }
+        int Id { get;}
+        string Name { get; }
+        int Calories { get; }
+        IEnumerable<INutrientIntake> Nutrients { get; }
     }
 }

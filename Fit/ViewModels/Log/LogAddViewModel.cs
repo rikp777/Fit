@@ -2,7 +2,7 @@ using System;
 
 namespace Fit.ViewModels.Log
 {
-    public class LogViewModel
+    public class LogAddViewModel
     {
         public int ArticleId { get; set; }
         public string ArticleName { get; set; }

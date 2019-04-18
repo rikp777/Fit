@@ -1,6 +1,5 @@
 @using Enum
-@using Fit.ViewModels.Auth
-@using Interfaces
+@using Models
 @model Fit.ViewModels.Article.ArticleListViewModel;
 
 @{
@@ -8,57 +7,21 @@
     Layout = "_Layout";
     var authUser = ViewData["AuthUser"] as IUser;
 }
-@* <div class="card"> *@
-@*     <div class="card-body"> *@
-@*         Log *@
-@*     </div> *@
-@* </div> *@
-@* <input class="input-lg" type="text" placeholder="Zoek"> *@
-@if (authUser != null)
-{
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Logs</h5>
-            <form asp-controller="Log" asp-action="add" method="post">
-                <input type="hidden" id="ArticleId" name="ArticleId" value="">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Article</label>
-                    <input class="form-control" type="text" placeholder="Kies een uw consumptie" id="ArticleName" name="ArticleName" readonly>
-                </div>
-                <div class="row">
-                    <div class="form-group col-7">
-                        <label for="exampleInputEmail1">Aantal</label>
-                        <input class="form-control" type="number" id="Amount" name="Amount">
-                    </div>
-                    <div class="form-group col-5">
-                        <label for="inputState">Eenheid</label>
-                        <select id="inputState" class="form-control" name="Unit">
-                            <option value="@Unit.Stuks" selected>@Unit.Stuks</option>
-                            <option value="@Unit.Gram">@Unit.Gram</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-6">
-                        <label for="exampleInputEmail1">Datum</label>
-                        <input class="form-control" type="date" id="Date" name="Date">
-                    </div>
-                    <div class="form-group col-6">
-                        <label for="exampleInputEmail1">Tijd</label>
-                        <input class="form-control" type="time" id="Time" name="Time">
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-success">Log</button>
-            </form>
-        </div>
-    </div>
-}
 <div class="card mt-2">
     <div class="card-body">
-        <input class="form-control "type="text" id="myFilter" onkeyup="Search()"/> 
+        <div class="form-group row">
+            <label for="colFormLabel" class="col-sm-2 col-form-label">Zoek:</label>
+            <div class="col-sm-10">
+                <input class="form-control "type="text" id="myFilter" onkeyup="Search()"/>
+            </div>
+        </div>
     </div>
 </div>
+@if(User.IsInRole("Admin"))
+{
+    <a class="btn btn-success mt-2" asp-controller="Article" asp-action="Add">Add</a>
+}
+<a class="btn btn-success mt-2" asp-controller="Log" asp-action="Add">Consumpties loggen</a>
 <div class="card-columns mt-5" id="myItems">
     @foreach (var article in Model.AllArticles)
     {
@@ -66,13 +29,12 @@
             <div class="card-body">
                 <h5 class="card-title">@article.Name</h5>
                 <p class="card-text">Calorieën: @article.Calories</p>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-@article.Name" aria-expanded="false" aria-controls="collapse-@article.Name">
-                    Nutrients
-                </button>
-                @if (authUser != null)
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-@article.Name" aria-expanded="false" aria-controls="collapse-@article.Name">Nutrients</button>
+                @if(User.IsInRole("Admin"))
                 {
-                    <button class="btn btn-success" onclick="Add(@article.Id, '@article.Name')">Log</button>
-                }               
+                    <button class="btn btn-warning" asp-controller="Article" asp-action="Edit" >Edit</button>
+                    <button class="btn btn-danger" asp-controller="Article" asp-action="Delete" >Delete</button>
+                }
                 <div class="collapse" id="collapse-@article.Name">
                     <ul class="list-group list-group-flush">
                         @foreach (var nutrient in article.Nutrients)
@@ -103,25 +65,6 @@
                 cards[i].style.display = "none";
             }
         }
-    }
-    function Add(id, name) {
-        clicks++;
-        if (lastId != id) {
-            lastId = id;
-            this.clicks = 1;
-        }
-        
-        document.getElementById("ArticleId").value = id;
-        document.getElementById("ArticleName").value = name;               
-        document.getElementById("Amount").value = clicks;
-        
-        
-        var date = new Date();
-        var currentDate = date.toISOString().slice(0,10);
-        var currentTime = date.getHours() + ':' + date.getMinutes();
-        
-        document.getElementById("Date").value = currentDate;
-        document.getElementById("Time").value = currentTime;
     }
 </script>
 

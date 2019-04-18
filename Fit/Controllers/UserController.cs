@@ -3,54 +3,73 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Data.Contexts.SQLContexts;
-using Data.dto;
 using Fit.ViewModels.Auth;
 using Fit.ViewModels.User;
-using Interfaces;
 using Logic;
 using Logic.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Models;
 
 namespace Fit.Controllers
 {
     public class UserController : Controller
     {
-        private readonly UserLogic _userLogic = new UserLogic();
-        private readonly FoodlogLogic _foodlogLogic = new FoodlogLogic();
-        private readonly RightLogic _rightLogic = new RightLogic();
+        private readonly UserLogic _userLogic;
+        private readonly FoodlogLogic _foodlogLogic;
+        private readonly RightLogic _rightLogic;
   
-        private AuthController _auth = new AuthController();
 
+        public UserController(UserLogic userLogic, FoodlogLogic foodlogLogic, RightLogic rightLogic)
+        {
+            _userLogic = userLogic;
+            _foodlogLogic = foodlogLogic;
+            _rightLogic = rightLogic;
+        }
+        
+        /// <summary>
+        ///
+        ///    Create In AuthController 
+        /// 
+        /// </summary>  
+        
+        
+        
+        
+        /// <summary>
+        ///
+        ///    Read
+        /// 
+        /// </summary>        
         [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
-
+        
+        /// <summary>
+        ///
+        ///    Update
+        /// 
+        /// </summary>       
+        [Authorize]
         [HttpGet]
-        public IActionResult Edit()
+        public IActionResult Edit(int id)
         {            
-            var authUser = _auth.GetAuth(HttpContext);
-            ViewData["AuthUser"] = authUser;
-            if (authUser != null)
-            {
-                UserEditViewModel viewModel = new UserEditViewModel();           
-        
-                var user = _userLogic.GetBy(authUser.Id);
-                viewModel.Id = user.Id;
-                viewModel.Email = user.Email;
-                viewModel.FirstName = user.Email;
-                viewModel.LastName = user.LastName;
-                viewModel.BirthDate = user.BirthDate;
-                viewModel.Length = user.Length;
-                viewModel.Right = user.Right as IRight;
-        
-                return View(viewModel);       
-            }
-            return RedirectToAction("Login", "Auth");
+            UserEditViewModel viewModel = new UserEditViewModel();           
+    
+            var user = _userLogic.GetBy(id);
+            viewModel.Id = user.Id;
+            viewModel.Email = user.Email;
+            viewModel.FirstName = user.Email;
+            viewModel.LastName = user.LastName;
+            viewModel.BirthDate = user.BirthDate;
+            viewModel.Length = user.Length;
+            viewModel.Right = user.Right;
+    
+            return View(viewModel);       
         }
-
         [HttpPost]
         public IActionResult Edit(UserEditViewModel data)
         {
@@ -67,6 +86,34 @@ namespace Fit.Controllers
             }
             return View(data);
         }
+        
+        /// <summary>
+        ///
+        ///    Delete
+        /// 
+        /// </summary>
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            
+            var success = _userLogic.Delete(id);
+            return RedirectToAction("List");
+        }
+        
+        
+        /// <summary>
+        ///
+        ///    List
+        ///     
+        /// </summary>
+        [HttpGet]
+        public IActionResult List()
+        {
+            UserListViewModel viewModel = new UserListViewModel();
+            viewModel.AllUsers = _userLogic.GetAll();
+            return View(viewModel);
+        }        
+       
               
     }
 }

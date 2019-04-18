@@ -1,15 +1,29 @@
 using System.Collections.Generic;
-using Interfaces;
+using Models;
 
 namespace Data.Contexts.Interfaces
 {
     public interface IFoodlogContext
     {
-        IFoodlog Read(int id);
-        IEnumerable<IFoodlog> List();
-        IEnumerable<IFoodlog> ListFromUser(IUser user);
         bool Create(IFoodlog foodlog);
+        
+        
+        
+        IFoodlog Read(int id);
+        IFoodlog Read(IFoodlog foodlog);
+        IFoodlog ReadLast(IUser user);
+        
+        
+        
         bool Update(IFoodlog foodlog);
+        
+        
+        
         bool Delete(int id);
+        
+        
+        
+        IEnumerable<IFoodlog> List();
+        IEnumerable<IFoodlog> List(IUser user);      
     }
 }

@@ -1,6 +1,6 @@
 using System;
 using Enum;
-using Interfaces;
+using Models;
 
 namespace Fit.Models
 {

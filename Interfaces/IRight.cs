@@ -1,4 +1,4 @@
-namespace Interfaces
+namespace Models
 {
     public interface IRight
     {
