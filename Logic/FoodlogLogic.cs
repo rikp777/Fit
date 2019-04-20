@@ -31,7 +31,19 @@ namespace Logic
         
         
         
-        
-        public bool Add(IFoodlog foodlog) => _repository.Add(foodlog);
+        /// <summary>
+        /// 
+        ///     Update
+        ///
+        ///     Right    = All
+        ///
+        ///     Exception     = Foodlog.Article cant be null
+        ///
+        /// </summary>
+        public bool Add(IFoodlog foodlog)
+        {
+            
+            return _repository.Add(foodlog);
+        }
     }
 }

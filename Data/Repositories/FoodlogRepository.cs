@@ -40,30 +40,15 @@ namespace Data.Repositories
         
         
         
-        public IEnumerable<IFoodlog> GetAll()
-        {
-            return _context.List();
-        }
-        public IEnumerable<IFoodlog> GetAllBy(IUser user)
-        {
-            return _context.List(user);
-        }
-        
-        
-        
-        
-        
-        public bool Add(IFoodlog foodlog)
-        {
-            return _context.Create(foodlog);
-        }
-        public bool Edit(IFoodlog foodlog)
-        {
-            return _context.Update(foodlog);
-        }
-        public bool Delete(int id)
-        {
-            return _context.Delete(id);
-        }
+        public IEnumerable<IFoodlog> GetAll() => _context.List();
+        public IEnumerable<IFoodlog> GetAllBy(IUser user) => _context.List(user);
+
+
+
+
+
+        public bool Add(IFoodlog foodlog) => _context.Create(foodlog);
+        public bool Edit(IFoodlog foodlog) => _context.Update(foodlog);
+        public bool Delete(int id) => _context.Delete(id);
     }
 }

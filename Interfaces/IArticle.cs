@@ -7,6 +7,6 @@ namespace Models
         int Id { get;}
         string Name { get; }
         int Calories { get; }
-        IEnumerable<INutrientIntake> Nutrients { get; }
+        IEnumerable<INutrientIntake> NutrientIntakes { get; }
     }
 }

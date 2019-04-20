@@ -1,13 +1,15 @@
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
 
 namespace Fit.ViewModels.Article
 {
-    public class ArticleAddViewModel : IArticle
+    public class ArticleAddViewModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public int Calories { get; set; }
-        public IEnumerable<INutrientIntake> Nutrients { get; set; }
+        public IEnumerable<INutrientIntake> NutrientIntakes { get; set; }
+        public List<int> NutrientIds { get; set; }
+        public IEnumerable<SelectListItem> NutientsList { get; set; }
     }
 }

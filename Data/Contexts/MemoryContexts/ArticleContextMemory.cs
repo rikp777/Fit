@@ -26,7 +26,7 @@ namespace Data.Contexts.MemoryContexts
                     Id = 1,
                     Name = "Banaan",
                     Calories = 86,
-                    Nutrients = new List<INutrientIntake>
+                    NutrientIntakes = new List<INutrientIntake>
                     {
                         new NutrientIntakeDto
                         {
@@ -55,7 +55,7 @@ namespace Data.Contexts.MemoryContexts
                     Id = 2,
                     Name = "Appel",
                     Calories = 86,
-                    Nutrients = new List<INutrientIntake>
+                    NutrientIntakes = new List<INutrientIntake>
                     {
                         new NutrientIntakeDto
                         {
@@ -81,7 +81,7 @@ namespace Data.Contexts.MemoryContexts
                 Id =  _articles.Max(u => u.Id) + 1,
                 Name = article.Name,
                 Calories = article.Calories,
-                Nutrients = article.Nutrients               
+                NutrientIntakes = article.NutrientIntakes               
             };
             return articleDto;
         }

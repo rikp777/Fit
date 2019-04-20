@@ -58,6 +58,5 @@ namespace Data.Repositories
 
 
         public bool CheckAuth(string email, string password) => _context.Auth(email, password);
-
     }
 }

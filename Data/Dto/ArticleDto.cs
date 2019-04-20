@@ -8,6 +8,6 @@ namespace Data.Dto
         public int Id { get; set; }
         public string Name { get; set; }
         public int Calories { get; set; }
-        public IEnumerable<INutrientIntake> Nutrients { get; set; }
+        public IEnumerable<INutrientIntake> NutrientIntakes { get; set; }
     }
 }

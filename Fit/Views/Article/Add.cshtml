@@ -1,3 +1,4 @@
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @model Fit.ViewModels.Article.ArticleAddViewModel;
 @{
     ViewBag.Title = "title";
@@ -6,23 +7,38 @@
 <div class="card">
     <div class="card-body">
         <form class="form" asp-controller="Article" asp-action="Add">
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label asp-for="@Model.Name">Article Naam</label>
-                    <input type="text" class="form-control" placeholder="First name" asp-for="@Model.Name" required>
+            
+            @if (Model.NutrientIntakes == null)
+            {
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="Name">Artikel Naam</label>
+                        <input type="text" class="form-control" placeholder="First name" id="Name" name="Name" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="Calories">Calorieën</label>
+                        <input type="number" class="form-control" placeholder="First name" id="Calories" name="Calories" required>
+                    </div>         
                 </div>
-                <div class="form-group col-md-6">
-                    <label asp-for="@Model.Calories">Calorieën</label>
-                    <input type="number" class="form-control" placeholder="First name" asp-for="@Model.Calories" required>
-                </div>
-                <ul class="list-group">
-                @foreach (var nutrient in Model.Nutrients)
-                {                  
-                    <li class="list-group-item active">@nutrient.</li>              
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="NutrientIntake">Voedingstoffen</label>
+                        <select multiple="multiple" class="form-control" id="NutrientIntake" asp-for="@Model.NutrientIds" asp-items="Model.NutientsList"></select>
+                    </div>
+                </div> 
+            }
+            else
+            {
+                foreach (var nutrient in Model.NutrientIntakes)
+                {
+                    <div class="form-group">
+                        <label for="Calories">@nutrient.Nutrient.Name</label>
+                        <input type="number" class="form-control" placeholder="Hoeveelheid" asp-for="@nutrient.Amount" required>
+                    </div>
                 }
-                </ul>
-            </div>
+            }          
+            
+            <button type="submit" class="btn btn-success">Submit</button>
         </form>
-
     </div>
 </div>

@@ -24,7 +24,7 @@
                                   </div>
                                   <p class="mb-1">U heeft om @breakfast.DateTime.Hour:@breakfast.DateTime.Minute geloged dat u @breakfast.Amount @breakfast.Unit @breakfast.Article.Name heeft gegeten</p>
                                   <ul>
-                                      @foreach (var nutrient in breakfast.Article.Nutrients)
+                                      @foreach (var nutrient in breakfast.Article.NutrientIntakes)
                                       {
                                           <li>
                                               <small>@nutrient.Nutrient.Name</small>
