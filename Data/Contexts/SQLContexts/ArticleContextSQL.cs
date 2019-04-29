@@ -6,6 +6,11 @@ namespace Data.Contexts.SQLContexts
 {
     public class ArticleContextSQL : IArticleContext
     {
+        public bool CreateNutrientIntake(int articleId, INutrientIntake newNutrientIntake)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IArticle Read(int id)
         {
             throw new System.NotImplementedException();
@@ -21,6 +26,11 @@ namespace Data.Contexts.SQLContexts
             throw new System.NotImplementedException();
         }
 
+        public bool DeleteNutrientIntake(int articleId, INutrientIntake newNutrientIntake)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IEnumerable<IArticle> List()
         {
             throw new System.NotImplementedException();
@@ -32,6 +42,11 @@ namespace Data.Contexts.SQLContexts
         }
 
         public bool Update(IArticle article)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool UpdateNutrientIntake(int articleId, INutrientIntake newNutrientIntake)
         {
             throw new System.NotImplementedException();
         }

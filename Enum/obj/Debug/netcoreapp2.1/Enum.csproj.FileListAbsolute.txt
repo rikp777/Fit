@@ -1,0 +1,9 @@
+D:\Fontys\Semester_3\Individueel\Fit\Enum\bin\Debug\netcoreapp2.1\Enum.deps.json
+D:\Fontys\Semester_3\Individueel\Fit\Enum\bin\Debug\netcoreapp2.1\Enum.dll
+D:\Fontys\Semester_3\Individueel\Fit\Enum\bin\Debug\netcoreapp2.1\Enum.pdb
+D:\Fontys\Semester_3\Individueel\Fit\Enum\obj\Debug\netcoreapp2.1\Enum.csprojAssemblyReference.cache
+D:\Fontys\Semester_3\Individueel\Fit\Enum\obj\Debug\netcoreapp2.1\Enum.csproj.CoreCompileInputs.cache
+D:\Fontys\Semester_3\Individueel\Fit\Enum\obj\Debug\netcoreapp2.1\Enum.AssemblyInfoInputs.cache
+D:\Fontys\Semester_3\Individueel\Fit\Enum\obj\Debug\netcoreapp2.1\Enum.AssemblyInfo.cs
+D:\Fontys\Semester_3\Individueel\Fit\Enum\obj\Debug\netcoreapp2.1\Enum.dll
+D:\Fontys\Semester_3\Individueel\Fit\Enum\obj\Debug\netcoreapp2.1\Enum.pdb

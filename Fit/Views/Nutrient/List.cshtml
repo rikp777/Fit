@@ -1,0 +1,62 @@
+@model Fit.ViewModels.Nutrient.NutrientListViewModel;
+
+@{
+    ViewBag.Title = "Lijst Voedingsstoffen";
+    Layout = "_Layout";
+}
+<div class="card mt-2">
+    <div class="card-body">
+        <div class="form-group row">
+            <label for="colFormLabel" class="col-sm-2 col-form-label">Zoek:</label>
+            <div class="col-sm-10">
+                <input class="form-control "type="text" id="myFilter" onkeyup="Search()"/>
+            </div>
+        </div>
+    </div>
+</div>
+@if(User.IsInRole("Admin"))
+{
+    <a class="btn btn-success mt-2" asp-controller="Nutrient" asp-action="Add">Add</a>
+}
+<div class="card-columns mt-5" id="myItems">
+    @foreach (var nutrient in Model.AllNutrients)
+    {
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title">@nutrient.Name</h5>
+                        <p class="card-text">Max inname: @nutrient.MaxIntake</p>
+                    </div>                   
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="col">
+                            <a class="btn-sm btn-warning" asp-controller="Nutrient" asp-action="Edit" asp-route-id="@nutrient.Id">Wijzig</a>
+                            <a class="btn-sm btn-danger" asp-controller="Nutrient" asp-action="Delete" asp-route-id="@nutrient.Id">Verwijder</a>
+                        </div>
+                    }         
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    var clicks = 0;
+    var lastId = 0;
+    function Search() {
+        var input, filter, cards, cardContainer, h5, title, i;
+        input = document.getElementById("myFilter");
+        console.log(input);
+        filter = input.value.toUpperCase();
+        cardContainer = document.getElementById("myItems");
+        cards = cardContainer.getElementsByClassName("card");
+        for (i = 0; i < cards.length; i++) {
+            title = cards[i].querySelector(".card-body h5.card-title");
+            if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                cards[i].style.display = "";
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
+</script>

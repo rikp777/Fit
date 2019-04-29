@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Data.Contexts.Interfaces;
+using Data.Dto;
 using Models;
 
 namespace Data.Contexts.SQLContexts

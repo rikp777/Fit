@@ -15,12 +15,14 @@ namespace Logic
         private readonly ArticleRepository _articleRepository;
         private readonly UserRepository _userRepository;
         private readonly NutrientRepository _nutrientRepository;
+        private readonly NutrientIntakeRepository _nutrientIntakeRepository;
 
         public ArticleLogic()
         {
             _articleRepository = new ArticleRepository(StorageTypeSetting.Setting);
             _userRepository = new UserRepository(StorageTypeSetting.Setting);
             _nutrientRepository = new NutrientRepository(StorageTypeSetting.Setting);
+            _nutrientIntakeRepository = new NutrientIntakeRepository(StorageTypeSetting.Setting);
         }
    
         
@@ -36,10 +38,9 @@ namespace Logic
         
         
         public IEnumerable<IArticle> GetAll() => _articleRepository.GetAll();
+            
 
-
-        
-        
+               
 
         /// <summary>
         /// 
@@ -52,16 +53,29 @@ namespace Logic
         /// </summary>
         public bool Add(int userId, IArticle article)
         {
-            if (!CheckRight(userId, Right.Admin)) return false;
-            if (!CheckRight(userId, Right.Instuctor)) return false;
+            if (!CheckRight(userId, Right.Admin) || CheckRight(userId, Right.Instuctor)) return false;
             
             
-            if (!validation(article)) return false;                   
+            if (_articleRepository.GetBy(article.Name) != null) return false;
+            if (!validation(article)) return false;             
             
             
             return _articleRepository.Add(article);
         }
+        public bool AddNutrientIntake(int userId, int articleId, INutrientIntake nutrientIntake)
+        {
+            if (!CheckRight(userId, Right.Admin) || CheckRight(userId, Right.Instuctor)) return false;
+            var article = _articleRepository.GetBy(articleId);
 
+            if (article.NutrientIntakes != null)
+            {
+                if(article.NutrientIntakes.Any(a => article.NutrientIntakes.All(n => n.Nutrient.Name == nutrientIntake.Nutrient.Name))) return false; 
+            }
+            
+
+
+            return _nutrientIntakeRepository.Add(articleId, nutrientIntake);
+        }
         
 
         
@@ -76,14 +90,25 @@ namespace Logic
         /// </summary>
         public bool Edit(int userId, IArticle article)
         {
-            if (!CheckRight(userId, Right.Admin)) return false;
-            if (!CheckRight(userId, Right.Instuctor)) return false;
+            if (!CheckRight(userId, Right.Admin) || CheckRight(userId, Right.Instuctor)) return false;
             
             
             if (!validation(article)) return false;  
             
             
             return _articleRepository.Edit(article);
+        }
+
+        public bool EditNutrientIntake(int userId, int articleId, INutrientIntake nutrientIntake)
+        {
+            if (!CheckRight(userId, Right.Admin) || CheckRight(userId, Right.Instuctor)) return false;
+            var article = _articleRepository.GetBy(articleId);
+            
+            //if(article.NutrientIntakes.Where(a => article.NutrientIntakes.All(n => n.Nutrient.Name == nutrientIntake.Nutrient.Name)) != null) return false;
+            //if(article.NutrientIntakes.Any(a => article.NutrientIntakes.All(n => n.Nutrient.Name == nutrientIntake.Nutrient.Name))) return false;
+
+
+            return _nutrientIntakeRepository.Edit(articleId, nutrientIntake);
         }
               
         
@@ -100,14 +125,21 @@ namespace Logic
         /// </summary>
         public bool Delete(int userId, int id)
         {
-            if (!CheckRight(userId, Right.Admin)) return false;
-            if (!CheckRight(userId, Right.Instuctor)) return false;
+            if (!CheckRight(userId, Right.Admin) || CheckRight(userId, Right.Instuctor)) return false;
 
+            
             if (_articleRepository.GetBy(id) == null) return false;
             
             
             return _articleRepository.Delete(id);
-        } 
+        }
+
+        public bool DeleteNutrientIntake(int userId, int articleId, INutrientIntake nutrientIntake)
+        {
+            if (!CheckRight(userId, Right.Admin) || CheckRight(userId, Right.Instuctor)) return false;
+            
+            return _nutrientIntakeRepository.Delete(articleId, nutrientIntake);
+        }
 
         
         
@@ -124,29 +156,26 @@ namespace Logic
         ///
         ///     return true when valid
         /// 
-        ///     Exception      = No Duplicates by name
-        ///                    = Nutrient cant be null
-        ///                    = Nutrients must exist 
-        ///
+        ///     Exception      = 
         ///                    = Calories cant be more than 2000
         ///                    = Name cant be more than 50 
         ///
         /// </summary>
         private bool validation(IArticle article)
-        {
-            var articleData = _articleRepository.GetBy(article);            
-            
-            
-            if (articleData.Name == article.Name) return false;
-            if (!article.NutrientIntakes.Any()) return false;
-            foreach (var nutrientIntake in article.NutrientIntakes)
-            {
-                if (_nutrientRepository.GetBy(nutrientIntake.Nutrient) == null) return false;
-            }
+        {                          
+//            if (!article.NutrientIntakes.Any()) return false;
+//            foreach (var nutrientIntake in article.NutrientIntakes)
+//            {
+//                if (_nutrientRepository.GetBy(nutrientIntake.Nutrient) == null) return false;
+//            }
             
             
             if (article.Calories > 2000) return false;
-            if (article.Name.Length > 50) return false;
+            if (article.Name != null)
+            {
+                if (article.Name.Length > 50) return false;
+            }
+            
 
             
             return true;
@@ -156,12 +185,8 @@ namespace Logic
         private bool CheckRight(int id, Right right)
         {
             var UserData = _userRepository.GetBy(id);
-
-            
-            if (UserData.Right.Name == right.ToString()) return true;
-
-            
-            return false;
+           
+            return UserData.Right.Name == right.ToString();
         }
     }
 }

@@ -28,8 +28,7 @@ namespace Fit.Controllers
             _rightLogic = rightLogic;
             _userLogic = userLogic;
         }
-        
-        
+            
         
         /// <summary>
         ///

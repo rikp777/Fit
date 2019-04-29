@@ -8,6 +8,7 @@
 <div class="card">
     <div class="card-body">
         <h5 class="card-title">Logs</h5>
+        @ViewData["message"]
         <form asp-controller="Log" asp-action="add" method="post">
             <input type="hidden" id="ArticleId" name="ArticleId" value="">
             <div class="form-group">

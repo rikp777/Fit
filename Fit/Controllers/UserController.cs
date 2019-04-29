@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Claims;
 using Data.Contexts.SQLContexts;
+using Enum;
+using Fit.Models;
 using Fit.ViewModels.Auth;
 using Fit.ViewModels.User;
 using Logic;
@@ -57,34 +60,68 @@ namespace Fit.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {            
-            UserEditViewModel viewModel = new UserEditViewModel();           
-    
-            var user = _userLogic.GetBy(id);
-            viewModel.Id = user.Id;
-            viewModel.Email = user.Email;
-            viewModel.FirstName = user.Email;
-            viewModel.LastName = user.LastName;
-            viewModel.BirthDate = user.BirthDate;
-            viewModel.Length = user.Length;
-            viewModel.Right = user.Right;
-    
+            var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);
+            
+            var user = _userLogic.GetBy(User.IsInRole("Admin") ? id : userId);
+
+            var viewModel = new UserEditViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = user.Email,
+                LastName = user.LastName,
+                BirthDate = user.BirthDate,
+                Length = user.Length,
+                Rights = _rightLogic.GetAll().Select(a => new SelectListItem
+                {
+                    Text = a.Name, 
+                    Value = a.Id.ToString(), 
+                    Selected = a.Id == user.Right.Id
+                })
+            };
+
+
+
             return View(viewModel);       
         }
+        [Authorize]
         [HttpPost]
-        public IActionResult Edit(UserEditViewModel data)
+        public IActionResult Edit(int id, UserEditViewModel data)
         {
-            var user = _userLogic.GetBy(data.Id);
-            user.FirstName = data.FirstName;
-            user.LastName = data.LastName;
-            user.BirthDate = data.BirthDate;
-            user.Length = data.Length;
+            var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);
+            var authUser = _userLogic.GetBy(data.Id);
             
-            var success = _userLogic.ChangeUser(user);          
+            var oldUser = _userLogic.GetBy(id);
+            var user = new User
+            {
+                Id = 0,
+                FirstName = data.FirstName,
+                LastName = data.LastName,
+                BirthDate = data.BirthDate,
+                Length = data.Length,
+                Email = data.Email,
+                Blocked = oldUser.Blocked,
+                Right = oldUser.Right,
+            };
+
+            bool success;
+            if (authUser.Right.Name == Right.Admin.ToString())
+            {
+                user.Right = _rightLogic.GetBy(data.Right);
+                user.Blocked = data.Blocked;
+                success = _userLogic.Edit(userId, user); 
+            }
+            else
+            {
+                success = _userLogic.ChangeUser(user);
+            }
+                           
             if (success)
             {
                 return RedirectToAction("index", "Home");
             }
-            return View(data);
+            
+            return RedirectToAction("Edit" , new { id = data.Id});
         }
         
         /// <summary>

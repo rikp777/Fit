@@ -3,11 +3,9 @@ using Models;
 
 namespace Fit.ViewModels.Article
 {
-    public class ArticleEditViewModel : IArticle
+    public class ArticleEditViewModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public int Calories { get; set; }
-        public IEnumerable<INutrientIntake> NutrientIntakes { get; set; }
     }
 }

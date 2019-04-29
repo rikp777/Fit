@@ -4,7 +4,8 @@ namespace Data.Dto
 {
     public class NutrientIntakeDto : INutrientIntake
     {
-        public INutrient Nutrient { get; set; }
+        public int Id { get; set; }
         public double Amount { get; set; }
+        public INutrient Nutrient { get; set; }
     }
 }

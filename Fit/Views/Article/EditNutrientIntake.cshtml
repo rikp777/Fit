@@ -1,0 +1,23 @@
+@model Fit.ViewModels.Article.ArticleEditNutrientIntakeViewModel
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<div class="card">
+    <div class="card-body">
+        <form class="form" asp-controller="Article" asp-action="EditNutrientIntake" asp-route-articleId="@Model.ArticleId">         
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="@Model.NutrientId">Voedingsstof</label>
+                    <select class="form-control" asp-for="@Model.NutrientId" asp-items="Model.NutientsList"></select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="@Model.Amount">Aantal</label>
+                    <input type="text" class="form-control" placeholder="Hoeveelheid" asp-for="@Model.Amount" value="@Model.Amount" required>
+                </div>         
+            </div>                         
+            <button type="submit" class="btn btn-success">Voeg Toe</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+@model Fit.ViewModels.Nutrient.NutrientAddViewModel;
+@{
+    ViewBag.Title = "Toevoegen Voedingsstof";
+    Layout = "_Layout";
+}
+<div class="card">
+    <div class="card-body">
+        <form class="form" asp-controller="Nutrient" asp-action="Add">         
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="@Model.Name">Naam</label>
+                    <input type="text" class="form-control" placeholder="Voedingstof naam" asp-for="@Model.Name" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="@Model.MaxIntake">Maximale inname</label>
+                    <input type="number" class="form-control" placeholder="Maximale Inname in grammen" asp-for="@Model.MaxIntake" required>
+                </div>         
+            </div>                         
+            <button type="submit" class="btn btn-success">Voeg Toe</button>
+        </form>
+    </div>
+</div>

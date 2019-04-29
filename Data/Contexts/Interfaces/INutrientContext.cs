@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Data.Dto;
 using Models;
 
 namespace Data.Contexts.Interfaces

@@ -1,38 +1,29 @@
 @model Fit.ViewModels.Article.ArticleEditViewModel;
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Wijzig Artikel";
     Layout = "_Layout";
 }
 <div class="card">
     <div class="card-body">
-        <form>
-                <div class="col-md-4 mb-3">
-                    <label for="validationServer01">First name</label>
-                    <input type="text" class="form-control is-valid" id="validationServer01" placeholder="First name" value="Mark" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="validationServer02">Last name</label>
-                    <input type="text" class="form-control is-valid" id="validationServer02" placeholder="Last name" value="Otto" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="validationServerUsername">Username</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroupPrepend3"></span>
-                        </div>
-                        <input type="text" class="form-control is-invalid" id="validationServerUsername" placeholder="Username" aria-describedby="inputGroupPrepend3" required>
-                        <div class="invalid-feedback">
-                            Please choose a username.
-                        </div>
-                    </div>
-                </div>
-        </form>
+        
+        
+        <span class="has-error">@ViewData["Error"]</span>
 
+
+        <form class="form" asp-controller="Article" asp-action="Edit">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="@Model.Name">Artikel Naam</label>
+                    <input type="text" class="form-control" placeholder="First name" asp-for="@Model.Name" value="@Model.Name" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="@Model.Calories">Calorieën</label>
+                    <input type="number" class="form-control" placeholder="First name" asp-for="@Model.Calories" value="@Model.Calories" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Wijzig</button>
+        </form>
+        
+        
     </div>
 </div>

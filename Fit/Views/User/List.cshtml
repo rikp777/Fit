@@ -6,41 +6,41 @@
 }
 
 
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Status</th>
-            <th scope="col">Right</th>
-            <th scope="col">Options</th>
-        </tr>
-        </thead>
-        <tbody>        
-        @foreach (var user in Model.AllUsers)
-        {
-            <tr>
-                <th>@user.FirstName @user.LastName</th>
-                <td>
-                    @if (user.Blocked)
-                    {
-                        <span class="badge badge-danger">Blocked</span>
-                    }else
-                    {
-                        <span class="badge badge-success">Active</span>
-                    }
-                </td>
-                <td>@user.Right.Name</td>
-                <td>
-                    <div class="btn-group btn-group-toggle" >
-                        <label class="btn btn-warning">
-                            <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Update</a>
-                        </label>
-                        <label class="btn btn-danger">
-                            <a asp-controller="User" asp-action="Delete" asp-route-id="@user.Id">Delete</a>
-                        </label>
-                    </div>
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
+     <table class="table table-hover">
+         <thead>
+         <tr>
+             <th scope="col">Naam</th>
+             <th scope="col">Status</th>
+             <th scope="col">Recht</th>
+             <th scope="col">Opties</th>
+         </tr>
+         </thead>
+         <tbody>
+         @foreach (var user in Model.AllUsers)
+         {
+             <tr>
+                 <th>@user.FirstName @user.LastName</th>
+                 <td>
+                     @if (user.Blocked)
+                     {
+                         <span class="badge badge-danger">Geblokeerd</span>
+                     }else
+                     {
+                         <span class="badge badge-success">Actief</span>
+                     }
+                 </td>
+                 <td>@user.Right.Name</td>
+                 <td>
+                     <div class="btn-group btn-group-toggle" >
+                         <label class="btn btn-warning">
+                             <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Wijzig</a>
+                         </label>
+                         <label class="btn btn-danger">
+                             <a asp-controller="User" asp-action="Delete" asp-route-id="@user.Id">Verwijder</a>
+                         </label>
+                     </div>
+                 </td>
+             </tr>
+         }
+         </tbody>
+     </table>

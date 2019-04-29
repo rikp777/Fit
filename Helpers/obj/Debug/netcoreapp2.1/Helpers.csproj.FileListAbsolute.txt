@@ -1,0 +1,9 @@
+D:\Fontys\Semester_3\Individueel\Fit\Helpers\bin\Debug\netcoreapp2.1\Helpers.deps.json
+D:\Fontys\Semester_3\Individueel\Fit\Helpers\bin\Debug\netcoreapp2.1\Helpers.dll
+D:\Fontys\Semester_3\Individueel\Fit\Helpers\bin\Debug\netcoreapp2.1\Helpers.pdb
+D:\Fontys\Semester_3\Individueel\Fit\Helpers\obj\Debug\netcoreapp2.1\Helpers.csprojAssemblyReference.cache
+D:\Fontys\Semester_3\Individueel\Fit\Helpers\obj\Debug\netcoreapp2.1\Helpers.csproj.CoreCompileInputs.cache
+D:\Fontys\Semester_3\Individueel\Fit\Helpers\obj\Debug\netcoreapp2.1\Helpers.AssemblyInfoInputs.cache
+D:\Fontys\Semester_3\Individueel\Fit\Helpers\obj\Debug\netcoreapp2.1\Helpers.AssemblyInfo.cs
+D:\Fontys\Semester_3\Individueel\Fit\Helpers\obj\Debug\netcoreapp2.1\Helpers.dll
+D:\Fontys\Semester_3\Individueel\Fit\Helpers\obj\Debug\netcoreapp2.1\Helpers.pdb
