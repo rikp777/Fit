@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Security.Claims;
 using Fit.Models;
@@ -35,9 +36,23 @@ namespace Fit.Controllers
         }
         [Authorize(Roles = "Admin, Instructor")] 
         [HttpPost]
-        public IActionResult Add(ArticleAddViewModel data)
+        public IActionResult Add(NutrientAddViewModel data)
         {
-
+            var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);  
+            
+            
+            var nutrient = new Nutrient
+            {
+                Id = 0,
+                Name = data.Name,
+                MaxIntake = data.MaxIntake,
+            };
+            
+            
+            if (_nutrientLogic.Add(userId, nutrient))
+            {
+                return RedirectToAction("List", "Nutrient");
+            }
             
             
             ViewData["message"] = "Er ging iets fout";
@@ -58,13 +73,41 @@ namespace Fit.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            return null;
+            var nutrient = _nutrientLogic.GetBy(id);
+            
+            
+            var viemodel = new NutrientEditViewModel
+            {
+                Name = nutrient.Name,
+                MaxIntake = nutrient.MaxIntake
+            };
+            
+            
+            return View(viemodel);
         }   
         [Authorize(Roles = "Admin, Instructor")]
         [HttpPost]
-        public IActionResult Edit(int id, ArticleEditViewModel data)
+        public IActionResult Edit(int id, NutrientEditViewModel data)
         {
-            return null;
+            var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);  
+            
+            
+            var nutrient = new Nutrient
+            {
+                Id = id,
+                Name = data.Name,
+                MaxIntake = data.MaxIntake
+            };
+            
+            
+            if (_nutrientLogic.Edit(userId, nutrient))
+            {
+                return RedirectToAction("List", "Nutrient");
+            }
+            
+            
+            ViewData["message"] = "Er ging iets fout";
+            return View(data);
         }
         
         
@@ -81,7 +124,13 @@ namespace Fit.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            return null;
+            var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);  
+            
+            
+            _nutrientLogic.Delete(userId, id);
+            
+            
+            return RedirectToAction("List", "Nutrient");
         }
         
         

@@ -2985,6 +2985,15 @@
           "ref/netstandard1.3/System.Console.dll": {}
         }
       },
+      "System.Data.DataSetExtensions/4.5.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.0/System.Data.DataSetExtensions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Data.DataSetExtensions.dll": {}
+        }
+      },
       "System.Data.SqlClient/4.5.1": {
         "type": "package",
         "dependencies": {
@@ -4339,6 +4348,7 @@
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
           "Enum": "1.0.0",
+          "Helpers": "1.0.0",
           "Interfaces": "1.0.0"
         },
         "compile": {
@@ -4356,6 +4366,20 @@
         },
         "runtime": {
           "bin/placeholder/Enum.dll": {}
+        }
+      },
+      "Helpers/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "Enum": "1.0.0",
+          "System.Data.DataSetExtensions": "4.5.0"
+        },
+        "compile": {
+          "bin/placeholder/Helpers.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Helpers.dll": {}
         }
       },
       "Interfaces/1.0.0": {
@@ -4377,6 +4401,7 @@
         "dependencies": {
           "Data": "1.0.0",
           "Enum": "1.0.0",
+          "Helpers": "1.0.0",
           "Interfaces": "1.0.0"
         },
         "compile": {
@@ -7896,6 +7921,25 @@
         "ref/xamarinwatchos10/_._",
         "system.console.4.3.0.nupkg.sha512",
         "system.console.nuspec"
+      ]
+    },
+    "System.Data.DataSetExtensions/4.5.0": {
+      "sha512": "xKUL8eeGuJ0uHaRpDKFibVxXjWrquWxQuASlRnhvITQ8cGZPZrO8T8lh8XKfOnirrDyQz81TCwALPXzflSW3JA==",
+      "type": "package",
+      "path": "system.data.datasetextensions/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net45/_._",
+        "lib/netstandard2.0/System.Data.DataSetExtensions.dll",
+        "ref/net45/_._",
+        "ref/netstandard2.0/System.Data.DataSetExtensions.dll",
+        "system.data.datasetextensions.4.5.0.nupkg.sha512",
+        "system.data.datasetextensions.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "System.Data.SqlClient/4.5.1": {
@@ -11849,6 +11893,11 @@
       "type": "project",
       "path": "../Enum/Enum.csproj",
       "msbuildProject": "../Enum/Enum.csproj"
+    },
+    "Helpers/1.0.0": {
+      "type": "project",
+      "path": "../Helpers/Helpers.csproj",
+      "msbuildProject": "../Helpers/Helpers.csproj"
     },
     "Interfaces/1.0.0": {
       "type": "project",

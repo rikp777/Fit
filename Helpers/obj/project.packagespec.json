@@ -14,7 +14,11 @@
     ],
     "frameworks": {
       "netcoreapp2.1": {
-        "projectReferences": {}
+        "projectReferences": {
+          "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Enum\\Enum.csproj": {
+            "projectPath": "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Enum\\Enum.csproj"
+          }
+        }
       }
     },
     "warningProperties": {
@@ -31,6 +35,10 @@
           "target": "Package",
           "version": "[2.1.0, )",
           "autoReferenced": true
+        },
+        "System.Data.DataSetExtensions": {
+          "target": "Package",
+          "version": "[4.5.0, )"
         }
       },
       "imports": [

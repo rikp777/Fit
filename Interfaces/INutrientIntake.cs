@@ -4,7 +4,7 @@ namespace Models
 {
     public interface INutrientIntake
     {
-        double Amount { get; }
+        decimal Amount { get; }
         INutrient Nutrient { get; }
     }
 }

@@ -1,5 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using Data.Contexts.Interfaces;
+using Data.Dto;
+using Helpers;
 using Models;
 
 namespace Data.Contexts.SQLContexts
@@ -33,7 +38,9 @@ namespace Data.Contexts.SQLContexts
 
         public IEnumerable<IArticle> List()
         {
-            throw new System.NotImplementedException();
+            var data = HelpFunctions.Query("Article_GetAll");
+            var articles = data.DataTableToList<ArticleDto>();
+            return articles;
         }
 
         public bool Create(IArticle article)
@@ -55,5 +62,11 @@ namespace Data.Contexts.SQLContexts
         {
             throw new System.NotImplementedException();
         }
+        
+        
+        
+        
+        
+         
     }
 }

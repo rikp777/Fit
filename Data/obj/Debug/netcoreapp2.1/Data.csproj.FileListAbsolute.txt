@@ -12,3 +12,7 @@ D:\Fontys\Semester_3\Individueel\Fit\Data\bin\Debug\netcoreapp2.1\Interfaces.pdb
 D:\Fontys\Semester_3\Individueel\Fit\Data\obj\Debug\netcoreapp2.1\Data.csproj.CopyComplete
 D:\Fontys\Semester_3\Individueel\Fit\Data\bin\Debug\netcoreapp2.1\Enum.dll
 D:\Fontys\Semester_3\Individueel\Fit\Data\bin\Debug\netcoreapp2.1\Enum.pdb
+D:\Fontys\Semester_3\Individueel\Fit\Data\bin\Debug\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Fontys\Semester_3\Individueel\Fit\Data\bin\Debug\netcoreapp2.1\System.Data.SqlClient.xml
+D:\Fontys\Semester_3\Individueel\Fit\Data\bin\Debug\netcoreapp2.1\Helpers.dll
+D:\Fontys\Semester_3\Individueel\Fit\Data\bin\Debug\netcoreapp2.1\Helpers.pdb

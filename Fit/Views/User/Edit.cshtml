@@ -5,43 +5,48 @@
     Layout = "_Layout";
 }
 
-<form class="form" role="form" id="formEdit" method="post" asp-controller="User" asp-action="Edit" >
+<form class="form" asp-controller="User" asp-action="Edit">
     <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="firstname">Voornaam</label>
-            <input type="text" class="form-control" id="firstname" asp-for="FirstName">
-        </div>
-        <div class="form-group col-md-6">
-            <label for="lastname">Achternaam</label>
-            <input type="text" class="form-control" id="lastname" asp-for="LastName">
+        <div class="form-group col-6">
+            <label asp-for="@Model.Email">Email</label>
+            <input type="email" class="form-control" placeholder="jan@jansen.com" asp-for="@Model.Email"/>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="birthdate">GeboorteDatum</label>
-            <input type="date" class="form-control" id="birthdate" asp-for="BirthDate">
+            <label asp-for="@Model.FirstName">Voornaam</label>
+            <input type="text" class="form-control" placeholder="Jan" asp-for="@Model.FirstName">
         </div>
         <div class="form-group col-md-6">
-            <label for="length">Lengte</label>
-            <input type="number" class="form-control" id="length" asp-for="Length">
+            <label asp-for="@Model.LastName">Achternaam</label>
+            <input type="text" class="form-control" placeholder="Jansen" asp-for="@Model.LastName">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label sp-for="@Model.BirthDate">GeboorteDatum</label>
+            <input type="date" class="form-control" placeholder="01-01-1990" asp-for="@Model.BirthDate">
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="@Model.Length">Lengte</label>
+            <input type="number" class="form-control" placeholder="1.70" asp-for="@Model.Length">
         </div>
     </div>
     @if (User.IsInRole("Admin"))
     {
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="status">Status</label>
-                <select id="status" class="form-control" asp-for="Blocked">
+                <label asp-for="@Model.Blocked">Status</label>
+                <select class="form-control" asp-for="@Model.Blocked">
                     <option selected="@(!Model.Blocked)" value="false">Actief</option>
                     <option selected="@(Model.Blocked)" value="true">Geblokeerd</option>
                 </select>
             </div>
             <div class="form-group col-md-6">
-                <label for="right">Recht</label>
-                <select id="right" class="form-control" asp-for="Right" asp-items="Model.Rights">
-                </select>
-            </div>        
+                <label asp-for="@Model.RightId">Recht</label>
+                <select id="right" class="form-control" asp-for="@Model.RightId" asp-items="Model.Rights"></select>
+            </div>
         </div>
-    } 
+    }
     <button type="submit" class="btn btn-primary">Wijzig</button>
 </form>

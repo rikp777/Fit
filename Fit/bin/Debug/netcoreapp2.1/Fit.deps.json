@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "e071b1a7c9d575b1b3d9ba6c9a1be1d9c6701ca2"
+    "signature": "7b21a5e93fb832f4939de68cee252f1ad8713048"
   },
   "compilationOptions": {
     "defines": [
@@ -209,9 +209,21 @@
           "Microsoft.NETCore.Platforms": "2.1.0"
         }
       },
+      "System.Data.DataSetExtensions/4.5.0": {
+        "runtime": {
+          "lib/netstandard2.0/System.Data.DataSetExtensions.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.6.26515.6"
+          }
+        },
+        "compile": {
+          "ref/netstandard2.0/System.Data.DataSetExtensions.dll": {}
+        }
+      },
       "Data/1.0.0": {
         "dependencies": {
           "Enum": "1.0.0",
+          "Helpers": "1.0.0",
           "Interfaces": "1.0.0"
         },
         "runtime": {
@@ -229,6 +241,18 @@
           "Enum.dll": {}
         }
       },
+      "Helpers/1.0.0": {
+        "dependencies": {
+          "Enum": "1.0.0",
+          "System.Data.DataSetExtensions": "4.5.0"
+        },
+        "runtime": {
+          "Helpers.dll": {}
+        },
+        "compile": {
+          "Helpers.dll": {}
+        }
+      },
       "Interfaces/1.0.0": {
         "dependencies": {
           "Enum": "1.0.0"
@@ -244,6 +268,7 @@
         "dependencies": {
           "Data": "1.0.0",
           "Enum": "1.0.0",
+          "Helpers": "1.0.0",
           "Interfaces": "1.0.0"
         },
         "runtime": {
@@ -3257,12 +3282,24 @@
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
     },
+    "System.Data.DataSetExtensions/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xKUL8eeGuJ0uHaRpDKFibVxXjWrquWxQuASlRnhvITQ8cGZPZrO8T8lh8XKfOnirrDyQz81TCwALPXzflSW3JA==",
+      "path": "system.data.datasetextensions/4.5.0",
+      "hashPath": "system.data.datasetextensions.4.5.0.nupkg.sha512"
+    },
     "Data/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
     "Enum/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Helpers/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

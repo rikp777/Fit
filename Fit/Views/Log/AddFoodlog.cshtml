@@ -5,11 +5,11 @@
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
-<div class="card">
+<div class="card" id="Log">
     <div class="card-body">
         <h5 class="card-title">Logs</h5>
         @ViewData["message"]
-        <form asp-controller="Log" asp-action="add" method="post">
+        <form asp-controller="Log" asp-action="AddFoodlog" method="post">
             <input type="hidden" id="ArticleId" name="ArticleId" value="">
             <div class="form-group">
                 <label for="ArticleName">Article</label>
@@ -59,31 +59,79 @@
     {
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">@article.Name</h5>
-                <p class="card-text">Calorieën: @article.Calories</p>
-                
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse-@article.Name" aria-expanded="false" aria-controls="collapse-@article.Name">Nutrients</button>
-                <button class="btn btn-success" onclick="Add(@article.Id, '@article.Name')">Log</button>
-                
-                <div class="collapse" id="collapse-@article.Name">
-                    <ul class="list-group list-group-flush">
-                        @foreach (var nutrient in article.NutrientIntakes)
-                        {
-                            <li class="list-group-item">@nutrient.Nutrient.Name : @nutrient.Amount</li>
-                        }
-                    </ul>
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title">@article.Name</h5>
+                        <p class="card-text">Calorieën: @article.Calories</p>
+                    </div>                   
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="col">
+                            <a class="btn-sm btn-warning" asp-controller="Article" asp-action="Edit" asp-route-id="@article.Id">Wijzig</a>
+                            <a class="btn-sm btn-danger" asp-controller="Article" asp-action="Delete" asp-route-id="@article.Id">Verwijder</a>
+                        </div>
+                    }         
                 </div>
+                
+               
+                @if (article.NutrientIntakes != null)
+                {
+                    <div class="table-responsive-md">
+                        <table class="table table-sm mt-2">
+                            <thead>
+                            <tr>
+                                <th>Voedingsstof</th>
+                                <th>Aantal</th>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <th>Wijzig</th>
+                                }
+                            </tr>
+                            </thead>
+                            <tbody>
+    
+                            @foreach (var nutrientIntake in article.NutrientIntakes)
+                            {
+                                <tr>
+                                    <th>@nutrientIntake.Nutrient.Name</th>
+                                    <td>@nutrientIntake.Amount</td>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <td class="row">
+                                            <a class="col btn btn-warning btn-sm" asp-action="EditNutrientIntake" asp-controller="Article" asp-route-articleId="@article.Id" asp-route-nutrientId="@nutrientIntake.Nutrient.Id">Wijzig</a>
+                                            <a class="col btn btn-danger btn-sm" asp-action="DeleteNutrientIntake" asp-controller="Article" asp-route-articleId="@article.Id" asp-route-nutrientId="@nutrientIntake.Nutrient.Id">Verwijder</a>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert-info mt-2 mb-2">Geen voedingstoffen gevonden</div>
+                }
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="btn btn-success btn-sm" asp-action="AddNutrientIntake" asp-controller="Article" asp-route-id="@article.Id">Voeg Toe</a>
+                }
+                <button class="btn btn-success btn-sm" onclick="Add(@article.Id, '@article.Name')">Log</button>
+            
             </div>
         </div>
     }
+    <p id="demo"></p>
 </div>
 <script>
     var clicks = 0;
     var lastId = 0;
+    var articles = [];
+    
     function Search() {
         var input, filter, cards, cardContainer, h5, title, i;
         input = document.getElementById("myFilter");
-        console.log(input);
+
         filter = input.value.toUpperCase();
         cardContainer = document.getElementById("myItems");
         cards = cardContainer.getElementsByClassName("card");
@@ -97,6 +145,7 @@
         }
     }
     function Add(id, name) {
+        document.getElementById("Log").classList.remove("d-none")
         clicks++;
         if (lastId != id) {
             lastId = id;
@@ -106,7 +155,6 @@
         document.getElementById("ArticleId").value = id;
         document.getElementById("ArticleName").value = name;               
         document.getElementById("Amount").value = clicks;
-        
         
         var date = new Date();
         var currentDate = date.toISOString().slice(0,10);
@@ -120,7 +168,6 @@
             m = "0" + m;
         }
         var currentTime = h + ':' + m;
-        console.log(currentTime);
         
         document.getElementById("Date").value = currentDate;
         document.getElementById("Time").value = currentTime;

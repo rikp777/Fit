@@ -2,7 +2,7 @@ using System;
 
 namespace Models
 {
-    public interface IGoal
+    public interface IGoalLog
     {
         int Id { get; }
         int Calories { get; }

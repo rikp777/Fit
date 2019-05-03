@@ -20,14 +20,18 @@ namespace Fit.Controllers
 {
     public class ArticleController : Controller
     {
+        private readonly DishLogic _dishLogic;
         private readonly ArticleLogic _articleLogic;
         private readonly NutrientLogic _nutrientLogic;
 
-        public ArticleController(ArticleLogic articleLogic, NutrientLogic nutrientLogic)
+        public ArticleController(DishLogic dishLogic, ArticleLogic articleLogic, NutrientLogic nutrientLogic)
         {
+            _dishLogic = dishLogic;
             _articleLogic = articleLogic;
             _nutrientLogic = nutrientLogic;         
         }
+        
+        
         
         
         
@@ -43,18 +47,8 @@ namespace Fit.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-//            var viewModel = new ArticleAddViewModel
-//            {
-//                NutientsList = _nutrientLogic.GetAll().Select(i => new SelectListItem
-//                {
-//                    Text = i.Name,
-//                    Value = i.Id.ToString()
-//                })
-//            };
-
             return View(new ArticleAddViewModel());
-        }
-        
+        }     
         /// <summary>
         /// Note
         /// Handling Arrays of HTML Input Elements ASP.NET Wire Format for Model Binding to Arrays, Lists, Collections, Dictionaries not possible
@@ -62,29 +56,25 @@ namespace Fit.Controllers
         [Authorize(Roles = "Admin, Instructor")] 
         [HttpPost]
         public IActionResult Add(ArticleAddViewModel data)
-        {
-            
-            var userId = Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);  
-            
-            
+        {                    
             var article = new Article
             {
                 Id = 0,
                 Name = data.Name,
                 Calories = data.Calories,
                 NutrientIntakes = null
-            };
+            };          
             
-            
-            if (_articleLogic.Add(userId, article))
+            if (_articleLogic.Add(AuthController.GetAuthUserId(User), article))
             {
                 return RedirectToAction("List", "Article");
-            }
-            
+            }         
             
             ViewData["message"] = "Er ging iets fout";
             return View(data);
         }
+        
+        
         
 
             
@@ -100,34 +90,28 @@ namespace Fit.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var oldArticle = _articleLogic.GetBy(id);
-            
+            var oldArticle = _articleLogic.GetBy(id);           
             
             var viewmodel = new ArticleEditViewModel
             {
                 Calories = oldArticle.Calories,
                 Name = oldArticle.Name
-            };
-            
+            };          
             
             return View(viewmodel);
         }   
         [Authorize(Roles = "Admin, Instructor")]
         [HttpPost]
         public IActionResult Edit(int id, ArticleEditViewModel data)
-        {
-            int userId = Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);
-
-            
+        {       
             var article = new Article
             {
                 Id = id,
                 Calories = data.Calories,
                 Name = data.Name,
-            };
+            };              
                 
-                
-            if(_articleLogic.Edit(userId, article))
+            if(_articleLogic.Edit(AuthController.GetAuthUserId(User), article))
             {
                 return RedirectToAction("List", "Article");
             }
@@ -135,6 +119,8 @@ namespace Fit.Controllers
             ViewData["message"] = "Er ging iets fout tijdens het wijzigen";
             return View(data);
         }
+        
+        
         
         
         
@@ -150,17 +136,15 @@ namespace Fit.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            int userId = Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);  
-            
-            
-            if (!_articleLogic.Delete(userId, id))
+            if (!_articleLogic.Delete(AuthController.GetAuthUserId(User), id))
             {
                 ViewData["message"] = "Er ging iets fout tijdens het verwijderen";
-            }
-            
+            }          
             
             return RedirectToAction("List", "Article");
         }
+        
+        
         
         
         
@@ -173,13 +157,17 @@ namespace Fit.Controllers
         /// </summary>
         public IActionResult List()
         {
-            var viewModel = new ArticleListViewModel();
-            var articleList = _articleLogic.GetAll();
+            var viewModel = new ArticleListViewModel
+            {
+                AllArticles = _articleLogic.GetAll(), 
+                AllDishes = _dishLogic.GetAll()
+            };
 
-            viewModel.AllArticles = articleList;
             return View(viewModel);  
         }
 
+        
+        
         
         
         /// <summary>
@@ -200,12 +188,8 @@ namespace Fit.Controllers
             if (article.NutrientIntakes != null)
             {
                 result = nutrients.Where(a => article.NutrientIntakes.All(n => n.Nutrient.Name != a.Name));
-            }
-           
-
-            
-                   
-                        
+            }       
+                         
             var viewModel = new ArticleAddNutrientIntakeViewModel
             {
                 NutientsList = result.Select(i => new SelectListItem
@@ -215,29 +199,22 @@ namespace Fit.Controllers
                 })       
             };
             
-            
             return View(viewModel);
         }
         [Authorize(Roles = "Admin, Instructor")]
         [HttpPost]
         public IActionResult AddNutrientIntake(int id, ArticleAddNutrientIntakeViewModel data)
         {
-            var userId = Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);
-                       
-
             var nutrientIntake = new NutrientIntake
             {
                 Amount = data.Amount,
                 Nutrient = _nutrientLogic.GetBy(data.NutrientId),
-            };
+            }; 
                 
-                
-            if(_articleLogic.AddNutrientIntake(userId, id, nutrientIntake))
+            if(_articleLogic.AddNutrientIntake(AuthController.GetAuthUserId(User), id, nutrientIntake))
             {
                 return RedirectToAction("List", "Article");
             }
-            
-
             ViewData["message"] = "Er ging iets fout tijdens het wijzigen";
             return RedirectToAction("AddNutrientIntake", "Article");
         }
@@ -289,13 +266,11 @@ namespace Fit.Controllers
             
             return View(viewModel);
         }
-
         [Authorize(Roles = "Admin, Instructor")]
         [HttpPost]
         public IActionResult EditNutrientIntake(int articleId, ArticleEditNutrientIntakeViewModel data)
         {          
-            var userId = Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);
-            if (!double.TryParse(data.Amount, out var amount))
+            if (!decimal.TryParse(data.Amount, out var amount))
             {
                 return RedirectToAction("EditNutrientIntake", "Article", new { articleId = data.ArticleId, nutrientId = data.NutrientId});     
             }           
@@ -304,34 +279,39 @@ namespace Fit.Controllers
             {
                 Amount = amount,
                 Nutrient = _nutrientLogic.GetBy(data.NutrientId),
-            };
+            };        
                 
-                
-            if(_articleLogic.EditNutrientIntake(userId, data.ArticleId, nutrientIntake))
+            if(_articleLogic.EditNutrientIntake(AuthController.GetAuthUserId(User), data.ArticleId, nutrientIntake))
             {
                 return RedirectToAction("List", "Article");
             }
-            
 
             ViewData["message"] = "Er ging iets fout tijdens het wijzigen";
             return RedirectToAction("EditNutrientIntake", "Article", new { articleId = data.ArticleId, nutrientId = data.NutrientId});
         }
-
+        
+        
+        
+        
+        
+        /// <summary>
+        ///
+        ///     Delete
+        ///
+        ///     Auth = True
+        ///     Right = Admin, Instructor
+        /// 
+        /// </summary>
         [Authorize(Roles = "Admin, Instructor")]
         [HttpGet]
         public IActionResult DeleteNutrientIntake(int articleId, int nutrientId)
-        {
-            var userId = Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);
-            
-            
+        {    
             var nutrientIntake = new NutrientIntake
             {
                 Nutrient = _nutrientLogic.GetBy(nutrientId),
-            };
+            };         
             
-            
-            _articleLogic.DeleteNutrientIntake(userId, articleId, nutrientIntake);
-            
+            _articleLogic.DeleteNutrientIntake(AuthController.GetAuthUserId(User), articleId, nutrientIntake);
             
             return RedirectToAction("List", "Article");
         }

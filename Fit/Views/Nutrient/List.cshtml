@@ -14,27 +14,32 @@
         </div>
     </div>
 </div>
+
+<h3 class="mt-5">Voedingstoffen</h3>
 @if(User.IsInRole("Admin"))
 {
-    <a class="btn btn-success mt-2" asp-controller="Nutrient" asp-action="Add">Add</a>
+    <div class="d-flex justify-content-end">
+        <a class="btn btn-success mt-2" asp-controller="Nutrient" asp-action="Add">Voeg Toe</a>
+    </div> 
 }
 <div class="card-columns mt-5" id="myItems">
     @foreach (var nutrient in Model.AllNutrients)
     {
         <div class="card">
+            
             <div class="card-body">
                 <div class="row">
                     <div class="col">
                         <h5 class="card-title">@nutrient.Name</h5>
                         <p class="card-text">Max inname: @nutrient.MaxIntake</p>
-                    </div>                   
+                    </div>
                     @if (User.IsInRole("Admin"))
                     {
                         <div class="col">
                             <a class="btn-sm btn-warning" asp-controller="Nutrient" asp-action="Edit" asp-route-id="@nutrient.Id">Wijzig</a>
                             <a class="btn-sm btn-danger" asp-controller="Nutrient" asp-action="Delete" asp-route-id="@nutrient.Id">Verwijder</a>
                         </div>
-                    }         
+                    }
                 </div>
             </div>
         </div>

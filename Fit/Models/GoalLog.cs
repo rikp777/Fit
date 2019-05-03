@@ -1,9 +1,9 @@
 using System;
 using Models;
 
-namespace Data.Dto
+namespace Fit.Models
 {
-    public class GoalDto : IGoal
+    public class GoalLog : IGoalLog
     {
         public int Id { get; set; }
         public int Calories { get; set; }

@@ -27,7 +27,7 @@ namespace Data.Contexts.MemoryContexts
                     BirthDate = DateTime.Now,
                     FirstName = "Rik",
                     LastName = "Peeters",
-                    Length = 170,
+                    Length = 179,
                     Blocked = false,
                     Right = new RightContextMemory().Read(1)
                 },
@@ -73,17 +73,22 @@ namespace Data.Contexts.MemoryContexts
 
         private static UserDto Map(IUser user)
         {
+            var password = _users.FirstOrDefault(u => u.Email == user.Email)?.Password;
             var userDto = new UserDto
             {
-                Id = user.Id = _users.Max(u => u.Id) + 1,
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 BirthDate = user.BirthDate,
                 Blocked = user.Blocked,
                 Email = user.Email,
                 Length = user.Length,
-                Right = user.Right
+                Right = user.Right,          
             };
+            if (password != null)
+            {
+                userDto.Password = password;
+            }
             return userDto;
         }
         
@@ -95,6 +100,7 @@ namespace Data.Contexts.MemoryContexts
         {
             if (_users.SingleOrDefault(u => u.Email == user.Email) != null) return false;
             var userDto = Map(user);
+            userDto.Id = _users.Max(u => u.Id) + 1;
             userDto.Password = password;
                    
             _users.Add(userDto);

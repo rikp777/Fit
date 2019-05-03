@@ -31,15 +31,15 @@ namespace Data.Contexts.MemoryContexts
                     {
                         new NutrientIntakeDto
                         {
-                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 1), Amount = 0.3
+                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 1), Amount = 0.3m
                         },
                         new NutrientIntakeDto
                         {
-                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 2), Amount = 0.001
+                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 2), Amount = 0.001m
                         },
                         new NutrientIntakeDto
                         {
-                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 3), Amount = 4.7
+                            Nutrient = nutrients.SingleOrDefault(n => n.Id == 3), Amount = 4.7m
                         },
                         new NutrientIntakeDto
                         {
@@ -79,18 +79,11 @@ namespace Data.Contexts.MemoryContexts
         {     
             var articleDto = new ArticleDto
             {
+                Id = article.Id,
                 Calories = article.Calories,
                 Name = article.Name,       
                 NutrientIntakes = article.NutrientIntakes
             };
-            if (article.Id == null || article.Id == 0)
-            {
-                articleDto.Id = _articles.Max(u => u.Id) + 1;
-            }
-            else
-            {
-                articleDto.Id = article.Id;
-            }
             if (article.Name != null)
             {
                 articleDto.Name = article.Name;
@@ -107,13 +100,17 @@ namespace Data.Contexts.MemoryContexts
             if (_articles.SingleOrDefault(u => u.Name == article.Name) != null) return false;
 
             var OldArticle = Read(article);
-            var newArticle = Map(article);
+            var articleDto= Map(article);
             if (OldArticle != null)
             {
-                newArticle.NutrientIntakes = OldArticle.NutrientIntakes;  
+                articleDto.NutrientIntakes = OldArticle.NutrientIntakes;                
+            }
+            else
+            {
+                articleDto.Id = _articles.Count + 1;
             }
           
-            _articles.Add(newArticle);
+            _articles.Add(articleDto);
             
             return true;
         }

@@ -7,3 +7,8 @@ D:\Fontys\Semester_3\Individueel\Fit\Helpers\obj\Debug\netcoreapp2.1\Helpers.Ass
 D:\Fontys\Semester_3\Individueel\Fit\Helpers\obj\Debug\netcoreapp2.1\Helpers.AssemblyInfo.cs
 D:\Fontys\Semester_3\Individueel\Fit\Helpers\obj\Debug\netcoreapp2.1\Helpers.dll
 D:\Fontys\Semester_3\Individueel\Fit\Helpers\obj\Debug\netcoreapp2.1\Helpers.pdb
+D:\Fontys\Semester_3\Individueel\Fit\Helpers\bin\Debug\netcoreapp2.1\Enum.dll
+D:\Fontys\Semester_3\Individueel\Fit\Helpers\bin\Debug\netcoreapp2.1\Enum.pdb
+D:\Fontys\Semester_3\Individueel\Fit\Helpers\obj\Debug\netcoreapp2.1\Helpers.csproj.CopyComplete
+D:\Fontys\Semester_3\Individueel\Fit\Helpers\bin\Debug\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Fontys\Semester_3\Individueel\Fit\Helpers\bin\Debug\netcoreapp2.1\System.Data.SqlClient.xml

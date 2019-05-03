@@ -19,8 +19,8 @@ namespace Data.Contexts.MemoryContexts
             _nutrients = new List<INutrient>
             {
                 new NutrientDto {Id = 1, Name = "Vet", MaxIntake = 44},
-                new NutrientDto {Id = 2, Name = "Natrium", MaxIntake = 1.5},
-                new NutrientDto {Id = 3, Name = "Kalium ", MaxIntake = 4.7},
+                new NutrientDto {Id = 2, Name = "Natrium", MaxIntake = 1.5m},
+                new NutrientDto {Id = 3, Name = "Kalium ", MaxIntake = 4.7m},
                 new NutrientDto {Id = 4, Name = "Eiwit", MaxIntake = 46},
                 new NutrientDto {Id = 5, Name = "Koolhydraten ", MaxIntake = 150}
             };

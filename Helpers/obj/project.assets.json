@@ -207,6 +207,25 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "System.Data.DataSetExtensions/4.5.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.0/System.Data.DataSetExtensions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Data.DataSetExtensions.dll": {}
+        }
+      },
+      "Enum/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/Enum.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Enum.dll": {}
+        }
       }
     }
   },
@@ -680,11 +699,37 @@
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "System.Data.DataSetExtensions/4.5.0": {
+      "sha512": "xKUL8eeGuJ0uHaRpDKFibVxXjWrquWxQuASlRnhvITQ8cGZPZrO8T8lh8XKfOnirrDyQz81TCwALPXzflSW3JA==",
+      "type": "package",
+      "path": "system.data.datasetextensions/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net45/_._",
+        "lib/netstandard2.0/System.Data.DataSetExtensions.dll",
+        "ref/net45/_._",
+        "ref/netstandard2.0/System.Data.DataSetExtensions.dll",
+        "system.data.datasetextensions.4.5.0.nupkg.sha512",
+        "system.data.datasetextensions.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "Enum/1.0.0": {
+      "type": "project",
+      "path": "../Enum/Enum.csproj",
+      "msbuildProject": "../Enum/Enum.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "Microsoft.NETCore.App >= 2.1.0"
+      "Enum >= 1.0.0",
+      "Microsoft.NETCore.App >= 2.1.0",
+      "System.Data.DataSetExtensions >= 4.5.0"
     ]
   },
   "packageFolders": {
@@ -716,7 +761,11 @@
       },
       "frameworks": {
         "netcoreapp2.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Enum\\Enum.csproj": {
+              "projectPath": "D:\\Fontys\\Semester_3\\Individueel\\Fit\\Enum\\Enum.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -733,6 +782,10 @@
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true
+          },
+          "System.Data.DataSetExtensions": {
+            "target": "Package",
+            "version": "[4.5.0, )"
           }
         },
         "imports": [

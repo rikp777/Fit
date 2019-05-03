@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Data.Contexts;
+using Data.Repositories;
 using Enum;
 using Fit.Models;
 using Fit.ViewModels.Auth;
@@ -134,6 +137,25 @@ namespace Fit.Controllers
                 .SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             return RedirectToAction("Index", "Home");
+        }
+        
+        
+        
+            
+        /// <summary>
+        ///
+        ///     GetAuthUser
+        ///
+        ///     By Identity Claims 
+        /// 
+        /// </summary>  
+        public static int GetAuthUserId(ClaimsPrincipal user)
+        {
+            return int.Parse(user.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);
+        }
+        public static IUser GetAuthUser(ClaimsPrincipal user)
+        {
+            return new UserLogic().GetBy(GetAuthUserId(user));
         }
     }
 }

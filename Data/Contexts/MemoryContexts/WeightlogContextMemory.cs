@@ -21,7 +21,7 @@ namespace Data.Contexts.MemoryContexts
                 {
                     Id = 1,
                     DateTime = DateTime.Now,
-                    Weight = 73,
+                    Weight = 70.5m,
                     User = new UserContextMemory().Read(1)
                 }
             };
@@ -31,7 +31,6 @@ namespace Data.Contexts.MemoryContexts
         {
             var weightlogDto = new WeightlogDto
             {
-                Id = _weightlogs.Max(u => u.Id) + 1,
                 DateTime = weightlog.DateTime,
                 Weight = weightlog.Weight,
                 User = weightlog.User
@@ -44,8 +43,12 @@ namespace Data.Contexts.MemoryContexts
         
         
         public bool Create(IWeightlog weightlog)
-        {                      
-            _weightlogs.Add(Map(weightlog));
+        {
+            var weightlogDto = Map(weightlog);
+            weightlogDto.Id = _weightlogs.Count;
+            
+            
+            _weightlogs.Add(weightlogDto);
             return true;
         }
 
@@ -62,10 +65,15 @@ namespace Data.Contexts.MemoryContexts
             return _weightlogs.FirstOrDefault(w => w.Id == weightlog.Id);
         }
 
+        public IWeightlog ReadLast(IUser user)
+        {
+            return _weightlogs.FirstOrDefault(w => w.User.Id == user.Id);
+        }
+
         
         
         
-        
+
         public bool Update(IWeightlog weightlog)
         {
             try
@@ -105,6 +113,11 @@ namespace Data.Contexts.MemoryContexts
         public IEnumerable<IWeightlog> List()
         {
             return _weightlogs;
+        }
+
+        public IEnumerable<IWeightlog> List(IUser user)
+        {
+            return _weightlogs.Where(f => f.User.Id == user.Id);
         }
     }
 }

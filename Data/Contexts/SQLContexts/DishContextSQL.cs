@@ -1,33 +1,34 @@
 using System.Collections.Generic;
 using Data.Contexts.Interfaces;
 using Data.Dto;
+using Helpers;
 using Models;
 
 namespace Data.Contexts.SQLContexts
 {
-    public class NutrientContextSql : INutrientContext
+    public class DishContextSQL : IDishContext
     {
-        public bool Create(INutrient nutrient)
+        public bool Create(IDish dish)
         {
             throw new System.NotImplementedException();
         }
 
-        public INutrient Read(int id)
+        public IDish Read(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public INutrient Read(string name)
+        public IDish Read(string name)
         {
             throw new System.NotImplementedException();
         }
 
-        public INutrient Read(INutrient nutrient)
+        public IDish Read(IDish dish)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool Update(INutrient nutrient)
+        public bool Update(IDish dish)
         {
             throw new System.NotImplementedException();
         }
@@ -37,9 +38,11 @@ namespace Data.Contexts.SQLContexts
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<INutrient> List()
+        public IEnumerable<IDish> List()
         {
-            throw new System.NotImplementedException();
+            var data = HelpFunctions.Query("Dish_GetAll");
+            var dishes = data.DataTableToList<DishDto>();
+            return dishes;
         }
     }
 }

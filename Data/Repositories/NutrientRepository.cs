@@ -18,7 +18,7 @@ namespace Data.Repositories
             switch (storageType)
             {
                 case StorageTypeSetting.StorageTypes.SQL :
-                    _context = new NutrientContextSql();   
+                    _context = new NutrientContextSQL();   
                     break;
                 case StorageTypeSetting.StorageTypes.Memory:
                     _context = new NutrientContextMemory();  
@@ -47,9 +47,7 @@ namespace Data.Repositories
 
 
         public bool Add(INutrient nutrient) => _context.Create(nutrient);
-
         public bool Edit(INutrient nutrient) => _context.Update(nutrient);
-
         public bool Delete(int id) => _context.Delete(id);
     }
 }

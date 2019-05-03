@@ -7,7 +7,24 @@
     ViewBag.Title = "Lijst Artikelen";
     Layout = "_Layout";
 }
-<div class="card mt-2">
+<div class="card d-none" id="Compose">
+    <div class="card-body">
+        <h5 class="card-title">Maak gerecht</h5>
+        <form onsubmit="setDishData()" method="post" asp-controller="Dish" asp-action="Add">
+            <div class="form-group">
+                <label for="ArticleName">Naam gerecht</label>
+                <input class="form-control" type="text" placeholder="Naam voor uw samengesteld gerecht" id="DishName" name="DishName">
+                <input type="hidden" id="DishData" name="DishData"/>
+            </div>
+            <div id="ComposeForm"></div>
+            <button type="submit" class="btn btn-success" onclick="setDishData()">Creeër gerecht</button>
+        </form>
+              
+    </div>
+</div>
+
+
+<div class="card mt-2 ">
     <div class="card-body">
         <div class="form-group row">
             <label for="colFormLabel" class="col-sm-2 col-form-label">Zoek:</label>
@@ -17,12 +34,20 @@
         </div>
     </div>
 </div>
+
+
+
+<a class="btn btn-success mt-2" asp-controller="Log" asp-action="AddFoodlog">Consumpties loggen</a>   
+
+
+
+
+<h3 class="mt-5">Artikelen</h3>
 @if(User.IsInRole("Admin"))
 {
-    <a class="btn btn-success mt-2" asp-controller="Article" asp-action="Add">Add</a>
+    <a class="btn btn-success mt-2" asp-controller="Article" asp-action="Add">Voeg Toe</a> 
 }
-<a class="btn btn-success mt-2" asp-controller="Log" asp-action="Add">Consumpties loggen</a>
-<div class="card-columns mt-5" id="myItems">
+<div class="card-columns mt-5" id="Articles">
     @foreach (var article in Model.AllArticles)
     {
         <div class="card">
@@ -79,7 +104,62 @@
                 {
                     <div class="alert-info mt-2 mb-2">Geen voedingstoffen gevonden</div>
                 }
-                <a class="btn btn-success btn-sm" asp-action="AddNutrientIntake" asp-controller="Article" asp-route-id="@article.Id">Voeg Toe</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="btn btn-success btn-sm" asp-action="AddNutrientIntake" asp-controller="Article" asp-route-id="@article.Id">Voeg voedingsstof toe</a>
+                    <button class="btn btn-success btn-sm" onclick="Compose(@article.Id, '@article.Name')">Voeg toe aan gerecht</button>
+                }
+            </div>
+        </div>
+    }
+</div>
+@* Dishes  *@
+<h3 class="mt-5">Gerechten</h3>
+<div class="card-columns mt-5" id="Dishes">
+    @foreach (var dish in Model.AllDishes)
+    {
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title">@dish.Name</h5>                   
+                    </div>                   
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="col">
+                            <a class="btn-sm btn-warning" asp-controller="Article" asp-action="Edit" asp-route-id="@dish.Id">Wijzig</a>
+                            <a class="btn-sm btn-danger" asp-controller="Article" asp-action="Delete" asp-route-id="@dish.Id">Verwijder</a>
+                        </div>
+                    }         
+                </div>
+                
+               
+                @if (dish.ArticleDishes != null)
+                {
+                    <table class="table table-sm mt-2">
+                        <thead>
+                        <tr>
+                            <th>Artikel</th>
+                            <th>Aantal</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        @foreach (var articleDish in dish.ArticleDishes)
+                        {
+                            <tr>
+                                <th>@articleDish.Name</th>
+                                <td>@articleDish.Amount</td>                
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                    
+                }
+                else
+                {
+                    <div class="alert-info mt-2 mb-2">Geen voedingstoffen gevonden</div>
+                }
             </div>
         </div>
     }
@@ -87,22 +167,123 @@
 <script>
     var clicks = 0;
     var lastId = 0;
+    var articles = [];
+    
+    
     function Search() {
         var input, filter, cards, cardContainer, h5, title, i;
         input = document.getElementById("myFilter");
-        console.log(input);
         filter = input.value.toUpperCase();
-        cardContainer = document.getElementById("myItems");
-        cards = cardContainer.getElementsByClassName("card");
-        for (i = 0; i < cards.length; i++) {
-            title = cards[i].querySelector(".card-body h5.card-title");
+        
+        
+        
+        
+        dishCardContainer = document.getElementById("Dishes");
+        dishCards = dishCardContainer.getElementsByClassName("card");
+        for (i = 0; i < dishCards.length; i++) {
+            title = dishCards[i].querySelector(".card-body h5.card-title");
             if (title.innerText.toUpperCase().indexOf(filter) > -1) {
-                cards[i].style.display = "";
+                dishCards[i].style.display = "";
             } else {
-                cards[i].style.display = "none";
+                dishCards[i].style.display = "none";
+            }
+        }
+        
+        
+        
+        articleCardContainer = document.getElementById("Articles");
+        articleCards = articleCardContainer.getElementsByClassName("card");
+        for (i = 0; i < articleCards.length; i++) {
+            title = articleCards[i].querySelector(".card-body h5.card-title");
+            if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                articleCards[i].style.display = "";
+            } else {
+                articleCards[i].style.display = "none";
             }
         }
     }
+    
+    
+    function Compose(id, name) {
+        document.getElementById("Compose").classList.remove("d-none")
+        
+        clicks++;
+        if (lastId != id) {
+            lastId = id;
+            this.clicks = 1;
+        }
+
+        var article = {
+            'articleId': id, 
+            'articleName': name,
+            'articleAmount': clicks
+        }
+
+        var result;
+        var len = articles.length;
+        //console.log(articles);
+        for (var i = 0; i < len; i++) {
+            if (articles[i].articleId == id) {
+                articles[i] = article
+                result = articles[i]
+                document.getElementById("amount-" + id).value = article.articleAmount;
+            }
+        }
+        
+        if (typeof result === "undefined") {
+            articles.push(article);
+            
+            var div = document.createElement('div');
+            div.className = 'form-row';
+            div.id = 'article-' + article.articleId;
+            
+            div.innerHTML = '<div class="form-group col-md-6">' +
+                '<label for="ArtikelName">Artikel</label>' +
+                '<input type="text" class="form-control" value="'+ article.articleName + '" readonly>' +
+                '</div>' + 
+                '<div class="form-group col-md-4">' +
+                '<label for="Amount">Hoeveelheid van artikel</label>' +
+                '<input type="number" class="form-control" id="amount-' + article.articleId + '">' +
+                '</div>' +
+                '<div class="form-group col-md-2">' +
+                '<button type="button" class="btn btn-sm btn-danger" onclick="removeRow(' + article.articleId + ')">Verwijder</button>' +
+                '</div>' 
+
+            document.getElementById('ComposeForm').appendChild(div);
+        }         
+    } 
+    
+    
+    function setDishData() {
+        //console.log(articles);
+        var dishData = '';
+        var len = articles.length;
+
+        for (var i = 0; i < len; i++) {
+            var data = '';
+            data += articles[i].articleId;
+            data += ':'
+            data += document.getElementById("amount-" + articles[i].articleId).value;
+            dishData += data 
+            if (i < len - 1) {
+                dishData += ',' 
+            }       
+        }
+        document.getElementById("DishData").value = dishData;
+        //dishData.toString();
+        console.log(dishData);
+    }
+    function removeRow(id) {
+        document.getElementById("article-" + id).remove();
+        
+        var len = articles.length;
+        for (var i = 0; i < len; i++) {
+            if (articles[i].articleId == id) {
+                articles.splice(i);
+            }
+        }
+    }
+    
 </script>
 
 

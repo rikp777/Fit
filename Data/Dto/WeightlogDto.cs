@@ -7,7 +7,7 @@ namespace Data.Dto
     {
         public int Id { get; set; }
         public DateTime DateTime { get; set; }
-        public double Weight { get; set; }
+        public decimal Weight { get; set; }
         public IUser User { get; set; }
     }
 }

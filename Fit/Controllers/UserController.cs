@@ -58,20 +58,27 @@ namespace Fit.Controllers
         /// </summary>       
         [Authorize]
         [HttpGet]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int? id)
         {            
             var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);
+            var user = _userLogic.GetBy(userId);
             
-            var user = _userLogic.GetBy(User.IsInRole("Admin") ? id : userId);
+            if (User.IsInRole("Admin") && id != null)
+            {
+                //user = _userLogic.GetBy((int) (User.IsInRole("Admin") ? id : userId));
+                user = _userLogic.GetBy((int) id);
+            }
+            
 
             var viewModel = new UserEditViewModel
             {
                 Id = user.Id,
                 Email = user.Email,
-                FirstName = user.Email,
+                FirstName = user.FirstName,
                 LastName = user.LastName,
                 BirthDate = user.BirthDate,
                 Length = user.Length,
+                Blocked = user.Blocked,
                 Rights = _rightLogic.GetAll().Select(a => new SelectListItem
                 {
                     Text = a.Name, 
@@ -86,42 +93,42 @@ namespace Fit.Controllers
         }
         [Authorize]
         [HttpPost]
-        public IActionResult Edit(int id, UserEditViewModel data)
+        public IActionResult Edit(int? id, UserEditViewModel data)
         {
             var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);
-            var authUser = _userLogic.GetBy(data.Id);
-            
-            var oldUser = _userLogic.GetBy(id);
-            var user = new User
+
+            var user = _userLogic.GetBy(userId);
+
+            if (User.IsInRole("Admin") && id != null)
             {
-                Id = 0,
+                user = _userLogic.GetBy((int) id);
+            }
+            
+            var userNew = new User
+            {
+                Id = user.Id,
                 FirstName = data.FirstName,
                 LastName = data.LastName,
                 BirthDate = data.BirthDate,
                 Length = data.Length,
                 Email = data.Email,
-                Blocked = oldUser.Blocked,
-                Right = oldUser.Right,
+                Blocked = user.Blocked,
+                Right = user.Right
             };
 
             bool success;
-            if (authUser.Right.Name == Right.Admin.ToString())
+            if (User.IsInRole("Admin"))
             {
-                user.Right = _rightLogic.GetBy(data.Right);
-                user.Blocked = data.Blocked;
-                success = _userLogic.Edit(userId, user); 
+                userNew.Right = _rightLogic.GetBy(data.RightId);
+                userNew.Blocked = data.Blocked;
+                success = _userLogic.Edit(userId, userNew); 
             }
             else
             {
-                success = _userLogic.ChangeUser(user);
+                success = _userLogic.ChangeUser(userNew);
             }
                            
-            if (success)
-            {
-                return RedirectToAction("index", "Home");
-            }
-            
-            return RedirectToAction("Edit" , new { id = data.Id});
+            return success ? RedirectToAction("index", "Home") : RedirectToAction("Edit" , new { id = data.Id});
         }
         
         /// <summary>

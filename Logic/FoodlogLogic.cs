@@ -40,7 +40,7 @@ namespace Logic
         ///     Exception     = Foodlog.Article cant be null
         ///
         /// </summary>
-        public bool Add(IFoodlog foodlog)
+        public bool Add(int userId, IFoodlog foodlog)
         {
             
             return _repository.Add(foodlog);

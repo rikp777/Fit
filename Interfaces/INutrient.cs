@@ -5,6 +5,6 @@ namespace Models
     {
         int Id { get; }
         string Name { get; }
-        double  MaxIntake { get; }
+        decimal  MaxIntake { get; }
     }
 }

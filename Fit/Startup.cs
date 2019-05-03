@@ -40,6 +40,9 @@ namespace Fit
             services.AddSingleton<ArticleLogic>();
             services.AddSingleton<FoodlogLogic>();
             services.AddSingleton<NutrientLogic>();
+            services.AddSingleton<WeightLogLogic>();
+            services.AddSingleton<GoalLogLogic>();
+            services.AddSingleton<DishLogic>();
 
             services.AddSession();
             services.AddDistributedMemoryCache();

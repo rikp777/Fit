@@ -1,0 +1,18 @@
+@model Fit.ViewModels.Log.LogAddWeightLogViewModel
+@{
+    ViewBag.Title = "Toevoegen Gewicht";
+    Layout = "_Layout";
+}
+<div class="card">
+    <div class="card-body">
+        <form class="form" asp-controller="Log" asp-action="AddWeightlog">         
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="@Model.Weight">Gewicht</label>
+                    <input type="text" class="form-control" placeholder="Gewicht" asp-for="@Model.Weight" required>
+                </div>        
+            </div>                         
+            <button type="submit" class="btn btn-success">Voeg Toe</button>
+        </form>
+    </div>
+</div>

@@ -7,6 +7,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Data\Data.csproj" />
       <ProjectReference Include="..\Enum\Enum.csproj" />
+      <ProjectReference Include="..\Helpers\Helpers.csproj" />
       <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
     </ItemGroup>
 

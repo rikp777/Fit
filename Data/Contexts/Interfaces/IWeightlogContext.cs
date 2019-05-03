@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Models;
 
@@ -11,6 +12,7 @@ namespace Data.Contexts.Interfaces
         
         IWeightlog Read(int id);
         IWeightlog Read(IWeightlog weightlog);
+        IWeightlog ReadLast(IUser user);
               
         
         
@@ -23,5 +25,6 @@ namespace Data.Contexts.Interfaces
         
         
         IEnumerable<IWeightlog> List();
+        IEnumerable<IWeightlog> List(IUser user);
     }
 }

@@ -8,6 +8,6 @@ namespace Fit.ViewModels.Article
     {
         public IEnumerable<SelectListItem> NutientsList { get; set; }
         public int NutrientId { get; set; }
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
     }
 }

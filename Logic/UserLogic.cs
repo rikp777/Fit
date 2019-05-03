@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
+using System.Security.Claims;
 using Data.Contexts;
 using Data.Contexts.Interfaces;
 using Data.Contexts.SQLContexts;
@@ -133,12 +136,13 @@ namespace Logic
             return true;
         }
 
+        
+        
+        
         /// returns true when valid 
-        private bool CheckRight(int id, Right right)
-        {
-            var UserData = _userRepository.GetBy(id);
-           
-            return UserData.Right.Name == right.ToString();
+        public static bool CheckRight(int UserId, Right hasRight)
+        {                   
+            return new UserRepository(StorageTypeSetting.Setting).GetBy(UserId).Right.Name == hasRight.ToString();
         }
     }
 }

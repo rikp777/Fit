@@ -6,7 +6,7 @@ namespace Models
     {
         int Id { get; }
         DateTime DateTime { get; }
-        double Weight { get; }
+        decimal Weight { get; }
         IUser User { get; }
     }
 }

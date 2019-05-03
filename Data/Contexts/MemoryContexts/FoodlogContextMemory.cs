@@ -23,7 +23,7 @@ namespace Data.Contexts.MemoryContexts
                     Id = 1,
                     Amount = 2,
                     Unit = Unit.Stuks,
-                    DateTime = DateTime.Now,
+                    DateTime = new DateTime(2019,4, 10, 8, 30,00),
                     Article = new ArticleContextMemory().Read(1),
                     User = new UserContextMemory().Read(1)
                 },
@@ -32,7 +32,7 @@ namespace Data.Contexts.MemoryContexts
                     Id = 2,
                     Amount = 5,
                     Unit = Unit.Stuks,
-                    DateTime = DateTime.Now,
+                    DateTime = new DateTime(2019,4, 10, 11, 50,00),
                     Article = new ArticleContextMemory().Read(2),
                     User = new UserContextMemory().Read(1)
                 },
@@ -41,9 +41,9 @@ namespace Data.Contexts.MemoryContexts
                     Id = 3,
                     Amount = 10,
                     Unit = Unit.Gram,
-                    DateTime = DateTime.Now,
+                    DateTime = new DateTime(2019,4, 10, 20, 15,00),
                     Article = new ArticleContextMemory().Read(2),
-                    User = new UserContextMemory().Read(2)
+                    User = new UserContextMemory().Read(1)
                 }
             };
             _added = true;

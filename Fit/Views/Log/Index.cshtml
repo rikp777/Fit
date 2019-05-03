@@ -1,105 +1,172 @@
+@using Microsoft.EntityFrameworkCore
 @model Fit.ViewModels.Log.LogListViewModel;
 
 @{
     ViewBag.Title = "Dashboard";
     Layout = "_Layout";
 }
+<div class="card-columns">
+    @if (Model.CaloriesOverViewModel != null)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Goal</h5>
+                <h3>@Model.CaloriesOverViewModel.ConsumedCalories - @Model.CaloriesOverViewModel.GoalLog.Calories = @Model.CaloriesOverViewModel.CaloriesOver </h3>
+                <h3>Over je goal</h3>
+            </div>
+        </div>
+    }
+    @if (Model.FoodlogsBreakfast.Any())
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Ontbijt</h5>
+                @foreach (var breakfast in Model.FoodlogsBreakfast)
+                {
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@breakfast.Article.Name</h5>
+                                <small>@breakfast.DateTime.Hour:@breakfast.DateTime.Minute</small>
+                            </div>
+                            <p class="mb-1">U heeft om @breakfast.DateTime.Hour:@breakfast.DateTime.Minute geloged dat u @breakfast.Amount @breakfast.Unit @breakfast.Article.Name heeft gegeten</p>
+                            <ul>
+                                @foreach (var nutrient in breakfast.Article.NutrientIntakes)
+                                {
+                                    <li>
+                                        <small>@nutrient.Nutrient.Name</small>
+                                    </li>
+                                }
+                            </ul>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
 
+    @if (Model.FoodlogsLunch.Any())
+    {
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Lunch</h5>
+                @foreach (var lunch in Model.FoodlogsLunch)
+                {
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@lunch.Article.Name</h5>
+                                <small>@lunch.DateTime.Hour:@lunch.DateTime.Minute</small>
+                            </div>
+                            <p class="mb-1">U heeft om @lunch.DateTime.Hour:@lunch.DateTime.Minute geloged dat u @lunch.Amount @lunch.Unit @lunch.Article.Name heeft gegeten</p>
+                            <small>calorien: @lunch.Article.Calories</small>
+                            <ul>
+                                @foreach (var nutrient in lunch.Article.NutrientIntakes)
+                                {
+                                    <li>
+                                        <small>@nutrient.Nutrient.Name</small>
+                                    </li>
+                                }
+                            </ul>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    @if (Model.FoodlogsSupper.Any())
+    {
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Avondeten</h5>
+                @foreach (var supper in Model.FoodlogsSupper)
+                {
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@supper.Article.Name</h5>
+                                <small>@supper.DateTime.Hour:@supper.DateTime.Minute</small>
+                            </div>
+                            <p class="mb-1">U heeft om @supper.DateTime.Hour:@supper.DateTime.Minute geloged dat u @supper.Amount @supper.Unit @supper.Article.Name heeft gegeten</p>
+                            <ul >
+                                @foreach (var nutrient in supper.Article.NutrientIntakes)
+                                {
+                                    <li>
+                                        <small>@nutrient.Nutrient.Name</small>
+                                    </li>
+                                }
+                            </ul>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    @if (Model.BMIs.Any())
+    {
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title col">Gewicht Logs</div>
+
+                @foreach (var bmi in Model.BMIs)
+                {
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@bmi.Weight kg</h5>
+                                <h6 class="mb-1">@bmi.BMI bmi</h6>
+                                <small>@bmi.DateTime</small>
+                            </div>
+                        </a>
+                    </div>
+                }
+
+                <div class="card-footer">
+                    <a class="btn btn-success btn-sm" asp-controller="Log" asp-action="AddWeightlog">Gewicht loggen</a>
+                </div>
+            </div>
+            <ul class="list-group mt-5">
+                <li class="list-group-item">18 en lager | ondergewicht</li>
+                <li class="list-group-item">18.5 t/m 24,9 | Normaal</li>
+                <li class="list-group-item">25 t/m 29,9 | Overgewicht</li>
+                <li class="list-group-item">30 en daar boven | Obesitas</li>
+            </ul>
+        </div>
+    }
+
+    @if (Model.GoalLogs.Any())
+    {
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title col">Gewicht Logs</div>
+
+                @foreach (var goalLog in Model.GoalLogs)
+                {
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@goalLog.Calories</h5>
+                                <small>@goalLog.DateTime</small>
+                            </div>
+                        </a>
+                    </div>
+                }
+
+                <div class="card-footer">
+                    <a class="btn btn-success btn-sm" asp-controller="Log" asp-action="AddGoalLog">Goal loggen</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
         
         
  
                 
-         @if (Model.FoodlogsBreakfast != null)
-         {
-             <div class="card">
-                 <div class="card-body">
-                     <h5 class="card-title">Ontbijt</h5>
-                      @foreach (var breakfast in Model.FoodlogsBreakfast)
-                      {
-                          <div class="list-group">
-                              <a href="#" class="list-group-item list-group-item-action">
-                                  <div class="d-flex w-100 justify-content-between">
-                                      <h5 class="mb-1">@breakfast.Article.Name</h5>
-                                      <small>@breakfast.DateTime.Hour:@breakfast.DateTime.Minute</small>
-                                  </div>
-                                  <p class="mb-1">U heeft om @breakfast.DateTime.Hour:@breakfast.DateTime.Minute geloged dat u @breakfast.Amount @breakfast.Unit @breakfast.Article.Name heeft gegeten</p>
-                                  <ul>
-                                      @foreach (var nutrient in breakfast.Article.NutrientIntakes)
-                                      {
-                                          <li>
-                                              <small>@nutrient.Nutrient.Name</small>
-                                          </li>
-                                      }
-                                  </ul>
-                              </a>
-                          </div>
-                      }
-                 </div>
-             </div>
-         }
-@*          *@
-@*          *@
-@*         @if (Model.FoodlogsLunch.Any()) *@
-@*         { *@
-@*              *@
-@*             <div class="card"> *@
-@*                 <div class="card-body"> *@
-@*                     <h5 class="card-title">Lunch</h5> *@
-@*                     @foreach (var lunch in Model.FoodlogsLunch) *@
-@*                     { *@
-@*                         <div class="list-group"> *@
-@*                             <a href="#" class="list-group-item list-group-item-action"> *@
-@*                                 <div class="d-flex w-100 justify-content-between"> *@
-@*                                     <h5 class="mb-1">@lunch.Article.Name</h5> *@
-@*                                     <small>@lunch.DateTime.Hour:@lunch.DateTime.Minute</small> *@
-@*                                 </div> *@
-@*                                 <p class="mb-1">U heeft om @lunch.DateTime.Hour:@lunch.DateTime.Minute geloged dat u @lunch.Amount @lunch.Unit @lunch.Article.Name heeft gegeten</p> *@
-@*                                 <small>calorien: @lunch.Article.Calories</small> *@
-@*                                 <ul> *@
-@*                                     @foreach (var nutrient in lunch.Article.Nutrients) *@
-@*                                     { *@
-@*                                         <li> *@
-@*                                             <small>@nutrient.Nutrient.Name</small> *@
-@*                                         </li> *@
-@*                                     } *@
-@*                                 </ul> *@
-@*                             </a> *@
-@*                         </div> *@
-@*                     } *@
-@*                 </div>     *@
-@*             </div> *@
-@*         } *@
-@*          *@
-@*          *@
-@*          *@
-@*         @if (Model.FoodlogsSupper.Any()) *@
-@*         { *@
-@*              *@
-@*             <div class="card"> *@
-@*                 <div class="card-body"> *@
-@*                     <h5 class="card-title">Avondeten</h5> *@
-@*                     @foreach (var supper in Model.FoodlogsSupper) *@
-@*                     { *@
-@*                         <div class="list-group"> *@
-@*                             <a href="#" class="list-group-item list-group-item-action"> *@
-@*                                 <div class="d-flex w-100 justify-content-between"> *@
-@*                                     <h5 class="mb-1">@supper.Article.Name</h5> *@
-@*                                     <small>@supper.DateTime.Hour:@supper.DateTime.Minute</small> *@
-@*                                 </div> *@
-@*                                 <p class="mb-1">U heeft om @supper.DateTime.Hour:@supper.DateTime.Minute geloged dat u @supper.Amount @supper.Unit @supper.Article.Name heeft gegeten</p> *@
-@*                                 <ul class="list-group"> *@
-@*                                     @foreach (var nutrient in supper.Article.Nutrients) *@
-@*                                     { *@
-@*                                         <li class="list-group-item"> *@
-@*                                             <small>@nutrient.Nutrient.Name</small> *@
-@*                                         </li> *@
-@*                                     } *@
-@*                                 </ul>                               *@
-@*                             </a> *@
-@*                         </div> *@
-@*                     } *@
-@*                 </div> *@
-@*             </div> *@
-@*         } *@
+
                 
         
