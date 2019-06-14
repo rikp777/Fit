@@ -127,8 +127,8 @@
                     @if (User.IsInRole("Admin"))
                     {
                         <div class="col">
-                            <a class="btn-sm btn-warning" asp-controller="Article" asp-action="Edit" asp-route-id="@dish.Id">Wijzig</a>
-                            <a class="btn-sm btn-danger" asp-controller="Article" asp-action="Delete" asp-route-id="@dish.Id">Verwijder</a>
+                            <a class="btn-sm btn-warning" asp-controller="Dish" asp-action="Edit" asp-route-id="@dish.Id">Wijzig</a>
+                            <a class="btn-sm btn-danger" asp-controller="Dish" asp-action="Delete" asp-route-id="@dish.Id">Verwijder</a>
                         </div>
                     }         
                 </div>
@@ -148,7 +148,7 @@
                         @foreach (var articleDish in dish.ArticleDishes)
                         {
                             <tr>
-                                <th>@articleDish.Name</th>
+                                <th>@articleDish.Article.Name</th>
                                 <td>@articleDish.Amount</td>                
                             </tr>
                         }

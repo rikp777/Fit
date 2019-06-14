@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enum", "Enum\Enum.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Helpers\Helpers.csproj", "{30A26F0D-FF11-4B86-90EA-F0DDFAF0E12B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{B70F3526-3118-416F-A75C-A686F53FD3A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{30A26F0D-FF11-4B86-90EA-F0DDFAF0E12B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30A26F0D-FF11-4B86-90EA-F0DDFAF0E12B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30A26F0D-FF11-4B86-90EA-F0DDFAF0E12B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B70F3526-3118-416F-A75C-A686F53FD3A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B70F3526-3118-416F-A75C-A686F53FD3A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B70F3526-3118-416F-A75C-A686F53FD3A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B70F3526-3118-416F-A75C-A686F53FD3A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

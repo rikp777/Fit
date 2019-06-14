@@ -8,9 +8,14 @@
     <div class="card-body">
         <form class="form" asp-controller="Article" asp-action="EditNutrientIntake" asp-route-articleId="@Model.ArticleId">         
             <div class="form-row">
+                @* <div class="form-group col-md-6"> *@
+                @*     <label asp-for="@Model.NutrientId">Voedingsstof</label> *@
+                @*     <select class="form-control" asp-for="@Model.NutrientId" asp-items="Model.NutientsList"></select> *@
+                @* </div> *@
                 <div class="form-group col-md-6">
                     <label asp-for="@Model.NutrientId">Voedingsstof</label>
-                    <select class="form-control" asp-for="@Model.NutrientId" asp-items="Model.NutientsList"></select>
+                    <input type="text" class="form-control" value="@Model.Nutrient" readonly>
+                    <input type="hidden" asp-for="@Model.NutrientId" value="@Model.NutrientId" required/>
                 </div>
                 <div class="form-group col-md-6">
                     <label asp-for="@Model.Amount">Aantal</label>

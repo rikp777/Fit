@@ -8,6 +8,5 @@ namespace Data.Contexts
         {
             Memory, SQL
         }
-
     }
 }

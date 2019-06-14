@@ -1,11 +1,13 @@
+@using Enum
 @model Fit.ViewModels.User.UserListViewModel
 
 @{
     ViewBag.Title = "All Users";
     Layout = "_Layout";
 }
-
-
+<h5 class="card-title">Gebruikers</h5>
+@if (Model.AllUsers != null)
+{
      <table class="table table-hover">
          <thead>
          <tr>
@@ -17,30 +19,64 @@
          </thead>
          <tbody>
          @foreach (var user in Model.AllUsers)
-         {
-             <tr>
-                 <th>@user.FirstName @user.LastName</th>
-                 <td>
-                     @if (user.Blocked)
-                     {
-                         <span class="badge badge-danger">Geblokeerd</span>
-                     }else
-                     {
-                         <span class="badge badge-success">Actief</span>
-                     }
-                 </td>
-                 <td>@user.Right.Name</td>
-                 <td>
-                     <div class="btn-group btn-group-toggle" >
-                         <label class="btn btn-warning">
-                             <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Wijzig</a>
-                         </label>
-                         <label class="btn btn-danger">
-                             <a asp-controller="User" asp-action="Delete" asp-route-id="@user.Id">Verwijder</a>
-                         </label>
-                     </div>
-                 </td>
-             </tr>
-         }
+              {
+                  <tr>
+                      <th>
+                          @if (user.Right.Name == Right.Admin.ToString())
+                          {
+                              <i class="fas fa-crown text-warning fa-1x mr-2"></i>
+                          }else if (user.Right.Name == Right.Fitnesser.ToString())
+                          {
+                              <i class="fas fa-running text-primary fa-2x mr-2"></i>
+                          }else if (user.Right.Name == Right.Instructor.ToString())
+                          {
+                              <i class="far fa-id-badge text-info fa-2x mr-2"></i>
+                          }
+                          <span>@user.FirstName @user.LastName</span>
+                      </th>
+                      <td>
+                          @if (user.Blocked)
+                          {
+                              <span class="badge badge-pill badge-danger">Geblokeerd</span>
+                          }
+                          else
+                          {
+                              <span class="badge badge-pill badge-success">Actief</span>
+                          }
+                      </td>
+                      <td>
+                          @if (user.Right.Name == Right.Admin.ToString())
+                          {
+                              <h2 class="badge badge-pill badge-warning">@user.Right.Name</h2>
+                          }else if (user.Right.Name == Right.Fitnesser.ToString())
+                          {
+                              <span class="badge badge-pill badge-primary">@user.Right.Name</span>
+                          }else if (user.Right.Name == Right.Instructor.ToString())
+                          {
+                              <span class="badge badge-pill badge-info">@user.Right.Name</span>
+                          }
+                      </td>
+                      <td>
+                          <div class="btn-group btn-group-toggle">
+                              <label class="btn btn-warning">
+                                  <a class="text-body" asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Wijzig</a>
+                              </label>
+                              <label class="btn btn-danger">
+                                  <a class="text-white" asp-controller="User" asp-action="Delete" asp-route-id="@user.Id">Verwijder</a>
+                              </label>
+                          </div>
+                      </td>
+                  </tr>
+              }
          </tbody>
      </table>
+}
+else
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Geen Gebruikers</strong> er zijn geen gebruikers gevonden.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}

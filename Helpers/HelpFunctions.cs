@@ -43,13 +43,43 @@ namespace Helpers
                 return null;
             }
         }
+
+        public static T DatatableToObject<T>(this DataTable table) where T : class, new()
+        {
+            if (table.Rows.Count != 1) return null;
+            
+            try
+            {
+                T obj = new T();
+
+                foreach (var prop in obj.GetType().GetProperties())
+                {
+                    try
+                    {
+                        PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
+                        propertyInfo.SetValue(obj, Convert.ChangeType(table.Rows[0][prop.Name], propertyInfo.PropertyType), null);
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+                }
+
+
+                return obj;
+            }
+            catch
+            {
+                return null;
+            }
+        }
         
         public static bool nonQuery(string storedProcedureName, Dictionary<string, object> dict)
         {
             var success = false;
             try
             {
-                using (var conn = new SqlConnection("using (SqlConnection conn = new SqlConnection(Data Source=RIKP\\SQLEXPRESS;Initial Catalog=App;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False))"))
+                using (var conn = new SqlConnection("Server=mssql.fhict.local;Database=dbi409059;User Id=dbi409059;Password=Egt4gTSMOK;"))
                 {
                     conn.Open();
                     using (var cmd = new SqlCommand(storedProcedureName))
@@ -72,6 +102,7 @@ namespace Helpers
             catch (Exception sqlEx)
             {
                 Console.WriteLine(@": Unable to establish a connection: {0} ", sqlEx);
+                throw;
             }
             return success;
         }
@@ -80,7 +111,7 @@ namespace Helpers
             var datatable = new DataTable();
             try
             {
-                using (var conn = new SqlConnection("Data Source=RIKP\\SQLEXPRESS; Initial Catalog=RikFit;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"))
+                using (var conn = new SqlConnection("Server=mssql.fhict.local;Database=dbi409059;User Id=dbi409059;Password=Egt4gTSMOK;"))
                 {
                     conn.Open();
                     using (var cmd = new SqlCommand("dbo." + storedProcedureName, conn) { CommandType = CommandType.StoredProcedure})
@@ -94,7 +125,6 @@ namespace Helpers
                             }
                         }
                         
-                        cmd.ExecuteNonQuery();
                         using (var adapter = new SqlDataAdapter(cmd))
                         {
                             adapter.Fill(datatable);
@@ -106,6 +136,7 @@ namespace Helpers
             catch (Exception sqlEx)
             {
                 Console.WriteLine(@": Unable to establish a connection: {0} ", sqlEx);
+                throw;
             }
 
             return datatable;

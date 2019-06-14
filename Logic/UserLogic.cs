@@ -9,6 +9,7 @@ using System.Security.Claims;
 using Data.Contexts;
 using Data.Contexts.Interfaces;
 using Data.Contexts.SQLContexts;
+using Data.Dto;
 using Data.Repositories;
 using Enum;
 using Logic.Models;
@@ -25,22 +26,54 @@ namespace Logic
             _userRepository = new UserRepository(StorageTypeSetting.Setting);
         }
 
+
+
+
+        public IUser GetBy(int userId, int id)
+        {
+            if(CheckRight(userId, Right.Admin) || userId == id)
+            {
+                return _userRepository.GetBy(id);
+            }
+
+            return null;
+        } 
+        
+        public IUser GetBy(string email)
+        { 
+            var userData = _userRepository.GetBy(email);
+            
+            if(!CheckRight(userData.Id, Right.Admin) || email == userData.Email)
+            {
+                return userData;
+            }
+
+            return null;
+        } 
         
         
         
-        public IUser GetBy(int id) => _userRepository.GetBy(id);
-        public IUser GetBy(string email) => _userRepository.GetBy(email);
+        
+        public IEnumerable<IUser> GetAll(int userId)
+        {
+            return CheckRight(userId, Right.Admin) ? _userRepository.GetAll() : null;
+        } 
         
         
         
         
-        public IEnumerable<IUser> GetAll() => _userRepository.GetAll();
-        
-        
-        
-        
-        public bool Delete(int id) => _userRepository.Delete(id);
-        public bool Register(IUser user, string password) => _userRepository.Add(user, password);       
+        public bool Delete(int userId, int id)
+        {
+            if (!CheckRight(userId, Right.Admin) || userId == id) return false;
+            
+            return _userRepository.Delete(id);
+        }
+
+        public bool Register(IUser user, string password)
+        {
+            if(!validation(user)) return false;
+            return _userRepository.Add(user, password); 
+        }      
         
         
         
@@ -57,6 +90,8 @@ namespace Logic
         public bool Edit(int userId, IUser user)
         { 
             if (!CheckRight(userId, Right.Admin)) return false;
+            if (!validation(user)) return false;
+            
             return _userRepository.Edit(user);
         }
 
@@ -116,23 +151,15 @@ namespace Logic
         ///                    = Name cant be more than 50 
         ///
         /// </summary>
-        private bool validation(IArticle article)
-        {                          
-//            if (!article.NutrientIntakes.Any()) return false;
-//            foreach (var nutrientIntake in article.NutrientIntakes)
-//            {
-//                if (_nutrientRepository.GetBy(nutrientIntake.Nutrient) == null) return false;
-//            }
-            
-            
-            if (article.Calories > 2000) return false;
-            if (article.Name != null)
+        private bool validation(IUser user)
+        {
+            if (user.Length > 300) return false;
+            if (user.FirstName != null)
             {
-                if (article.Name.Length > 50) return false;
+                if (user.FirstName.Length > 50) return false;
             }
-            
 
-            
+
             return true;
         }
 

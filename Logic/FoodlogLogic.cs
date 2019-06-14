@@ -42,8 +42,11 @@ namespace Logic
         /// </summary>
         public bool Add(int userId, IFoodlog foodlog)
         {
-            
-            return _repository.Add(foodlog);
+            if (foodlog.Dish != null || foodlog.Article != null)
+            {
+                return _repository.Add(foodlog);
+            }
+            return false;
         }
     }
 }

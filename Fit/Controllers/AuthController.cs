@@ -155,7 +155,7 @@ namespace Fit.Controllers
         }
         public static IUser GetAuthUser(ClaimsPrincipal user)
         {
-            return new UserLogic().GetBy(GetAuthUserId(user));
+            return new UserLogic().GetBy(GetAuthUserId(user), GetAuthUserId(user));
         }
     }
 }

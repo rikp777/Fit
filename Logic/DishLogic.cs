@@ -46,7 +46,7 @@ namespace Logic
         /// </summary>
         public bool Add(int userId, IDish dish)
         {
-            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instuctor)) return false;
+            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instructor)) return false;
             
             
             return _repository.Add(dish);

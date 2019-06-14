@@ -79,7 +79,7 @@ namespace Fit.Controllers
             var viemodel = new NutrientEditViewModel
             {
                 Name = nutrient.Name,
-                MaxIntake = nutrient.MaxIntake
+                MaxIntake = nutrient.MaxIntake.ToString()
             };
             
             
@@ -89,14 +89,18 @@ namespace Fit.Controllers
         [HttpPost]
         public IActionResult Edit(int id, NutrientEditViewModel data)
         {
-            var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);  
+            var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);
             
+            if (!decimal.TryParse(data.MaxIntake, out var amount))
+            {
+                return View(data);
+            }       
             
             var nutrient = new Nutrient
             {
                 Id = id,
                 Name = data.Name,
-                MaxIntake = data.MaxIntake
+                MaxIntake = amount
             };
             
             

@@ -1,7 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
+
 namespace Models
 {
-    public interface IArticleDish : IArticle
+    public interface IArticleDish
     {
-        int Amount { get; set; }      
+        int Amount { get; }      
+        IArticle Article { get; }
     }
 }

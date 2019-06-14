@@ -19,9 +19,7 @@ namespace Data.Contexts.MemoryContexts
                 .List()
                 .Select(article => new ArticleDishDto
                 {
-                    Name = article.Name, 
-                    Calories = article.Calories, 
-                    NutrientIntakes = article.NutrientIntakes, 
+                    Article = new ArticleContextMemory().Read(1),
                     Amount = 5
                 }).ToList();
             

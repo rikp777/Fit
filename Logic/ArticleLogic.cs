@@ -54,7 +54,7 @@ namespace Logic
         /// </summary>
         public bool Add(int UserId, IArticle article)
         {
-            if (!UserLogic.CheckRight(UserId, Right.Admin) || UserLogic.CheckRight(UserId, Right.Instuctor)) return false;
+            if (!UserLogic.CheckRight(UserId, Right.Admin) || UserLogic.CheckRight(UserId, Right.Instructor)) return false;
             
             
             if (_articleRepository.GetBy(article.Name) != null) return false;
@@ -65,7 +65,7 @@ namespace Logic
         }
         public bool AddNutrientIntake(int userId, int articleId, INutrientIntake nutrientIntake)
         {
-            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instuctor)) return false;
+            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instructor)) return false;
             var article = _articleRepository.GetBy(articleId);
 
             if (article.NutrientIntakes != null)
@@ -91,7 +91,7 @@ namespace Logic
         /// </summary>
         public bool Edit(int userId, IArticle article)
         {
-            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instuctor)) return false;
+            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instructor)) return false;
             
             
             if (!validation(article)) return false;  
@@ -102,7 +102,7 @@ namespace Logic
 
         public bool EditNutrientIntake(int userId, int articleId, INutrientIntake nutrientIntake)
         {
-            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instuctor)) return false;
+            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instructor)) return false;
             var article = _articleRepository.GetBy(articleId);
             
             //if(article.NutrientIntakes.Where(a => article.NutrientIntakes.All(n => n.Nutrient.Name == nutrientIntake.Nutrient.Name)) != null) return false;
@@ -126,7 +126,7 @@ namespace Logic
         /// </summary>
         public bool Delete(int userId, int id)
         {
-            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instuctor)) return false;
+            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instructor)) return false;
 
             
             if (_articleRepository.GetBy(id) == null) return false;
@@ -137,7 +137,7 @@ namespace Logic
 
         public bool DeleteNutrientIntake(int userId, int articleId, INutrientIntake nutrientIntake)
         {
-            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instuctor)) return false;
+            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instructor)) return false;
             
             return _nutrientIntakeRepository.Delete(articleId, nutrientIntake);
         }

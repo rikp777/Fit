@@ -9,6 +9,7 @@ namespace Models
         int Amount { get; }
         DateTime DateTime { get; }
         IArticle Article { get; }
+        IDish Dish { get; }
         IUser User { get; }
         Unit Unit { get; }
     }

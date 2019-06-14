@@ -60,34 +60,38 @@ namespace Fit.Controllers
         [HttpGet]
         public IActionResult Edit(int? id)
         {            
-            var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);
-            var user = _userLogic.GetBy(userId);
+            //var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);
+            var authUser = AuthController.GetAuthUser(User);
+            var user = AuthController.GetAuthUser(User);
             
             if (User.IsInRole("Admin") && id != null)
             {
                 //user = _userLogic.GetBy((int) (User.IsInRole("Admin") ? id : userId));
-                user = _userLogic.GetBy((int) id);
+                user = _userLogic.GetBy(authUser.Id, (int) id);
             }
-            
 
-            var viewModel = new UserEditViewModel
+
+            var viewModel = new UserEditViewModel();
+            if (user != null)
             {
-                Id = user.Id,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                BirthDate = user.BirthDate,
-                Length = user.Length,
-                Blocked = user.Blocked,
-                Rights = _rightLogic.GetAll().Select(a => new SelectListItem
+                viewModel.Id = user.Id;
+                viewModel.Email = user.Email;
+                viewModel.FirstName = user.FirstName;
+                viewModel.LastName = user.LastName;
+                viewModel.BirthDate = user.BirthDate;
+                viewModel.Length = user.Length;
+                viewModel.Blocked = user.Blocked;
+                viewModel.Rights = _rightLogic.GetAll().Select(a => new SelectListItem
                 {
-                    Text = a.Name, 
-                    Value = a.Id.ToString(), 
+                    Text = a.Name,
+                    Value = a.Id.ToString(),
                     Selected = a.Id == user.Right.Id
-                })
-            };
-
-
+                });
+            }
+            else
+            {
+                viewModel = null;
+            }
 
             return View(viewModel);       
         }
@@ -97,11 +101,11 @@ namespace Fit.Controllers
         {
             var userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value);
 
-            var user = _userLogic.GetBy(userId);
+            var user = _userLogic.GetBy(AuthController.GetAuthUserId(User), userId);
 
             if (User.IsInRole("Admin") && id != null)
             {
-                user = _userLogic.GetBy((int) id);
+                user = _userLogic.GetBy(AuthController.GetAuthUserId(User), (int) id);
             }
             
             var userNew = new User
@@ -128,7 +132,7 @@ namespace Fit.Controllers
                 success = _userLogic.ChangeUser(userNew);
             }
                            
-            return success ? RedirectToAction("index", "Home") : RedirectToAction("Edit" , new { id = data.Id});
+            return success ? RedirectToAction("List", "User") : RedirectToAction("Edit" , new { id = data.Id});
         }
         
         /// <summary>
@@ -140,7 +144,7 @@ namespace Fit.Controllers
         public IActionResult Delete(int id)
         {
             
-            var success = _userLogic.Delete(id);
+            var success = _userLogic.Delete(AuthController.GetAuthUserId(User), id);
             return RedirectToAction("List");
         }
         
@@ -154,7 +158,7 @@ namespace Fit.Controllers
         public IActionResult List()
         {
             UserListViewModel viewModel = new UserListViewModel();
-            viewModel.AllUsers = _userLogic.GetAll();
+            viewModel.AllUsers = _userLogic.GetAll(AuthController.GetAuthUserId(User));
             return View(viewModel);
         }        
        

@@ -18,7 +18,7 @@ namespace Data.Repositories
             switch (storageType)
             {
                 case StorageTypeSetting.StorageTypes.SQL :
-                    _context = null;   //TODO implement 
+                    _context = new WeightLogContextSQL();
                     break;
                 case StorageTypeSetting.StorageTypes.Memory:
                     _context = new WeightlogContextMemory();  

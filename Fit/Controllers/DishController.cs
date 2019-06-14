@@ -51,6 +51,54 @@ namespace Fit.Controllers
         }
         
         
+        /// <summary>
+        ///
+        ///     Create Dish
+        ///
+        ///     Auth     = True
+        ///     Right    = Admin, Instructor 
+        /// 
+        /// </summary>
+        [Authorize(Roles = "Admin, Instructor")] 
+        [HttpPost]
+        public IActionResult Edit(LogAddDishViewModel data)
+        {
+            if (DishViewmodelToInterface(data) != null)
+            {
+                if (_dishLogic.Add(AuthController.GetAuthUserId(User), DishViewmodelToInterface(data)))
+                {
+                    return RedirectToAction("List", "Article");
+                }
+            }
+            return RedirectToAction("List", "Article");
+        }
+        
+        
+        /// <summary>
+        ///
+        ///     Create Dish
+        ///
+        ///     Auth     = True
+        ///     Right    = Admin, Instructor 
+        /// 
+        /// </summary>
+        [Authorize(Roles = "Admin, Instructor")] 
+        [HttpPost]
+        public IActionResult Delete(LogAddDishViewModel data)
+        {
+            if (DishViewmodelToInterface(data) != null)
+            {
+                if (_dishLogic.Add(AuthController.GetAuthUserId(User), DishViewmodelToInterface(data)))
+                {
+                    return RedirectToAction("List", "Article");
+                }
+            }
+            return RedirectToAction("List", "Article");
+        }
+        
+        
+        
+        
         
         
         
@@ -66,11 +114,8 @@ namespace Fit.Controllers
                     let article = _articleLogic.GetBy(Convert.ToInt16(values.First()))
                     select new ArticleDish
                     {
-                        Id = article.Id,
-                        Name = article.Name,
-                        Calories = article.Calories,
                         Amount = Convert.ToInt16(values.Last()),
-                        NutrientIntakes = article.NutrientIntakes
+                        Article = article,
                     }).Cast<IArticleDish>()
                 .ToList();
 

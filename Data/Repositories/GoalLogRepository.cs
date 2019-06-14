@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Data.Contexts;
 using Data.Contexts.Interfaces;
 using Data.Contexts.MemoryContexts;
+using Data.Contexts.SQLContexts;
 using Data.Repositories.Interfaces;
 using Models;
 
@@ -17,7 +18,7 @@ namespace Data.Repositories
             switch (storageType)
             {
                 case StorageTypeSetting.StorageTypes.SQL :
-                    _context = null;   //TODO implement 
+                    _context = new GoalLogsContextSql();
                     break;
                 case StorageTypeSetting.StorageTypes.Memory:
                     _context = new GoalLogContextMemory();  

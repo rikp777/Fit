@@ -45,7 +45,7 @@ namespace Logic
         /// </summary>
         public bool Add(int userId, INutrient nutrient)
         {
-            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instuctor)) return false;
+            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instructor)) return false;
             
             
             if (_nutrientRepository.GetBy(nutrient.Name) != null) return false;
@@ -69,7 +69,7 @@ namespace Logic
         /// </summary>
         public bool Edit(int userId, INutrient nutrient)
         {
-            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instuctor)) return false;
+            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instructor)) return false;
             
             
             if (!validation(nutrient)) return false;  
@@ -92,7 +92,7 @@ namespace Logic
         /// </summary>
         public bool Delete(int userId, int id)
         {
-            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instuctor)) return false;
+            if (!UserLogic.CheckRight(userId, Right.Admin) || UserLogic.CheckRight(userId, Right.Instructor)) return false;
 
             
             if (_nutrientRepository.GetBy(id) == null) return false;

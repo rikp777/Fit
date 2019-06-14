@@ -237,32 +237,38 @@ namespace Fit.Controllers
         {
             var articleNutrient = _articleLogic.GetBy(articleId).NutrientIntakes.First(n => n.Nutrient.Id == nutrientId);
             var articles = _articleLogic.GetBy(articleId);
-            var nutrients = _nutrientLogic.GetAll();         
-            var result = nutrients.Where(a => articles.NutrientIntakes.All(n => n.Nutrient.Name != a.Name));
-
-            var list = new List<SelectListItem>();
-            list.AddRange(result.Select(i => new SelectListItem
-            {
-                Disabled = false,
-                Text = i.Name,
-                Value = i.Id.ToString(),  
-                Selected = false,
-            }));
-            list.Add(new SelectListItem
-            {
-                Disabled = false,
-                Text = articleNutrient.Nutrient.Name,
-                Value = articleNutrient.Nutrient.Id.ToString(),
-                Selected = true
-            });
+//            var nutrients = _nutrientLogic.GetAll();         
+//            var result = nutrients.Where(a => articles.NutrientIntakes.All(n => n.Nutrient.Name != a.Name));
+//
+//            var list = new List<SelectListItem>();
+//            list.AddRange(result.Select(i => new SelectListItem
+//            {
+//                Disabled = false,
+//                Text = i.Name,
+//                Value = i.Id.ToString(),  
+//                Selected = false,
+//            }));
+//            list.Add(new SelectListItem
+//            {
+//                Disabled = false,
+//                Text = articleNutrient.Nutrient.Name,
+//                Value = articleNutrient.Nutrient.Id.ToString(),
+//                Selected = true
+//            });
+//            var viewModel = new ArticleEditNutrientIntakeViewModel
+//            {
+//                NutientsList = list
+//            };
+//            viewModel.ArticleId = articleId;
+//            viewModel.NutrientId = articleNutrient.Nutrient.Id;
+//            viewModel.Amount = articleNutrient.Amount.ToString();
             var viewModel = new ArticleEditNutrientIntakeViewModel
             {
-                NutientsList = list
+                Nutrient = articleNutrient.Nutrient.Name,
+                Amount = articleNutrient.Amount.ToString(),
+                ArticleId = articleId,
+                NutrientId = articleNutrient.Nutrient.Id
             };
-            viewModel.ArticleId = articleId;
-            viewModel.NutrientId = articleNutrient.Nutrient.Id;
-            viewModel.Amount = articleNutrient.Amount.ToString();
-            
             
             return View(viewModel);
         }

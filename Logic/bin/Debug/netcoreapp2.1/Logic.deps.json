@@ -29,8 +29,7 @@
         "dependencies": {
           "Enum": "1.0.0",
           "Helpers": "1.0.0",
-          "Interfaces": "1.0.0",
-          "System.Data.SqlClient": "4.4.0.0"
+          "Interfaces": "1.0.0"
         },
         "runtime": {
           "Data.dll": {}
@@ -44,7 +43,8 @@
       "Helpers/1.0.0": {
         "dependencies": {
           "Enum": "1.0.0",
-          "System.Data.DataSetExtensions": "4.5.0"
+          "System.Data.DataSetExtensions": "4.5.0",
+          "System.Data.SqlClient": "4.4.0.0"
         },
         "runtime": {
           "Helpers.dll": {}

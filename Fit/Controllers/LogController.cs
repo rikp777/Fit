@@ -54,7 +54,7 @@ namespace Fit.Controllers
         {
             var viewModel = new ArticleListViewModel
             {
-                AllArticles = _articleLogic.GetAll() as List<IArticle>
+                AllArticles = _articleLogic.GetAll()
             };
 
             return View(viewModel);
@@ -154,7 +154,8 @@ namespace Fit.Controllers
         public IActionResult Index()
         {
             var authUser = AuthController.GetAuthUser(User);
-            
+
+            var rsult = _weightLogLogic.GetAllBy(authUser);
             var bmis = _weightLogLogic
                 .GetAllBy(authUser)
                 .Select(weightlog => new BMIViewModel
@@ -206,7 +207,7 @@ namespace Fit.Controllers
             var goalLog = new GoalLog
             {
                 DateTime = DateTime.Now,
-                User = _userLogic.GetBy(AuthController.GetAuthUserId(User)),
+                User = AuthController.GetAuthUser(User),
                 Calories = viewModel.Calories
             };
             return goalLog;
@@ -219,7 +220,7 @@ namespace Fit.Controllers
             {
                 Amount = viewModel.Amount,
                 DateTime = viewModel.Date.Date + viewModel.Time.TimeOfDay,
-                User = _userLogic.GetBy(AuthController.GetAuthUserId(User)),
+                User = AuthController.GetAuthUser(User),
                 Unit = unit,
                 Article = _articleLogic.GetBy(viewModel.ArticleId)
             };
@@ -230,7 +231,7 @@ namespace Fit.Controllers
             var weightLog = new WeightLog
             {
                 DateTime = DateTime.Now,
-                User = _userLogic.GetBy(AuthController.GetAuthUserId(User)),
+                User = AuthController.GetAuthUser(User),
                 Weight = viewmodel.Weight
             };
             return weightLog;
